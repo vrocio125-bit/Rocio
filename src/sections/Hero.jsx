@@ -45,7 +45,7 @@ export default function Hero() {
       <div className="container-x grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]">
         <motion.div style={{ y: yText, opacity: fade }}>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mb-8 flex flex-wrap items-center gap-4">
-            <Logo className="h-16 sm:h-20" />
+            <Logo kind="full" className="h-20 sm:h-28" />
             <span className="eyebrow bg-white/10 text-sky">
               <Sparkles className="h-3.5 w-3.5" aria-hidden="true" /> Propuesta Instagram
             </span>

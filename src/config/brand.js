@@ -8,16 +8,14 @@ export const brand = {
   slogan: 'Calidad, precio y servicio.',
   address: 'Saúl Moyano 133, La Calera, Córdoba, Argentina',
 
-  // LOGO ORIGINAL: copiar el archivo entregado por el cliente a
-  // /public/brand/logo-hiper-limpio.png (o cambiar la ruta acá).
-  // Mientras no exista, se muestra un placeholder claramente identificado.
-  // El logo NO se redibuja ni se reemplaza por texto.
+  // LOGOS ORIGINALES (archivos entregados por el cliente, sin modificar).
+  // Originales en alta resolución: /public/brand/originales/
+  // Las versiones web solo están reducidas de tamaño, manteniendo proporciones.
   logo: {
-    src: './brand/logo-hiper-limpio.png',
-    alt: 'Logo original de Hiper Limpio',
-    // Si el logo tiene fondo propio, se presenta dentro de una "placa" blanca
-    // para integrarlo sin alterar su diseño.
-    hasBackground: true,
+    // Logo completo: isotipo + "HIPER LIMPIO" sobre su fondo celeste original.
+    full: { src: './brand/logo-completo.webp', alt: 'Hiper Limpio', ratio: 1100 / 528 },
+    // Isotipo "H" sobre fondo blanco: se presenta en una placa blanca.
+    icon: { src: './brand/isotipo.webp', alt: 'Hiper Limpio' },
   },
 
   colors: {

@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="bg-[#052a61] py-10 text-white/70">
       <div className="container-x flex flex-col items-center justify-between gap-6 text-sm md:flex-row">
         <div className="flex items-center gap-4">
-          <Logo className="h-10" />
+          <Logo className="h-12" />
           <div>
             <p className="font-display font-semibold text-white">{brand.slogan}</p>
             <p className="flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5" aria-hidden="true" /> {brand.address}</p>

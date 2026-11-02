@@ -41,7 +41,7 @@ export default function Navbar() {
     >
       <nav className="container-x flex items-center justify-between gap-4" aria-label="Navegación principal">
         <a href="#inicio" className="shrink-0" aria-label="Ir al inicio">
-          <Logo className={scrolled ? 'h-9' : 'h-11'} />
+          <Logo className={scrolled ? 'h-10' : 'h-12'} />
         </a>
         <ul className="hidden items-center gap-1 lg:flex">
           {navLinks.map((l) => (

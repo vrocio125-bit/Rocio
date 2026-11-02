@@ -1,28 +1,40 @@
 import { useState } from 'react';
 import { brand } from '../config/site.js';
 
-// Muestra el LOGO ORIGINAL desde el archivo configurado.
-// No se redibuja ni se reemplaza por texto: si el archivo no existe aún,
-// se muestra un placeholder identificado para incorporarlo.
-export default function Logo({ className = 'h-12', plate = brand.logo.hasBackground, variant = 'light' }) {
+// Muestra los LOGOS ORIGINALES tal cual fueron entregados (no se redibujan).
+// kind="full": logo completo con su fondo celeste, integrado como pieza redondeada.
+// kind="icon": isotipo "H" sobre su fondo blanco, presentado en una placa blanca.
+export default function Logo({ kind = 'icon', className = 'h-12' }) {
   const [failed, setFailed] = useState(false);
+  const logo = brand.logo[kind];
+
   if (failed) {
     return (
       <div
         role="img"
         aria-label="Espacio reservado para el logo original de Hiper Limpio"
-        title="Copiar el logo original a /public/brand/logo-hiper-limpio.png"
-        className={`flex aspect-[3/1] items-center justify-center whitespace-nowrap rounded-xl border-2 border-dashed px-3 text-center text-[10px] font-semibold uppercase leading-tight tracking-wider ${
-          variant === 'light' ? 'border-white/50 text-white/80' : 'border-navy/40 text-navy/70'
-        } ${className}`}
+        className={`flex aspect-[3/1] items-center justify-center whitespace-nowrap rounded-xl border-2 border-dashed border-white/50 px-3 text-[10px] font-semibold uppercase tracking-wider text-white/80 ${className}`}
       >
         Logo original
       </div>
     );
   }
+
+  if (kind === 'full') {
+    return (
+      <img
+        src={logo.src}
+        alt={logo.alt}
+        onError={() => setFailed(true)}
+        style={{ aspectRatio: logo.ratio }}
+        className={`w-auto max-w-full rounded-2xl object-contain shadow-xl ring-1 ring-white/25 ${className}`}
+      />
+    );
+  }
+
   return (
-    <span className={`inline-flex items-center ${plate ? 'rounded-xl bg-white p-1.5 shadow-md' : ''}`}>
-      <img src={brand.logo.src} alt={brand.logo.alt} onError={() => setFailed(true)} className={`w-auto object-contain ${className}`} />
+    <span className="inline-flex shrink-0 items-center justify-center rounded-xl bg-white shadow-md">
+      <img src={logo.src} alt={logo.alt} onError={() => setFailed(true)} className={`aspect-square w-auto object-contain ${className}`} />
     </span>
   );
 }

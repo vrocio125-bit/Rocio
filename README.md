@@ -18,7 +18,7 @@ npm run preview  # previsualiza el build
 
 | Qué | Dónde |
 | --- | --- |
-| **Logo original** (obligatorio) | Copiar el archivo a `public/brand/logo-hiper-limpio.png` (o cambiar la ruta en `src/config/brand.js`). Mientras falte, se ve un recuadro punteado "LOGO ORIGINAL". El logo no se redibuja. Si tiene fondo propio, `hasBackground: true` lo presenta sobre una placa blanca. |
+| **Logos originales** | Ya incorporados: `public/brand/originales/` (alta resolución) y versiones web en `public/brand/`. Rutas en `src/config/brand.js` (`logo.full` y `logo.icon`). |
 | **WhatsApp de destino** | `contact.whatsappNumber` en `src/config/site.js` (formato `549351XXXXXXX`). Vacío = WhatsApp abre el mensaje y deja elegir el contacto. |
 | Colores de marca | `src/config/brand.js` (los usa también Tailwind). |
 | Precios, reels, jornadas y entregables | `plans` y `comparison` en `src/config/site.js`. |

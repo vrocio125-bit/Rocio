@@ -38,7 +38,7 @@ export default function Cierre() {
 
       <div className="container-x">
         <div className="mx-auto max-w-4xl text-center">
-          <Reveal className="flex justify-center"><Logo className="h-16" /></Reveal>
+          <Reveal className="flex justify-center"><Logo kind="full" className="h-28 sm:h-40" /></Reveal>
           <AnimatedText
             as="h2"
             text="Tomás, es momento de que Hiper Limpio también tenga su lugar en Instagram."
