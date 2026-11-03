@@ -12,7 +12,7 @@ function PlanCard({ plan, index }) {
   const isSelected = selectedId === plan.id;
   const rec = plan.recommended;
   const visible = expanded ? plan.includes : plan.includes.slice(0, 6);
-  const perReel = Math.round(plan.price / plan.reels);
+  const perDay = Math.floor(plan.price / 30);
 
   return (
     <Reveal delay={index * 0.12} className="h-full">
@@ -40,7 +40,7 @@ function PlanCard({ plan, index }) {
           <p className={`font-display text-4xl font-extrabold tracking-tight sm:text-5xl ${rec ? 'text-white' : 'text-navy'}`}>
             {formatARS(plan.price)}
           </p>
-          <p className={`mt-1 text-sm ${rec ? 'text-white/60' : 'text-ink/60'}`}>ARS mensuales · equivale a ~{formatARS(perReel)} por reel</p>
+          <p className={`mt-1 text-sm ${rec ? 'text-white/60' : 'text-ink/60'}`}>ARS mensuales · equivale a {formatARS(perDay)} por día</p>
         </div>
 
         <div className="relative mt-6 grid grid-cols-2 gap-3">

@@ -9,7 +9,7 @@ export { brand } from './brand.js';
 // Ej.: '5493510000000'. Si se deja vacío, WhatsApp abre el mensaje
 // prellenado y permite elegir el contacto manualmente.
 export const contact = {
-  whatsappNumber: '', // ← CONFIGURAR
+  whatsappNumber: '5493513920042', // +54 9 351 392-0042
   providerLabel: 'Propuesta de producción audiovisual para Instagram',
 };
 
