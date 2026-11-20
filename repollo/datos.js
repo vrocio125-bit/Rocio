@@ -55,10 +55,10 @@ window.REPOLLO = {
   /* ---------- Galería "Fresquito del día" ----------
      Fotos que se muestran en "Quiénes somos". Podés sumar o sacar.        */
   galeria: [
-    { foto: "assets/galeria/atencion.jpg",   texto: "Te tomamos el pedido como a un vecino 📝" },
-    { foto: "assets/galeria/milanesas.jpg",  texto: "Milanesas y pollo fresquito 🍗" },
-    { foto: "assets/galeria/albondigas.jpg", texto: "Albóndigas caseras con verduras 🧆" },
-    { foto: "assets/galeria/medallones.jpg", texto: "Medallones listos para el horno 🔥" }
+    { foto: "assets/galeria/atencion.jpg",   texto: "Te tomamos el pedido como a un vecino" },
+    { foto: "assets/galeria/milanesas.jpg",  texto: "Milanesas y pollo fresquito" },
+    { foto: "assets/galeria/albondigas.jpg", texto: "Albóndigas caseras con verduras" },
+    { foto: "assets/galeria/medallones.jpg", texto: "Medallones listos para el horno" }
   ],
 
   /* ---------- BOLSONES ----------
@@ -71,7 +71,7 @@ window.REPOLLO = {
       id: "completo",
       nombre: "Bolsón Completo",
       precio: 34900,
-      etiqueta: "Más pedido 🔥",
+      etiqueta: "Más pedido",
       destacado: true,
       fondo: "#FFF3C4",
       contenido: [
@@ -96,7 +96,7 @@ window.REPOLLO = {
       id: "express",
       nombre: "Bolsón Express",
       precio: 19900,
-      etiqueta: "Para arrancar ⚡",
+      etiqueta: "Para arrancar",
       fondo: "#E3F1E0",
       contenido: [
         { emoji: "🥔", texto: "1 kg papas" },
@@ -113,7 +113,7 @@ window.REPOLLO = {
       id: "verduras",
       nombre: "Bolsón de Verduras",
       precio: 24900,
-      etiqueta: "Para toda la semana 🍲",
+      etiqueta: "Para toda la semana",
       fondo: "#DDEFD6",
       contenido: [
         { emoji: "🥔", texto: "2 kg papas" },
@@ -134,7 +134,7 @@ window.REPOLLO = {
       id: "frutas",
       nombre: "Bolsón de Frutas",
       precio: 11900,
-      etiqueta: "Rico y sano 🍎",
+      etiqueta: "Rico y sano",
       fondo: "#FDE4DF",
       contenido: [
         { emoji: "🍎", texto: "1 kg manzanas" },
@@ -148,7 +148,7 @@ window.REPOLLO = {
       id: "completo-frutas",
       nombre: "Completo de Frutas",
       precio: 38900,
-      etiqueta: "Tropical 🍍",
+      etiqueta: "Tropical",
       fondo: "#FFE9B8",
       contenido: [
         { emoji: "🍍", texto: "1 ananá" },
@@ -178,7 +178,7 @@ window.REPOLLO = {
       nombre: "Pollo al disco",
       emoji: "🔥",
       precio: 29900,
-      etiqueta: "Pack del finde 🔥",
+      etiqueta: "Pack del finde",
       bajada: "Todo lo que necesitás para un disco de campeonato",
       fondo: "#FDE4DF",
       contenido: [
@@ -195,14 +195,15 @@ window.REPOLLO = {
 
   /* ---------- CATÁLOGO (sin precios) ----------
      Categorías en el orden en que se muestran.
+     emoji: se usa en el mensaje de WhatsApp. icono: el dibujo de la página.
      foto: se busca assets/productos/<id>.jpg para el resumen de arriba.  */
   categorias: [
-    { id: "verduras",  nombre: "Verduras",  emoji: "🥬" },
-    { id: "frutas",    nombre: "Frutas",    emoji: "🍎" },
-    { id: "pollo",     nombre: "Pollo",     emoji: "🍗" },
-    { id: "rebozados", nombre: "Rebozados", emoji: "🍤" },
-    { id: "pastas",    nombre: "Pastas",    emoji: "🍝" },
-    { id: "huevos",    nombre: "Huevos",    emoji: "🥚" }
+    { id: "verduras",  nombre: "Verduras",  emoji: "🥬", icono: "leafy-green" },
+    { id: "frutas",    nombre: "Frutas",    emoji: "🍎", icono: "apple" },
+    { id: "pollo",     nombre: "Pollo",     emoji: "🍗", icono: "drumstick" },
+    { id: "rebozados", nombre: "Rebozados", emoji: "🍤", icono: "chef-hat" },
+    { id: "pastas",    nombre: "Pastas",    emoji: "🍝", icono: "wheat" },
+    { id: "huevos",    nombre: "Huevos",    emoji: "🥚", icono: "egg" }
   ],
 
   // Cada categoría muestra los primeros 10 y un botón "Ver toda la lista".
