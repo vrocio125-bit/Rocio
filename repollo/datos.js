@@ -47,7 +47,8 @@ window.REPOLLO = {
      Si un archivo no está, se muestra una composición con emojis.        */
   imagenes: {
     logo: "assets/logo.png",       // logo con fondo transparente
-    local: "assets/local.jpg",     // presentación (arriba de todo)
+    atencion: "assets/atencion.jpg", // presentación (arriba de todo)
+    local: "assets/local.jpg",     // galería
     equipo: "assets/equipo.jpg",   // "Quiénes somos", foto grande
     local2: "assets/local-2.jpg"   // "Quiénes somos", foto chica
   },
@@ -55,7 +56,7 @@ window.REPOLLO = {
   /* ---------- Galería "Fresquito del día" ----------
      Fotos que se muestran en "Quiénes somos". Podés sumar o sacar.        */
   galeria: [
-    { foto: "assets/galeria/atencion.jpg",   texto: "Te tomamos el pedido como a un vecino" },
+    { foto: "assets/local.jpg",              texto: "Nuestro puesto en La Calera" },
     { foto: "assets/galeria/milanesas.jpg",  texto: "Milanesas y pollo fresquito" },
     { foto: "assets/galeria/albondigas.jpg", texto: "Albóndigas caseras con verduras" },
     { foto: "assets/galeria/medallones.jpg", texto: "Medallones listos para el horno" }
@@ -203,11 +204,12 @@ window.REPOLLO = {
     { id: "pollo",     nombre: "Pollo",     emoji: "🍗", icono: "drumstick" },
     { id: "rebozados", nombre: "Rebozados", emoji: "🍤", icono: "chef-hat" },
     { id: "pastas",    nombre: "Pastas",    emoji: "🍝", icono: "wheat" },
-    { id: "huevos",    nombre: "Huevos",    emoji: "🥚", icono: "egg" }
+    { id: "huevos",    nombre: "Huevos",    emoji: "🥚", icono: "egg", cantidades: ["x1", "x2", "x3"] }
   ],
 
-  // Cada categoría muestra los primeros 10 y un botón "Ver toda la lista".
-  productosVisibles: 10,
+  // Cantidades que se ofrecen al elegir un producto (además de "Otra").
+  // Una categoría puede tener las suyas con  cantidades: [...]
+  cantidades: ["1 kg", "2 kg", "3 kg"],
 
   productos: [
     // 🥬 Verduras

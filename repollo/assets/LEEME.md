@@ -6,17 +6,18 @@ Mientras una foto no esté, se ve una ilustración con íconos de frutas y verdu
 | Archivo | Dónde aparece | Estado |
 | --- | --- | --- |
 | `logo.png` | Barra superior, cierre y pie | ✅ |
-| `local.jpg` | Presentación (arriba de todo) | ✅ |
+| `atencion.jpg` | Presentación (arriba de todo) | ✅ |
+| `local.jpg` | Galería "Fresquito del día" | ✅ |
 | `equipo.jpg` | "Quiénes somos", foto grande | ✅ |
 | `local-2.jpg` | "Quiénes somos", foto chica | ✅ |
 | `galeria/*.jpg` | Galería "Fresquito del día" (lista en `datos.js` → `galeria`) | ✅ |
 | `productos/verduras-y-frutas.jpg`, `pollo.jpg`, `rebozados.jpg`, `pastas.jpg`, `huevos.jpg` | Resumen "Todo lo que vas a encontrar" y catálogo | ✅ |
 | `productos/frutas.jpg` | Catálogo, categoría Frutas | ✅ |
-| `bolsones/completo.jpg` | Bolsón Completo | ⏳ falta |
+| `bolsones/completo.jpg` | Bolsón Completo | ✅ |
 | `bolsones/express.jpg` | Bolsón Express | ⏳ falta |
 | `bolsones/verduras.jpg` | Bolsón de Verduras | ✅ |
 | `bolsones/frutas.jpg` | Bolsón de Frutas | ✅ |
-| `bolsones/completo-frutas.jpg` | Completo de Frutas | ⏳ falta |
+| `bolsones/completo-frutas.jpg` | Completo de Frutas | ✅ |
 | `promos/pollo-al-disco.jpg` | Oferta Pollo al disco | ✅ |
 | `og.jpg` | Vista previa del link en WhatsApp (1200 × 630) | ✅ |
 
