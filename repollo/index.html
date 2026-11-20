@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Repollo · Verdulería, frutería y pollería en La Calera</title>
+  <meta name="description" content="Bolsones de frutas y verduras, pollo, rebozados, pastas y huevos en La Calera, Córdoba. Armá tu pedido en un minuto y mandalo por WhatsApp. ¡Envío gratis! 🛵">
+  <meta name="theme-color" content="#1E7B3A">
+  <meta name="color-scheme" content="light">
+
+  <!-- Open Graph: así se ve el link cuando se comparte por WhatsApp.
+       IMPORTANTE: cuando la página esté publicada, cambiá "assets/og.jpg"
+       por la dirección completa, ej: https://repollo.com.ar/assets/og.jpg -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_AR">
+  <meta property="og:site_name" content="Repollo">
+  <meta property="og:title" content="Repollo 🥬 Verdulería, frutería y pollería · La Calera">
+  <meta property="og:description" content="Bolsones fresquitos desde $11.900, pollo, rebozados, pastas y huevos. Armá tu pedido y mandalo por WhatsApp. ¡Envío gratis! 🛵">
+  <meta property="og:image" content="assets/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Repollo: verdulería, frutería y pollería en La Calera. Envío gratis.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/og-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=DM+Sans:opsz,wght@9..40,400..700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+
+  <script src="datos.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#bolsones">Saltar a los bolsones</a>
+
+  <!-- 1. Barra superior -->
+  <header class="topbar" id="topbar">
+    <div class="topbar-in wrap">
+      <a href="#inicio" class="brand" aria-label="Repollo, volver al inicio">
+        <span class="logo" data-logo></span>
+        <span class="brand-txt">
+          <strong data-negocio="nombre">Repollo</strong>
+          <small data-negocio="bajada">Verdulería, frutería y pollería</small>
+        </span>
+      </a>
+      <a class="btn btn-wa btn-top" data-wa="hola" href="#" target="_blank" rel="noopener">
+        <svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg>
+        <span>Pedir</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- 2. Presentación -->
+    <section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div class="hero-txt">
+          <p class="kicker reveal">📍 La Calera, Córdoba</p>
+          <h1 class="reveal">Verdulería, frutería y pollería en <span class="marca">La Calera</span> <span class="no-wrap">🥬🍗</span></h1>
+          <p class="lead reveal">¡Hola, vecino! 👋 Fresquito del día, a precio claro y te lo llevamos <strong>gratis</strong> hasta tu casa. ¿Qué te preparamos hoy?</p>
+          <div class="hero-ctas reveal">
+            <a class="btn btn-amarillo btn-lg" href="#bolsones">Ver bolsones 🧺</a>
+            <a class="btn btn-wa btn-lg" data-wa="hola" href="#" target="_blank" rel="noopener">
+              <svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg>
+              Pedir por WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-foto reveal">
+          <div data-media="local" class="hero-media"></div>
+          <span class="sello sello-grande" aria-hidden="true"><span>Envío<br>gratis</span><b>🛵</b></span>
+          <span class="burbuja b1" aria-hidden="true">🍅</span>
+          <span class="burbuja b2" aria-hidden="true">🥕</span>
+          <span class="burbuja b3" aria-hidden="true">🍌</span>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <ul class="valores" aria-label="Por qué elegirnos">
+          <li class="reveal"><span class="valor-emo">🌱</span><b>Fresco del día</b><small>Lo elegimos cada mañana</small></li>
+          <li class="reveal"><span class="valor-emo">💲</span><b>Precios claros</b><small>Sin sorpresas</small></li>
+          <li class="reveal is-envio"><span class="valor-emo">🛵</span><b>Envío gratis</b><small>En todos los pedidos</small></li>
+          <li class="reveal"><span class="valor-emo">📲</span><b>Pedido por WhatsApp</b><small>Rápido y sin vueltas</small></li>
+        </ul>
+
+        <div class="vendemos">
+          <h2 class="h-mini reveal">Todo lo que vas a encontrar ✨</h2>
+          <ul class="vendemos-lista" id="vendemos"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Bolsones -->
+    <section class="bolsones" id="bolsones" aria-labelledby="t-bolsones">
+      <div class="wrap sec-head">
+        <p class="kicker kicker-claro reveal">🧺 Los protagonistas</p>
+        <h2 id="t-bolsones" class="reveal">Bolsones listos para tu semana</h2>
+        <p class="sec-lead reveal">Te los armamos con lo más fresquito del día y te los llevamos sin cargo. Elegís uno y listo 😉</p>
+        <span class="tag-envio tag-envio-claro reveal">Envío gratis 🛵</span>
+      </div>
+
+      <!-- Escena: las verduras caen en la bolsa mientras scrolleás -->
+      <div class="escena" id="escena" aria-hidden="true">
+        <div class="escena-sticky">
+          <div class="escena-stage" id="escena-stage">
+            <div class="escena-info">
+              <p class="escena-paso" id="escena-paso">Mirá cómo lo armamos 👇</p>
+              <p class="escena-cuenta"><b id="escena-n">0</b> de <span id="escena-total">0</span> productos</p>
+            </div>
+            <div class="escena-items" id="escena-items"></div>
+            <div class="bolsa">
+              <div class="bolsa-asas"></div>
+              <div class="bolsa-frente">
+                <span class="bolsa-marca">Repollo</span>
+                <span class="bolsa-nombre" id="bolsa-nombre"></span>
+                <span class="bolsa-precio" id="bolsa-precio"></span>
+                <span class="bolsa-envio">Envío gratis 🛵</span>
+              </div>
+            </div>
+            <div class="escena-listo" id="escena-listo">¡Listo tu bolsón! ✨</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <div id="bolson-estrella"></div>
+
+        <div class="carrusel-head">
+          <h3 class="h-mini h-claro">Más bolsones para elegir 👇</h3>
+          <div class="carrusel-nav">
+            <button class="btn-circ" type="button" data-carrusel="-1" aria-label="Bolsón anterior">←</button>
+            <button class="btn-circ" type="button" data-carrusel="1" aria-label="Bolsón siguiente">→</button>
+          </div>
+        </div>
+        <div class="carrusel" id="carrusel" tabindex="0" aria-label="Más bolsones"></div>
+        <div class="carrusel-dots" id="carrusel-dots" aria-hidden="true"></div>
+
+        <div class="tip-clave reveal">
+          <span class="tip-emo" aria-hidden="true">💬</span>
+          <p>¿Más rápido todavía? Escribinos <b data-clave>BOLSÓN</b> por WhatsApp y te mandamos todas las opciones.</p>
+          <a class="btn btn-amarillo" data-wa="clave" href="#" target="_blank" rel="noopener">Escribir <span data-clave>BOLSÓN</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Ofertas -->
+    <section class="ofertas" id="ofertas" aria-labelledby="t-ofertas" hidden>
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="kicker reveal">💥 Por tiempo limitado</p>
+          <h2 id="t-ofertas" class="reveal">Ofertas que vuelan 💥</h2>
+          <p class="sec-lead reveal">Packs pensados para que no te falte nada. Y sí, también con envío gratis 🛵</p>
+        </div>
+        <div class="ofertas-lista" id="ofertas-lista"></div>
+      </div>
+    </section>
+
+    <!-- 5. Armá tu pedido -->
+    <section class="catalogo" id="pedido" aria-labelledby="t-pedido">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="kicker reveal">🛒 Elegí lo que necesites</p>
+          <h2 id="t-pedido" class="reveal">Armá tu pedido en un minuto</h2>
+          <p class="sec-lead reveal">Tocá lo que querés y mandalo. Te respondemos con los precios del día, fresquito y sin vueltas 😉</p>
+        </div>
+
+        <div class="buscador reveal">
+          <label for="buscar" class="sr-only">Buscar un producto</label>
+          <span class="buscador-ico" aria-hidden="true">🔎</span>
+          <input id="buscar" type="search" placeholder="Buscá: papa, pechuga, ravioles…" autocomplete="off" enterkeyhint="search">
+          <button type="button" class="buscador-x" id="buscar-x" aria-label="Borrar búsqueda" hidden>✕</button>
+        </div>
+      </div>
+
+      <nav class="cat-nav" id="cat-nav" aria-label="Categorías">
+        <div class="cat-nav-in" id="cat-nav-in"></div>
+      </nav>
+
+      <div class="wrap">
+        <p class="sr-only" id="buscar-estado" aria-live="polite"></p>
+        <div id="categorias"></div>
+
+        <div class="sin-resultados" id="sin-resultados" hidden>
+          <p class="sin-emo" aria-hidden="true">🤔</p>
+          <p>No encontramos <b id="sin-q"></b> en la lista… ¡pero capaz lo tenemos!</p>
+          <button type="button" class="btn btn-verde" id="sumar-otro">Sumarlo igual al pedido ➕</button>
+        </div>
+
+        <div class="catalogo-cierre reveal">
+          <p>¿Ya elegiste? <b>Mandanos el pedido</b> y te confirmamos el total 🙌</p>
+          <button type="button" class="btn btn-rojo btn-lg" data-abrir-pedido>Quiero pedir ✅</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Cómo pedir -->
+    <section class="pasos" id="como-pedir" aria-labelledby="t-pasos">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="kicker reveal">🤝 Facilísimo</p>
+          <h2 id="t-pasos" class="reveal">¿Cómo pedir?</h2>
+        </div>
+        <ol class="pasos-lista">
+          <li class="paso reveal"><span class="paso-n">1</span><span class="paso-emo" aria-hidden="true">🧺</span><h3>Elegí</h3><p>Un bolsón, una oferta o lo que quieras del catálogo. Mezclá todo lo que quieras.</p></li>
+          <li class="paso reveal"><span class="paso-n">2</span><span class="paso-emo" aria-hidden="true">📲</span><h3>Mandalo por WhatsApp</h3><p>El mensaje sale ya armado. Te respondemos con el total y el horario de entrega.</p></li>
+          <li class="paso reveal is-envio"><span class="paso-n">3</span><span class="paso-emo" aria-hidden="true">🛵</span><h3>Recibilo gratis en tu casa</h3><p>Te lo llevamos sin costo de envío. Vos solo abrí la puerta 😄</p></li>
+        </ol>
+        <div class="center reveal">
+          <a class="btn btn-amarillo btn-lg" href="#bolsones">Empezar por un bolsón 🧺</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Quiénes somos -->
+    <section class="nosotros" id="nosotros" aria-labelledby="t-nosotros">
+      <div class="wrap nosotros-grid">
+        <div class="nosotros-fotos reveal">
+          <div data-media="equipo" class="foto-equipo"></div>
+          <div data-media="local" class="foto-local"></div>
+        </div>
+        <div class="nosotros-txt">
+          <p class="kicker reveal">👋 Quiénes somos</p>
+          <h2 id="t-nosotros" class="reveal">Somos Repollo, tus vecinos de siempre</h2>
+          <p class="reveal">Un negocio de barrio en La Calera, atendido por gente que conoce a sus clientes por el nombre. Todos los días elegimos la mercadería a mano para que te llegue fresquita, como si fuera para nuestra mesa. 🥬❤️</p>
+          <p class="lema reveal">“<span data-negocio="lema">Calidad y frescura siempre</span>” ✨</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Dónde estamos -->
+    <section class="ubicacion" id="ubicacion" aria-labelledby="t-ubicacion">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="kicker reveal">📍 Vení cuando quieras</p>
+          <h2 id="t-ubicacion" class="reveal">Dónde estamos</h2>
+        </div>
+        <div class="ubi-card reveal">
+          <ul class="ubi-datos">
+            <li><span class="ubi-emo" aria-hidden="true">📍</span><div><b>Dirección</b><span data-negocio="direccion">Saúl Moyano esquina General Cabrera</span>, <span data-negocio="ciudad">La Calera, Córdoba</span></div></li>
+            <li><span class="ubi-emo" aria-hidden="true">🕒</span><div><b>Horarios</b><span id="horarios">Consultanos por WhatsApp</span></div></li>
+            <li class="is-envio"><span class="ubi-emo" aria-hidden="true">🛵</span><div><b>Envío gratis</b><span id="envio-detalle">En todos los pedidos</span></div></li>
+            <li><span class="ubi-emo" aria-hidden="true">📲</span><div><b>WhatsApp y pedidos</b><a data-wa="hola" href="#" target="_blank" rel="noopener" class="link" data-negocio="whatsappVisible">351 806-4617</a></div></li>
+          </ul>
+          <div class="ubi-ctas">
+            <a class="btn btn-verde btn-lg" id="como-llegar" href="#" target="_blank" rel="noopener">Cómo llegar 🗺️</a>
+            <a class="btn btn-wa btn-lg" data-wa="hola" href="#" target="_blank" rel="noopener">
+              <svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg>
+              Escribinos
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Cierre -->
+    <section class="cierre" aria-labelledby="t-cierre">
+      <div class="wrap cierre-in">
+        <div class="cierre-emojis" aria-hidden="true">🥬🍅🥕🍌🍗🍳🍝</div>
+        <h2 id="t-cierre" class="reveal">¿Qué te preparamos hoy? 😋</h2>
+        <p class="reveal">Mandanos tu pedido y en un ratito lo tenés en tu casa.</p>
+        <span class="tag-envio reveal">Envío gratis 🛵</span>
+        <div class="reveal">
+          <a class="btn btn-wa btn-xl" data-wa="hola" href="#" target="_blank" rel="noopener">
+            <svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg>
+            Pedir por WhatsApp
+          </a>
+        </div>
+        <p class="cierre-lema reveal">✨ <span data-negocio="lemaCierre">Precios y calidad aseguradas</span> ✨</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-in">
+      <div class="footer-brand">
+        <span class="logo logo-sm" data-logo></span>
+        <div>
+          <b data-negocio="nombre">Repollo</b>
+          <small data-negocio="bajada">Verdulería, frutería y pollería</small>
+        </div>
+      </div>
+      <p><span data-negocio="direccion">Saúl Moyano esquina General Cabrera</span> · <span data-negocio="ciudad">La Calera, Córdoba</span></p>
+      <p>📲 <a class="link" data-wa="hola" href="#" target="_blank" rel="noopener" data-negocio="whatsappVisible">351 806-4617</a> · 🛵 Envío gratis</p>
+      <p class="footer-mini">© <span id="anio">2026</span> Repollo · Hecho con 🥬 en La Calera</p>
+    </div>
+  </footer>
+
+  <!-- 10. Botón flotante de WhatsApp -->
+  <a class="wa-flotante" id="wa-flotante" data-wa="hola" href="#" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
+    <svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg>
+  </a>
+
+  <!-- Barra de pedido -->
+  <div class="barra-pedido" id="barra-pedido" aria-hidden="true">
+    <div class="barra-in">
+      <button type="button" class="barra-ver" data-abrir-pedido>
+        <span class="barra-cesta" aria-hidden="true">🧺<b id="barra-n">0</b></span>
+        <span class="barra-txt"><b>Ver pedido</b><small id="barra-detalle">0 ítems</small></span>
+      </button>
+      <a class="btn btn-wa barra-enviar" id="barra-enviar" href="#" target="_blank" rel="noopener">
+        <svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg>
+        <span class="solo-ancho">Enviar pedido por WhatsApp</span><span class="solo-angosto">Enviar pedido</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Panel del pedido -->
+  <dialog class="panel" id="panel" aria-labelledby="t-panel">
+    <div class="panel-in">
+      <div class="panel-head">
+        <h2 id="t-panel">Tu pedido 🧺</h2>
+        <button type="button" class="btn-circ" data-cerrar-panel aria-label="Cerrar">✕</button>
+      </div>
+      <div class="panel-body" id="panel-body"></div>
+      <div class="panel-foot" id="panel-foot">
+        <a class="btn btn-wa btn-lg btn-block" id="panel-enviar" href="#" target="_blank" rel="noopener">
+          <svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg>
+          Enviar pedido por WhatsApp
+        </a>
+        <button type="button" class="btn btn-ghost btn-block" data-cerrar-panel>Seguir eligiendo 🛒</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <noscript>
+    <div class="noscript">Para armar tu pedido necesitás activar JavaScript. También podés escribirnos directo:
+      <a href="https://wa.me/5493518064617">WhatsApp 351 806-4617</a></div>
+  </noscript>
+
+  <!-- Ícono de WhatsApp -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-wa" viewBox="0 0 32 32">
+      <path fill="currentColor" d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 7L3 29l6.4-2c2 1.1 4.3 1.7 6.6 1.7 7.2 0 13-5.7 13-12.8S23.2 3 16 3Zm0 23.4c-2.1 0-4.1-.6-5.9-1.7l-.4-.3-3.8 1.2 1.2-3.7-.3-.4a10.4 10.4 0 0 1-1.7-5.7C5.1 9.9 10 5.2 16 5.2s10.9 4.7 10.9 10.6S22 26.4 16 26.4Zm6-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2.1-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.2 1.4 3.4c.2.2 2.4 3.6 5.8 5 .8.4 1.4.6 1.9.7.8.2 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4Z"/>
+    </symbol>
+  </svg>
+</body>
+</html>
