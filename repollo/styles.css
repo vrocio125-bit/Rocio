@@ -825,3 +825,10 @@ body.has-order .barra-pedido { transform: none; pointer-events: auto; }
 .unid-btn { min-height: 40px; padding: 0 16px; border: 0; border-radius: 999px; background: transparent; color: var(--texto-suave); font-weight: 600; font-size: .88rem; cursor: pointer; transition: background-color .2s, color .2s; }
 .unid-btn[aria-pressed="true"] { background: var(--verde); color: #fff; }
 .cant { min-width: 0; }
+
+/* Flecha hacia abajo en "Ver bolsones": invita a deslizar */
+.btn-ico-abajo .ico { animation: bajar 1.8s ease-in-out infinite; }
+.btn:hover .btn-ico-abajo { transform: translateY(2px); }
+@keyframes bajar { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(3px); } }
+.hero-ctas .btn-amarillo { flex: 1 1 100%; }
+@media (min-width: 900px) { .hero-ctas .btn-amarillo { flex: 0 0 auto; } }
