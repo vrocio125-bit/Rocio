@@ -223,32 +223,58 @@
   }
 
   /* ---------- Mensajes de WhatsApp ---------- */
-  function lineaPack(item, cant, emoji) {
-    return emoji + ' ' + item.nombre + ' x' + cant + ' (' + precio(item.precio) + (cant > 1 ? ' c/u' : '') + ')';
+  /* ---------- Mensaje de WhatsApp (formato por secciones) ---------- */
+  var SEP = '━━━━━━━━━━━━━━';
+  function lineaPack(item, cant) {
+    return '• ' + item.nombre + ' x' + cant + ' — ' + precio(item.precio * cant) +
+      (cant > 1 ? ' (' + precio(item.precio) + ' c/u)' : '');
   }
-  function mensajePedido() {
-    var l = ['Hola Repollo! 👋 Quiero hacer este pedido:'];
-    bolsones.forEach(function (b) { if (pedido.bolsones[b.id]) l.push(lineaPack(b, pedido.bolsones[b.id], '🧺')); });
-    ofertas.forEach(function (o) { if (pedido.ofertas[o.id]) l.push(lineaPack(o, pedido.ofertas[o.id], o.emoji || '🔥')); });
-    categorias.forEach(function (c) {
-      var el = productos.filter(function (p) { return p.categoria === c.id && pedido.productos.indexOf(claveProd(p)) >= 0; })
-        .map(conCant);
-      if (el.length) l.push(c.emoji + ' ' + c.nombre + ': ' + el.join(', '));
-    });
-    if (pedido.otros.length) l.push('🛍️ Otros: ' + pedido.otros.join(', '));
-    var faltan = prodsElegidos().filter(function (p) { return precioItem(p) === null; }).map(function (p) { return p.nombre; }).concat(pedido.otros);
-    var total = totalConPrecio();
-    if (total) l.push('💰 Total estimado: ' + precio(total) + (faltan.length ? ' + lo que tiene precio a consultar' : '') + ' · Envío gratis 🛵');
-    if (faltan.length) l.push('💲 Precio a consultar: ' + faltan.join(', '));
-    if (pedido.nota.trim()) l.push('📝 Aclaraciones: ' + pedido.nota.trim());
-    if (pedido.nombre.trim()) l.push('🙋 A nombre de: ' + pedido.nombre.trim());
-    if (pedido.direccion.trim()) l.push('📍 Entregar en: ' + pedido.direccion.trim());
-    l.push('¿Me confirmás el total y cuándo me lo traen? ¡Gracias! 😊');
+  function lineaProd(p, todoAConsultar) {
+    var t = textoCant(pedido.cant[claveProd(p)]);
+    var pr = precioItem(p);
+    return '• ' + capital(p.nombre) + (t ? ' · ' + t : '') +
+      (pr ? ' — ' + precio(pr) : (todoAConsultar ? '' : ' — a consultar'));
+  }
+  function cierreMensaje(l, total, faltan, final) {
+    l.push('', SEP);
+    if (total) {
+      l.push('💰 *Total estimado: ' + precio(total) + '*');
+      if (faltan) l.push('➕ Falta sumar lo que tiene precio a consultar');
+    } else {
+      l.push('💲 Precios a consultar');
+    }
+    l.push('🛵 Envío gratis');
+    var extra = [];
+    if (pedido.direccion.trim()) extra.push('📍 Dirección: ' + pedido.direccion.trim());
+    if (pedido.nombre.trim()) extra.push('🙋 Nombre: ' + pedido.nombre.trim());
+    if (pedido.nota.trim()) extra.push('📝 Aclaraciones: ' + pedido.nota.trim());
+    if (extra.length) l.push('', extra.join('\n'));
+    l.push('', final);
     return l.join('\n');
   }
-  function mensajeUno(item, emoji) {
-    return ['Hola Repollo! 👋 Quiero pedir:', lineaPack(item, 1, emoji), '🛵 Con envío gratis',
-      '¿Me confirmás cuándo me lo traen? ¡Gracias! 😊'].join('\n');
+  function mensajePedido() {
+    var l = ['🛒 *NUEVO PEDIDO · REPOLLO*'];
+    var packs = [];
+    bolsones.forEach(function (b) { if (pedido.bolsones[b.id]) packs.push(lineaPack(b, pedido.bolsones[b.id])); });
+    ofertas.forEach(function (o) { if (pedido.ofertas[o.id]) packs.push(lineaPack(o, pedido.ofertas[o.id])); });
+    if (packs.length) l.push('', '🧺 *BOLSONES Y OFERTAS*', packs.join('\n'));
+    categorias.forEach(function (c) {
+      var el = productos.filter(function (p) { return p.categoria === c.id && pedido.productos.indexOf(claveProd(p)) >= 0; });
+      if (!el.length) return;
+      var todoAConsultar = el.every(function (p) { return precioItem(p) === null; });
+      l.push('', c.emoji + ' *' + c.nombre.toUpperCase() + '*' + (todoAConsultar ? ' (precio a consultar)' : ''),
+        el.map(function (p) { return lineaProd(p, todoAConsultar); }).join('\n'));
+    });
+    if (pedido.otros.length) {
+      l.push('', '🛍️ *OTROS* (precio a consultar)', pedido.otros.map(function (o) { return '• ' + capital(o); }).join('\n'));
+    }
+    return cierreMensaje(l, totalConPrecio(), sinPrecio() > 0, '¿Me confirmás el total y el horario de entrega? ¡Gracias! 😊');
+  }
+  function mensajeUno(item) {
+    var l = ['🛒 *NUEVO PEDIDO · REPOLLO*', '', '🧺 *BOLSONES Y OFERTAS*', lineaPack(item, 1), '', SEP,
+      '💰 *Total: ' + precio(item.precio) + '*', '🛵 Envío gratis', '',
+      '¿Me confirmás el horario de entrega? ¡Gracias! 😊'];
+    return l.join('\n');
   }
 
   /* ---------- Tarjetas de bolsones y ofertas ---------- */
@@ -300,7 +326,7 @@
           '<span class="tag-envio">' + ico('truck') + 'Envío gratis</span>' +
         '</div>' +
         '<div class="acciones">' +
-          '<a class="btn btn-rojo btn-lg" href="' + waLink(mensajeUno(item, esBolson ? '🧺' : (item.emoji || '🔥'))) + '" target="_blank" rel="noopener">' +
+          '<a class="btn btn-rojo btn-lg" href="' + waLink(mensajeUno(item)) + '" target="_blank" rel="noopener">' +
             'Pedir ahora<span class="btn-ico">' + ico('arrow-right') + '</span></a>' +
           '<button type="button" class="btn btn-claro btn-lg" data-sumar="' + tipo + '" data-id="' + esc(item.id) + '">' +
             ico('plus') + (esBolson ? 'Sumarle productos' : 'Sumar al pedido') + '</button>' +
