@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Repollo · Verdulería, frutería y pollería en La Calera</title>
   <meta name="description" content="Bolsones de frutas y verduras, pollo, rebozados, pastas y huevos en La Calera, Córdoba. Armá tu pedido en un minuto y mandalo por WhatsApp. Envío gratis.">
-  <meta name="theme-color" content="#07170D">
+  <meta name="theme-color" content="#F7F4E8">
   <meta name="color-scheme" content="light">
 
   <!-- Open Graph: así se ve el link cuando se comparte por WhatsApp.
@@ -28,8 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300..800&display=swap">
-  <link rel="preload" as="image" href="assets/local.jpg">
-  <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
 
   <script src="datos.js" defer></script>
   <script src="app.js" defer></script>
@@ -57,33 +56,41 @@
   <main>
     <!-- 2. Presentación -->
     <section class="hero" id="inicio">
-      <div class="hero-bg" data-media="local" data-variante="foto"></div>
-      <div class="hero-velo" aria-hidden="true"></div>
-      <div class="wrap hero-in">
-        <p class="chip-glass reveal">
-          <svg class="ico" aria-hidden="true"><use href="#i-map-pin"/></svg>
-          La Calera, Córdoba
-          <span class="sep" aria-hidden="true"></span>
-          <span class="txt-neon">Envío gratis</span>
-        </p>
-        <h1 class="reveal">Verdulería, frutería y pollería en <em class="neon">La Calera</em></h1>
-        <p class="lead reveal">Fresco del día, a precio claro y te lo llevamos <strong>gratis</strong> hasta tu casa. ¿Qué te preparamos hoy?</p>
-        <div class="hero-ctas reveal">
-          <a class="btn btn-amarillo btn-lg" href="#bolsones">
-            Ver bolsones
-            <span class="btn-ico"><svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
-          </a>
-          <a class="btn btn-glass btn-lg" data-wa="hola" href="#" target="_blank" rel="noopener">
-            <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg>
-            Pedir por WhatsApp
-          </a>
+      <div class="wrap hero-grid">
+        <div class="hero-txt">
+          <p class="chip-ubi reveal">
+            <svg class="ico" aria-hidden="true"><use href="#i-map-pin"/></svg>
+            La Calera, Córdoba
+          </p>
+          <h1 class="reveal">Verdulería, frutería y pollería en <em>La Calera</em></h1>
+          <p class="lead reveal">Fresco del día, a precio claro y te lo llevamos <strong>gratis</strong> hasta tu casa. ¿Qué te preparamos hoy?</p>
+          <div class="hero-ctas reveal">
+            <a class="btn btn-amarillo btn-lg" href="#bolsones">
+              Ver bolsones
+              <span class="btn-ico"><svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+            </a>
+            <a class="btn btn-wa btn-lg" data-wa="hola" href="#" target="_blank" rel="noopener">
+              <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg>
+              Pedir por WhatsApp
+            </a>
+          </div>
         </div>
 
+        <div class="hero-foto reveal">
+          <div class="hero-media" data-media="local"></div>
+          <span class="sticker sticker-rojo" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-truck"/></svg>Envío gratis</span>
+          <span class="sticker sticker-blanco" aria-hidden="true"><span class="punto"></span>Fresco del día</span>
+          <span class="deco deco-1" aria-hidden="true"><svg class="ico"><use href="#i-carrot"/></svg></span>
+          <span class="deco deco-2" aria-hidden="true"><svg class="ico"><use href="#i-citrus"/></svg></span>
+        </div>
+      </div>
+
+      <div class="wrap">
         <ul class="valores reveal" aria-label="Por qué elegirnos">
-          <li><svg class="ico" aria-hidden="true"><use href="#i-leaf"/></svg><span><b>Fresco del día</b><small>Elegido a mano</small></span></li>
-          <li><svg class="ico" aria-hidden="true"><use href="#i-receipt"/></svg><span><b>Precios claros</b><small>Sin sorpresas</small></span></li>
-          <li class="is-neon"><svg class="ico" aria-hidden="true"><use href="#i-truck"/></svg><span><b>Envío gratis</b><small>En todos los pedidos</small></span></li>
-          <li><svg class="ico" aria-hidden="true"><use href="#i-message-circle"/></svg><span><b>Por WhatsApp</b><small>Rápido y sin vueltas</small></span></li>
+          <li class="v-verde"><span class="v-ico"><svg class="ico" aria-hidden="true"><use href="#i-leaf"/></svg></span><span><b>Fresco del día</b><small>Elegido a mano</small></span></li>
+          <li class="v-amarillo"><span class="v-ico"><svg class="ico" aria-hidden="true"><use href="#i-receipt"/></svg></span><span><b>Precios claros</b><small>Sin sorpresas</small></span></li>
+          <li class="v-rojo"><span class="v-ico"><svg class="ico" aria-hidden="true"><use href="#i-truck"/></svg></span><span><b>Envío gratis</b><small>En todos los pedidos</small></span></li>
+          <li class="v-verde"><span class="v-ico"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg></span><span><b>Por WhatsApp</b><small>Rápido y sin vueltas</small></span></li>
         </ul>
       </div>
     </section>
@@ -105,14 +112,13 @@
     </section>
 
     <!-- 3. Bolsones -->
-    <section class="bolsones oscuro" id="bolsones" aria-labelledby="t-bolsones">
-      <div class="luces" aria-hidden="true"><span></span><span></span></div>
+    <section class="bolsones" id="bolsones" aria-labelledby="t-bolsones">
       <div class="wrap">
         <div class="sec-head">
-          <p class="eyebrow eyebrow-neon reveal">Los protagonistas</p>
-          <h2 id="t-bolsones" class="reveal">Bolsones listos <em class="neon">para tu semana</em></h2>
+          <p class="eyebrow reveal">Los protagonistas</p>
+          <h2 id="t-bolsones" class="reveal">Bolsones listos <em>para tu semana</em></h2>
           <p class="sec-lead reveal">Los armamos con lo más fresco del día y te los llevamos sin cargo. Elegís uno y listo.</p>
-          <span class="tag-envio reveal"><svg class="ico" aria-hidden="true"><use href="#i-truck"/></svg>Envío gratis</span>
+          <span class="tag-envio reveal"><svg class="ico" aria-hidden="true"><use href="#i-truck"/></svg>Envío gratis en todos los bolsones</span>
         </div>
 
         <div id="bolson-estrella"></div>
@@ -130,7 +136,7 @@
         <div class="tip-clave reveal">
           <span class="tip-ico"><svg class="ico" aria-hidden="true"><use href="#i-zap"/></svg></span>
           <p>¿Más rápido todavía? Escribinos <b data-clave>BOLSÓN</b> por WhatsApp y te mandamos todas las opciones.</p>
-          <a class="btn btn-glass" data-wa="clave" href="#" target="_blank" rel="noopener">
+          <a class="btn btn-wa" data-wa="clave" href="#" target="_blank" rel="noopener">
             <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg>
             Escribir <span data-clave>BOLSÓN</span>
           </a>
@@ -194,17 +200,16 @@
     </section>
 
     <!-- 6. Cómo pedir -->
-    <section class="pasos oscuro" id="como-pedir" aria-labelledby="t-pasos">
-      <div class="luces luces-b" aria-hidden="true"><span></span><span></span></div>
+    <section class="pasos" id="como-pedir" aria-labelledby="t-pasos">
       <div class="wrap">
         <div class="sec-head">
-          <p class="eyebrow eyebrow-neon reveal">Facilísimo</p>
-          <h2 id="t-pasos" class="reveal">¿Cómo <em class="neon">pedir?</em></h2>
+          <p class="eyebrow reveal">Facilísimo</p>
+          <h2 id="t-pasos" class="reveal">¿Cómo <em>pedir?</em></h2>
         </div>
         <ol class="pasos-lista">
           <li class="paso reveal"><span class="paso-n">01</span><span class="paso-ico"><svg class="ico" aria-hidden="true"><use href="#i-shopping-basket"/></svg></span><h3>Elegí</h3><p>Un bolsón, una oferta o lo que quieras del catálogo. Mezclá todo.</p></li>
           <li class="paso reveal"><span class="paso-n">02</span><span class="paso-ico"><svg class="ico" aria-hidden="true"><use href="#i-send"/></svg></span><h3>Mandalo por WhatsApp</h3><p>El mensaje sale ya armado. Te respondemos con el total y el horario.</p></li>
-          <li class="paso is-neon reveal"><span class="paso-n">03</span><span class="paso-ico"><svg class="ico" aria-hidden="true"><use href="#i-truck"/></svg></span><h3>Recibilo gratis</h3><p>Te lo llevamos a tu casa sin costo de envío. Vos solo abrí la puerta.</p></li>
+          <li class="paso is-destacado reveal"><span class="paso-n">03</span><span class="paso-ico"><svg class="ico" aria-hidden="true"><use href="#i-truck"/></svg></span><h3>Recibilo gratis</h3><p>Te lo llevamos a tu casa sin costo de envío. Vos solo abrí la puerta.</p></li>
         </ol>
         <div class="center reveal">
           <a class="btn btn-amarillo btn-lg" href="#bolsones">
@@ -246,11 +251,11 @@
           <ul class="ubi-datos">
             <li><span class="ubi-ico"><svg class="ico" aria-hidden="true"><use href="#i-map-pin"/></svg></span><div><b>Dirección</b><span data-negocio="direccion">Saúl Moyano esquina General Cabrera</span>, <span data-negocio="ciudad">La Calera, Córdoba</span></div></li>
             <li><span class="ubi-ico"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg></span><div><b>Horarios</b><span id="horarios">Consultanos por WhatsApp</span></div></li>
-            <li class="is-neon"><span class="ubi-ico"><svg class="ico" aria-hidden="true"><use href="#i-truck"/></svg></span><div><b>Envío gratis</b><span id="envio-detalle">En todos los pedidos</span></div></li>
+            <li class="is-destacado"><span class="ubi-ico"><svg class="ico" aria-hidden="true"><use href="#i-truck"/></svg></span><div><b>Envío gratis</b><span id="envio-detalle">En todos los pedidos</span></div></li>
             <li><span class="ubi-ico"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg></span><div><b>WhatsApp y pedidos</b><a data-wa="hola" href="#" target="_blank" rel="noopener" class="link" data-negocio="whatsappVisible">351 806-4617</a></div></li>
           </ul>
           <div class="ubi-ctas">
-            <a class="btn btn-oscuro btn-lg" id="como-llegar" href="#" target="_blank" rel="noopener">
+            <a class="btn btn-amarillo btn-lg" id="como-llegar" href="#" target="_blank" rel="noopener">
               <svg class="ico" aria-hidden="true"><use href="#i-navigation"/></svg>
               Cómo llegar
             </a>
@@ -264,11 +269,13 @@
     </section>
 
     <!-- 9. Cierre -->
-    <section class="cierre oscuro" aria-labelledby="t-cierre">
-      <div class="luces" aria-hidden="true"><span></span><span></span></div>
+    <section class="cierre" aria-labelledby="t-cierre">
+      <span class="deco deco-c1" aria-hidden="true"><svg class="ico"><use href="#i-apple"/></svg></span>
+      <span class="deco deco-c2" aria-hidden="true"><svg class="ico"><use href="#i-carrot"/></svg></span>
+      <span class="deco deco-c3" aria-hidden="true"><svg class="ico"><use href="#i-leafy-green"/></svg></span>
       <div class="wrap cierre-in">
         <span class="logo-cierre reveal" data-logo-grande aria-hidden="true"></span>
-        <h2 id="t-cierre" class="reveal">¿Qué te preparamos <em class="neon">hoy?</em></h2>
+        <h2 id="t-cierre" class="reveal">¿Qué te preparamos <em>hoy?</em></h2>
         <p class="reveal">Mandanos tu pedido y en un ratito lo tenés en tu casa.</p>
         <span class="tag-envio reveal"><svg class="ico" aria-hidden="true"><use href="#i-truck"/></svg>Envío gratis</span>
         <div class="reveal">
@@ -309,7 +316,7 @@
         <span class="barra-cesta"><svg class="ico" aria-hidden="true"><use href="#i-shopping-basket"/></svg><b id="barra-n">0</b></span>
         <span class="barra-txt"><b>Ver pedido</b><small id="barra-detalle">0 ítems</small></span>
       </button>
-      <a class="btn btn-amarillo barra-enviar" id="barra-enviar" href="#" target="_blank" rel="noopener">
+      <a class="btn btn-wa barra-enviar" id="barra-enviar" href="#" target="_blank" rel="noopener">
         <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg>
         <span class="solo-ancho">Enviar pedido por WhatsApp</span><span class="solo-angosto">Enviar</span>
       </a>
@@ -374,6 +381,12 @@
     <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z" /> <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" /> <path d="M12 17.5v-11" /></symbol>
     <symbol id="i-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></symbol>
     <symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /> <circle cx="12" cy="13" r="3" /></symbol>
+    <symbol id="i-carrot" viewBox="0 0 24 24"><path d="M2.27 21.7s9.87-3.5 12.73-6.36a4.5 4.5 0 0 0-6.36-6.37C5.77 11.84 2.27 21.7 2.27 21.7zM8.64 14l-2.05-2.04M15.34 15l-2.46-2.46" /> <path d="M22 9s-1.33-2-3.5-2C16.86 7 15 9 15 9s1.33 2 3.5 2S22 9 22 9z" /> <path d="M15 2s-2 1.33-2 3.5S15 9 15 9s2-1.84 2-3.5C17 3.33 15 2 15 2z" /></symbol>
+    <symbol id="i-citrus" viewBox="0 0 24 24"><path d="M21.66 17.67a1.08 1.08 0 0 1-.04 1.6A12 12 0 0 1 4.73 2.38a1.1 1.1 0 0 1 1.61-.04z" /> <path d="M19.65 15.66A8 8 0 0 1 8.35 4.34" /> <path d="m14 10-5.5 5.5" /> <path d="M14 17.85V10H6.15" /></symbol>
+    <symbol id="i-cherry" viewBox="0 0 24 24"><path d="M2 17a5 5 0 0 0 10 0c0-2.76-2.5-5-5-3-2.5-2-5 .24-5 3Z" /> <path d="M12 17a5 5 0 0 0 10 0c0-2.76-2.5-5-5-3-2.5-2-5 .24-5 3Z" /> <path d="M7 14c3.22-2.91 4.29-8.75 5-12 1.66 2.38 4.94 9 5 12" /> <path d="M22 9c-4.29 0-7.14-2.33-10-7 5.71 0 10 4.67 10 7Z" /></symbol>
+    <symbol id="i-banana" viewBox="0 0 24 24"><path d="M4 13c3.5-2 8-2 10 2a5.5 5.5 0 0 1 8 5" /> <path d="M5.15 17.89c5.52-1.52 8.65-6.89 7-12C11.55 4 11.5 2 13 2c3.22 0 5 5.5 5 8 0 6.5-4.2 12-10.49 12C5.11 22 2 22 2 20c0-1.5 1.14-1.55 3.15-2.11Z" /></symbol>
+    <symbol id="i-grape" viewBox="0 0 24 24"><path d="M22 5V2l-5.89 5.89" /> <circle cx="16.6" cy="15.89" r="3" /> <circle cx="8.11" cy="7.4" r="3" /> <circle cx="12.35" cy="11.65" r="3" /> <circle cx="13.91" cy="5.85" r="3" /> <circle cx="18.15" cy="10.09" r="3" /> <circle cx="6.56" cy="13.2" r="3" /> <circle cx="10.8" cy="17.44" r="3" /> <circle cx="5" cy="19" r="3" /></symbol>
+    <symbol id="i-salad" viewBox="0 0 24 24"><path d="M7 21h10" /> <path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z" /> <path d="M11.38 12a2.4 2.4 0 0 1-.4-4.77 2.4 2.4 0 0 1 3.2-2.77 2.4 2.4 0 0 1 3.47-.63 2.4 2.4 0 0 1 3.37 3.37 2.4 2.4 0 0 1-1.1 3.7 2.51 2.51 0 0 1 .03 1.1" /> <path d="m13 12 4-4" /> <path d="M10.9 7.25A3.99 3.99 0 0 0 4 10c0 .73.2 1.41.54 2" /></symbol>
     <symbol id="i-wa" viewBox="0 0 32 32">
       <path d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 7L3 29l6.4-2c2 1.1 4.3 1.7 6.6 1.7 7.2 0 13-5.7 13-12.8S23.2 3 16 3Zm0 23.4c-2.1 0-4.1-.6-5.9-1.7l-.4-.3-3.8 1.2 1.2-3.7-.3-.4a10.4 10.4 0 0 1-1.7-5.7C5.1 9.9 10 5.2 16 5.2s10.9 4.7 10.9 10.6S22 26.4 16 26.4Zm6-7.9c-.3-.2-1.900-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2.1-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.200 1.100-1.200 2.700s1.2 3.2 1.4 3.4c.2.2 2.4 3.6 5.8 5 .8.4 1.4.6 1.9.7.8.2 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4Z"/>
     </symbol>

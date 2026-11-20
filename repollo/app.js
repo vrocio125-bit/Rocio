@@ -55,7 +55,9 @@
 
   function mediaHTML(o) {
     var srcs = fuentes(o.foto);
-    return '<div class="media ' + (o.clase || '') + '"' + (o.tono ? ' style="--tono:' + o.tono + '"' : '') + '>' +
+    var patron = (o.patron || []).map(function (n, i) { return '<span class="pat pat-' + (i + 1) + '">' + ico(n) + '</span>'; }).join('');
+    return '<div class="media ' + (o.clase || '') + '"' + (o.fondo ? ' style="--fondo-media:' + esc(o.fondo) + '"' : '') + '>' +
+      (patron ? '<div class="patron" aria-hidden="true">' + patron + '</div>' : '') +
       '<div class="media-ph" role="img" aria-label="' + esc(o.alt) + '">' +
         '<span class="ph-ico">' + ico(o.icono || 'leaf') + '</span>' +
         (o.texto ? '<small>' + esc(o.texto) + '</small>' : '') +
@@ -200,7 +202,22 @@
   }
 
   /* ---------- Tarjetas de bolsones y ofertas ---------- */
-  var TONOS = ['255, 216, 74', '76, 240, 138', '255, 160, 110', '140, 220, 255', '255, 216, 74'];
+  // Íconos decorativos según lo que trae cada bolsón (para cuando no hay foto)
+  var ICONOS_PROD = [
+    [/zanahoria/, 'carrot'], [/manzana/, 'apple'], [/lechuga|acelga|perejil/, 'leafy-green'],
+    [/lim[oó]n|naranja|mandarina/, 'citrus'], [/huevo/, 'egg'], [/banana/, 'banana'], [/uva/, 'grape'],
+    [/ar[aá]ndano|kiwi|pera|mango|anan[aá]|palta/, 'cherry'], [/tomate|pimiento|choclo|papa|cebolla/, 'salad'],
+    [/pata|muslo|pollo/, 'drumstick']
+  ];
+  function patronDe(item) {
+    var out = [];
+    item.contenido.forEach(function (c) {
+      var t = norm(c.texto);
+      ICONOS_PROD.forEach(function (r) { if (r[0].test(t) && out.indexOf(r[1]) < 0) out.push(r[1]); });
+    });
+    ['leafy-green', 'apple', 'carrot', 'citrus', 'cherry', 'salad'].forEach(function (n) { if (out.length < 8 && out.indexOf(n) < 0) out.push(n); });
+    return out.slice(0, 8);
+  }
 
   function tarjetaHTML(item, tipo, i, estrella) {
     var esBolson = tipo === 'bolson';
@@ -213,8 +230,9 @@
           alt: item.nombre + ': ' + item.contenido.map(function (c) { return c.texto; }).join(', '),
           icono: esBolson ? 'shopping-basket' : 'flame',
           texto: plural(n, 'producto', 'productos'),
-          clase: esBolson ? 'media-neon' : 'media-neon media-fuego',
-          tono: esBolson ? TONOS[i % TONOS.length] : null,
+          clase: 'media-ilus' + (esBolson ? '' : ' media-oferta'),
+          fondo: item.fondo,
+          patron: patronDe(item),
           sizes: estrella ? '(min-width: 900px) 520px, 100vw' : '(min-width: 900px) 360px, 82vw'
         }) +
         (item.etiqueta ? '<span class="etiqueta' + (estrella || !esBolson ? ' etiqueta-hot' : '') + '">' +
@@ -233,7 +251,7 @@
         '<div class="acciones">' +
           '<a class="btn btn-rojo btn-lg" href="' + waLink(mensajeUno(item, esBolson ? '🧺' : (item.emoji || '🔥'))) + '" target="_blank" rel="noopener">' +
             'Pedir ahora<span class="btn-ico">' + ico('arrow-right') + '</span></a>' +
-          '<button type="button" class="btn ' + (esBolson ? 'btn-glass' : 'btn-claro') + ' btn-lg" data-sumar="' + tipo + '" data-id="' + esc(item.id) + '">' +
+          '<button type="button" class="btn btn-claro btn-lg" data-sumar="' + tipo + '" data-id="' + esc(item.id) + '">' +
             ico('plus') + (esBolson ? 'Sumarle productos' : 'Sumar al pedido') + '</button>' +
         '</div>' +
       '</div>' +
@@ -281,6 +299,10 @@
   }
 
   /* ---------- Catálogo ---------- */
+  var FOTO_CAT = {
+    verduras: 'assets/productos/verduras-y-frutas', frutas: 'assets/productos/frutas', pollo: 'assets/productos/pollo',
+    rebozados: 'assets/productos/rebozados', pastas: 'assets/productos/pastas', huevos: 'assets/productos/huevos'
+  };
   var contCats = $('#categorias');
   contCats.innerHTML = categorias.map(function (c) {
     var prods = productos.filter(function (p) { return p.categoria === c.id; });
@@ -292,7 +314,8 @@
     };
     var primeros = prods.slice(0, VISIBLES), extra = prods.slice(VISIBLES);
     return '<section class="categoria" id="cat-' + c.id + '" data-cat="' + c.id + '" aria-labelledby="h-' + c.id + '">' +
-      '<div class="cat-head"><span class="cat-ico">' + ico(c.icono || 'leaf') + '</span>' +
+      '<div class="cat-head"><span class="cat-ico">' +
+        mediaHTML({ foto: FOTO_CAT[c.id], alt: c.nombre, icono: c.icono || 'leaf', sizes: '72px' }) + '</span>' +
       '<h3 id="h-' + c.id + '">' + esc(c.nombre) + '<small>' + plural(prods.length, 'opción', 'opciones') + ' · tocá para sumar</small></h3></div>' +
       '<div class="chips">' + primeros.map(chip).join('') + '</div>' +
       (extra.length ?
