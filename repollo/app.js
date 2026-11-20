@@ -194,7 +194,6 @@
   function etiquetaPrecio(p) {
     if (!p.precio) return null;
     var t = precio(p.precio) + ' ' + (POR_TXT[p.por] || '');
-    if (MEDIO && p.por === 'kg') t += ' · ½ kg ' + precio(Math.round(p.precio / 2) + RECARGO);
     if (p.promos) Object.keys(p.promos).forEach(function (n) {
       t += ' · ' + textoCant({ u: p.por, n: Number(n) }) + ' ' + precio(p.promos[n]);
     });
