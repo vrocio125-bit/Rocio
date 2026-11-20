@@ -294,8 +294,8 @@
     var ul = $('#nos-slides'), dots = $('#nos-dots');
     if (!fotosNos.length) { $('.nos-carrusel').hidden = true; return; }
     ul.innerHTML = fotosNos.map(function (f, i) {
-      return '<li class="nos-slide" aria-label="Foto ' + (i + 1) + ' de ' + fotosNos.length + '">' +
-        mediaHTML({ foto: f.foto, alt: f.texto || 'Repollo', icono: 'camera', sizes: '(min-width: 900px) 540px, 100vw' }) +
+      return '<li class="nos-slide' + (f.texto ? ' con-texto' : '') + '" aria-label="Foto ' + (i + 1) + ' de ' + fotosNos.length + '">' +
+        mediaHTML({ foto: f.foto, alt: f.alt || f.texto || 'Repollo', icono: 'camera', sizes: '(min-width: 900px) 540px, 100vw' }) +
         (f.texto ? '<p>' + esc(f.texto) + '</p>' : '') + '</li>';
     }).join('');
     dots.innerHTML = fotosNos.length > 1 ? fotosNos.map(function (_, i) {

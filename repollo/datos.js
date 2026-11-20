@@ -52,11 +52,15 @@ window.REPOLLO = {
     equipo: "assets/equipo.jpg"    // cierre de la página (foto del equipo)
   },
 
-  /* ---------- Carrusel de "Quiénes somos" ----------
+  /* ---------- Carrusel de "¿Por qué nos eligen?" ----------
      Se muestran en este orden y pasan solas. Sumá o sacá fotos acá.   */
   nosotros: [
-    { foto: "assets/nosotros/bolsa.jpg", texto: "Tu pedido, listo para salir" },
-    { foto: "assets/local-2.jpg",        texto: "Atención de barrio, todos los días" }
+    { foto: "assets/nosotros/bolsa.jpg",      texto: "Tu pedido, listo para salir" },
+    { foto: "assets/nosotros/1-pregunta.jpg", alt: "¿Por qué cada vez más vecinos eligen comprar en Repollo?" },
+    { foto: "assets/nosotros/2-fresca.jpg",   alt: "Porque siempre encuentran mercadería fresca." },
+    { foto: "assets/nosotros/3-vecino.jpg",   alt: "Porque acá te atendemos como un vecino." },
+    { foto: "assets/nosotros/4-historia.jpg", alt: "Porque ustedes son parte de nuestra historia." },
+    { foto: "assets/nosotros/5-gracias.jpg",  alt: "Gracias por elegir a Repollo." }
   ],
 
   /* ---------- Galería "Fresquito del día" ----------

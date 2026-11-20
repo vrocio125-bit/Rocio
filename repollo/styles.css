@@ -768,3 +768,28 @@ body.has-order .barra-pedido { transform: none; pointer-events: auto; }
 .foto-cierre { width: min(100%, 520px); margin: 0 auto 18px; border-radius: var(--r-card); overflow: hidden; box-shadow: 0 0 0 5px #fff, 0 24px 40px -20px rgba(140, 90, 0, .55); transform: rotate(-1.5deg); }
 .foto-cierre .media { --ar: 8 / 7; }
 .cierre .deco { display: none; }
+
+/* ---------- Sello de envío: arriba a la izquierda, tamaño medio ---------- */
+.sticker-rojo { top: 16px; left: 16px; bottom: auto; padding: 9px 15px; gap: 7px; font-size: 1rem; transform: rotate(-3deg); animation: none; box-shadow: 0 0 0 3px #fff, 0 10px 20px -10px rgba(184, 38, 29, .6); }
+.sticker-rojo .ico { width: 20px; height: 20px; }
+@media (min-width: 900px) { .sticker-rojo { font-size: 1.1rem; padding: 10px 18px; } }
+
+/* ---------- Por qué nos eligen ---------- */
+.nos-slides { background: var(--verde-osc); }
+.nos-slide .media { --ar: 900 / 1104; }
+.nos-slide .media img { object-fit: contain; object-position: center; }
+.nos-slide.con-texto .media img { object-fit: cover; object-position: 50% 25%; }
+.nos-slide::after { display: none; }
+.nos-slide.con-texto::after { display: block; }
+@media (min-width: 860px) { .nos-slide .media { --ar: 900 / 1104; } }
+.motivos { display: grid; gap: 10px; margin: 6px 0 22px; }
+.motivos li { display: flex; gap: 14px; align-items: center; padding: 14px; border-radius: var(--r-md); background: #fff; box-shadow: 0 0 0 1px var(--linea); }
+.motivos b { display: block; font-size: 1rem; line-height: 1.25; }
+.motivos small { display: block; color: var(--texto-suave); font-size: .86rem; }
+.motivo-ico { width: 44px; height: 44px; flex: none; border-radius: 14px; display: grid; place-items: center; background: var(--verde-suave); color: var(--verde); }
+.motivos li:nth-child(2) .motivo-ico { background: var(--rojo-suave); color: var(--rojo); }
+.motivos li:nth-child(3) .motivo-ico { background: var(--amarillo-suave); color: #A87400; }
+.motivo-ico .ico { width: 22px; height: 22px; }
+
+/* ---------- Cierre sin título ---------- */
+.cierre-txt { font-size: 1.2rem !important; font-weight: 600; margin: 4px 0 6px; }
