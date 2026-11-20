@@ -26,7 +26,7 @@ window.REPOLLO = {
 
     // Horarios. Mientras esté vacío ("") se muestra "Consultanos por WhatsApp".
     // Ejemplo: horarios: ["Lunes a sábado: 8 a 13 y 17 a 21 h", "Domingos: 9 a 13 h"],
-    horarios: [],
+    horarios: ["Mañana: 8:30 a 13:30 h", "Tarde: 17:30 a 21:30 h"],
 
     // Lo que se busca en Google Maps con el botón "Cómo llegar"
     mapa: "Saúl Moyano y General Cabrera, La Calera, Córdoba, Argentina"
