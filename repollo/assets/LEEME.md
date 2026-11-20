@@ -20,6 +20,7 @@ Mientras una foto no esté, se ve una ilustración con íconos de frutas y verdu
 | `bolsones/frutas.jpg` | Bolsón de Frutas | ✅ |
 | `bolsones/completo-frutas.jpg` | Completo de Frutas | ✅ |
 | `promos/pollo-al-disco.jpg` | Oferta Pollo al disco | ✅ |
+| `video/repollo.mp4`, `video/poster.jpg` | Video (debajo de "¿Por qué nos eligen?") | ✅ |
 | `og.jpg` | Vista previa del link en WhatsApp (1200 × 630) | ✅ |
 
 En bolsones, productos y promos también sirven `.webp` o `.png` con el mismo nombre.

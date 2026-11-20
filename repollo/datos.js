@@ -67,7 +67,7 @@ window.REPOLLO = {
      poster: imagen que se ve mientras carga (opcional).            */
   video: {
     archivo: "assets/video/repollo.mp4",
-    poster: "",
+    poster: "assets/video/poster.jpg",
     titulo: "Así trabajamos en Repollo"
   },
 

@@ -812,3 +812,4 @@ body.has-order .barra-pedido { transform: none; pointer-events: auto; }
 .cierre { padding-top: 56px; }
 .logo-cierre { width: 200px; margin-bottom: 14px; }
 @media (min-width: 900px) { .logo-cierre { width: 240px; } }
+.video-sonido { top: auto; bottom: 14px; right: 14px; } .video-tit { right: 160px; bottom: 22px; font-size: 1rem; line-height: 1.25; }
