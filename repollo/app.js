@@ -140,11 +140,9 @@
   $$('[data-wa]').forEach(function (a) { a.href = waLink(MSJ[a.getAttribute('data-wa')] || MSJ.hola); });
 
   // Cinta en movimiento
-  var cintaItems = categorias.map(function (c) { return c.nombre; }).concat(['Envío gratis', 'Bolsones']);
-  var cintaHTML = '<span>' + cintaItems.map(function (t, i) {
-    return (i % 2 ? '<em>' + esc(t) + '</em>' : esc(t)) + ico('sparkles');
-  }).join('') + '</span>';
-  $('#cinta').innerHTML = cintaHTML + cintaHTML;
+  var frase = '<span>Envíos a todas las zonas de La Calera <b>gratis</b></span>';
+  var tramo = '<span class="cinta-tramo" aria-hidden="true">' + frase + frase + frase + '</span>';
+  $('#cinta').innerHTML = tramo + tramo;
 
   /* ---------- Estado del pedido ---------- */
   var KEY = 'repollo-pedido-v1';
