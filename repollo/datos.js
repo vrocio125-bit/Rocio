@@ -79,6 +79,7 @@ window.REPOLLO = {
   bolsones: [
     {
       id: "completo",
+      color: "negro",          // color de la cinta: negro, rojo, verde, naranja o amarillo
       nombre: "Bolsón Completo",
       precio: 34900,
       etiqueta: "Más pedido",
@@ -104,6 +105,7 @@ window.REPOLLO = {
     },
     {
       id: "express",
+      color: "rojo",          // color de la cinta: negro, rojo, verde, naranja o amarillo
       nombre: "Bolsón Express",
       precio: 19900,
       etiqueta: "Para arrancar",
@@ -121,9 +123,10 @@ window.REPOLLO = {
     },
     {
       id: "verduras",
+      color: "verde",          // color de la cinta: negro, rojo, verde, naranja o amarillo
       nombre: "Bolsón de Verduras",
       precio: 24900,
-      etiqueta: "Para toda la semana",
+      etiqueta: "Para la semana",
       fondo: "#DDEFD6",
       contenido: [
         { emoji: "🥔", texto: "2 kg papas" },
@@ -142,6 +145,7 @@ window.REPOLLO = {
     },
     {
       id: "frutas",
+      color: "naranja",          // color de la cinta: negro, rojo, verde, naranja o amarillo
       nombre: "Bolsón de Frutas",
       precio: 11900,
       etiqueta: "Rico y sano",
@@ -156,6 +160,7 @@ window.REPOLLO = {
     },
     {
       id: "completo-frutas",
+      color: "amarillo",          // color de la cinta: negro, rojo, verde, naranja o amarillo
       nombre: "Completo de Frutas",
       precio: 38900,
       etiqueta: "Tropical",
@@ -224,6 +229,9 @@ window.REPOLLO = {
   // Cada categoría dice qué unidades ofrece (la primera es la que viene marcada).
   // Un producto puede arrancar en otra unidad con  unidad: "unidad".
   cantidades: [1, 2, 3],
+  // En kilos también se ofrece ½ kg. Su precio = mitad del kilo + este recargo.
+  medioKilo: true,
+  recargoMedioKilo: 1000,
   unidades: {
     kg:     { boton: "Kilos",    uno: "kg",     varios: "kg" },
     unidad: { boton: "Unidades", uno: "unidad", varios: "unidades" },

@@ -173,11 +173,13 @@
     unidad: { boton: 'Unidades', uno: 'unidad', varios: 'unidades' }
   };
   var NUMS = D.cantidades && typeof D.cantidades[0] === 'number' ? D.cantidades : [1, 2, 3];
+  var MEDIO = D.medioKilo !== false, RECARGO = D.recargoMedioKilo || 0;
   function unidadesDe(cat) { return (cat && cat.unidades) || ['kg', 'unidad']; }
   function textoCant(c) {
     if (!c) return '';
     if (c.otra !== undefined) return String(c.otra).trim();
     var u = UNIDADES[c.u] || {};
+    if (c.n === 0.5 && c.u === 'kg') return '½ kg';
     if (u.factor) return (c.n * u.factor) + (u.sufijo || '');
     if (u.formato) return u.formato.replace('{n}', c.n);
     return c.n + ' ' + (c.n === 1 ? u.uno : u.varios);
@@ -185,12 +187,14 @@
   function precioItem(p) {
     var c = pedido.cant[claveProd(p)];
     if (!p.precio || !c || c.otra !== undefined || c.u !== p.por) return null;
+    if (c.n === 0.5) return Math.round(p.precio / 2) + RECARGO;
     return (p.promos && p.promos[c.n]) || c.n * p.precio;
   }
   var POR_TXT = { kg: 'el kg', unidad: 'c/u', paquete: 'el paquete', bolsa: 'la bolsa', g100: 'cada 100 g', x: 'c/u' };
   function etiquetaPrecio(p) {
     if (!p.precio) return null;
     var t = precio(p.precio) + ' ' + (POR_TXT[p.por] || '');
+    if (MEDIO && p.por === 'kg') t += ' · ½ kg ' + precio(Math.round(p.precio / 2) + RECARGO);
     if (p.promos) Object.keys(p.promos).forEach(function (n) {
       t += ' · ' + textoCant({ u: p.por, n: Number(n) }) + ' ' + precio(p.promos[n]);
     });
@@ -282,8 +286,9 @@
           patron: patronDe(item),
           sizes: estrella ? '(min-width: 900px) 520px, 100vw' : '(min-width: 900px) 360px, 82vw'
         }) +
-        (item.etiqueta ? '<span class="etiqueta' + (estrella || !esBolson ? ' etiqueta-hot' : '') + '">' +
-          ico(estrella || !esBolson ? 'flame' : 'sparkles') + esc(item.etiqueta) + '</span>' : '') +
+        (item.etiqueta ? (esBolson
+          ? '<span class="cinta-bolson cinta-' + esc(item.color || 'verde') + '">' + esc(item.etiqueta) + '</span>'
+          : '<span class="etiqueta etiqueta-hot">' + ico('flame') + esc(item.etiqueta) + '</span>') : '') +
       '</div>' +
       '<div class="bolson-body">' +
         '<h3>' + esc(item.nombre) + '</h3>' +
@@ -437,7 +442,7 @@
           (us.length > 1 ? '<div class="unid" role="group" aria-label="Unidad">' + us.map(function (u) {
             return '<button type="button" class="unid-btn" data-u="' + u + '" aria-pressed="false">' + esc((UNIDADES[u] || {}).boton || u) + '</button>';
           }).join('') + '</div>' : '') +
-          '<div class="cant-opts" role="group" aria-label="Cantidad">' + NUMS.map(function (n) {
+          '<div class="cant-opts" role="group" aria-label="Cantidad">' + (MEDIO && us.indexOf('kg') >= 0 ? [0.5] : []).concat(NUMS).map(function (n) {
             return '<button type="button" class="cant" data-n="' + n + '" aria-pressed="false"></button>';
           }).join('') + '<button type="button" class="cant" data-n="otra" aria-pressed="false">Otra</button></div>' +
           '<input class="cant-input" type="text" placeholder="Escribí la cantidad: 500 g, 1 atado, 6 unidades…" aria-label="Cantidad de ' + esc(p.nombre) + '" hidden>' +
@@ -490,6 +495,7 @@
     if (ub) {
       c.u = ub.getAttribute('data-u');
       if (c.otra !== undefined) { delete c.otra; c.n = NUMS[0]; }
+      if (c.n === 0.5 && c.u !== 'kg') c.n = NUMS[0];
       pedido.cant[key] = c;
       actualizar(false);
       return;
@@ -642,7 +648,8 @@
       var u = UNIDADES[(c && c.u) || unidadesDe(catDe(fila.closest('.categoria').getAttribute('data-cat')))[0]] || {};
       $$('.cant', fila).forEach(function (b) {
         var v = b.getAttribute('data-n');
-        if (v !== 'otra') { b.textContent = textoCant({ u: (c && c.u) || unidadesDe(catDe(fila.closest('.categoria').getAttribute('data-cat')))[0], n: Number(v) }); }
+        var uAct = (c && c.u) || unidadesDe(catDe(fila.closest('.categoria').getAttribute('data-cat')))[0];
+        if (v !== 'otra') { b.textContent = textoCant({ u: uAct, n: Number(v) }); b.hidden = Number(v) === 0.5 && uAct !== 'kg'; }
         b.setAttribute('aria-pressed', String(v === 'otra' ? otra : (!!c && !otra && Number(v) === c.n)));
       });
       var pr = c ? precioItem(prodDe(key)) : null;

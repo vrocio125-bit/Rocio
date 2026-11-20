@@ -834,3 +834,21 @@ body.has-order .barra-pedido { transform: none; pointer-events: auto; }
 @media (min-width: 900px) { .hero-ctas .btn-amarillo { flex: 0 0 auto; } }
 .prod-precio.con-precio { color: var(--rojo-osc); font-weight: 700; }
 .prod.is-on .prod-precio.con-precio { color: var(--rojo-osc); }
+
+/* ---------- Cinta de color en la esquina de cada bolsón ---------- */
+.bolson-card.is-star::after { display: none; }
+.bolson-card { overflow: hidden; }
+.cinta-bolson {
+  position: absolute; z-index: 3; top: 26px; right: -52px; width: 210px;
+  padding: 7px 0; text-align: center; transform: rotate(38deg);
+  font-family: "Anton", Impact, "Arial Narrow", sans-serif; font-weight: 400;
+  font-size: .9rem; letter-spacing: .06em; text-transform: uppercase; line-height: 1.1;
+  box-shadow: 0 6px 14px -6px rgba(0, 0, 0, .45);
+}
+.cinta-negro    { background: #111611; color: #fff; }
+.cinta-rojo     { background: var(--rojo); color: #fff; }
+.cinta-verde    { background: var(--verde); color: #fff; }
+.cinta-naranja  { background: #F07B1A; color: #fff; }
+.cinta-amarillo { background: var(--amarillo); color: var(--verde-osc); }
+.bolson-card.is-star .cinta-bolson { font-size: 1rem; width: 230px; right: -56px; top: 30px; }
+.cinta-bolson { width: 230px; right: -60px; top: 30px; font-size: .85rem; } .cant-opts .cant { min-width: 56px; padding: 0 12px; }
