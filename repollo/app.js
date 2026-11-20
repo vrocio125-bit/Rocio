@@ -178,19 +178,42 @@
     if (!c) return '';
     if (c.otra !== undefined) return String(c.otra).trim();
     var u = UNIDADES[c.u] || {};
+    if (u.factor) return (c.n * u.factor) + (u.sufijo || '');
     if (u.formato) return u.formato.replace('{n}', c.n);
     return c.n + ' ' + (c.n === 1 ? u.uno : u.varios);
   }
+  function precioItem(p) {
+    var c = pedido.cant[claveProd(p)];
+    if (!p.precio || !c || c.otra !== undefined || c.u !== p.por) return null;
+    return (p.promos && p.promos[c.n]) || c.n * p.precio;
+  }
+  var POR_TXT = { kg: 'el kg', unidad: 'c/u', paquete: 'el paquete', bolsa: 'la bolsa', g100: 'cada 100 g', x: 'c/u' };
+  function etiquetaPrecio(p) {
+    if (!p.precio) return null;
+    var t = precio(p.precio) + ' ' + (POR_TXT[p.por] || '');
+    if (p.promos) Object.keys(p.promos).forEach(function (n) {
+      t += ' · ' + textoCant({ u: p.por, n: Number(n) }) + ' ' + precio(p.promos[n]);
+    });
+    return t;
+  }
   function conCant(p) {
     var t = textoCant(pedido.cant[claveProd(p)]);
-    return p.nombre + (t ? ' (' + t + ')' : '');
+    var pr = precioItem(p);
+    return p.nombre + (t ? ' (' + t + (pr ? ' · ' + precio(pr) : '') + ')' : '');
   }
 
   function guardar() { try { localStorage.setItem(KEY, JSON.stringify(pedido)); } catch (e) { /* nada */ } }
   function sumar(obj) { return Object.keys(obj).reduce(function (t, k) { return t + obj[k]; }, 0); }
   function cantidadTotal() { return sumar(pedido.bolsones) + sumar(pedido.ofertas) + pedido.productos.length + pedido.otros.length; }
+  function prodsElegidos() {
+    return productos.filter(function (p) { return pedido.productos.indexOf(claveProd(p)) >= 0; });
+  }
+  function sinPrecio() {
+    return prodsElegidos().filter(function (p) { return precioItem(p) === null; }).length + pedido.otros.length;
+  }
   function totalConPrecio() {
     var t = 0;
+    prodsElegidos().forEach(function (p) { t += precioItem(p) || 0; });
     bolsones.forEach(function (b) { t += (pedido.bolsones[b.id] || 0) * b.precio; });
     ofertas.forEach(function (o) { t += (pedido.ofertas[o.id] || 0) * o.precio; });
     return t;
@@ -210,9 +233,10 @@
       if (el.length) l.push(c.emoji + ' ' + c.nombre + ': ' + el.join(', '));
     });
     if (pedido.otros.length) l.push('🛍️ Otros: ' + pedido.otros.join(', '));
-    if (pedido.productos.length || pedido.otros.length) l.push('💲 Productos sueltos: ¿me pasás el precio del día?');
+    var faltan = prodsElegidos().filter(function (p) { return precioItem(p) === null; }).map(function (p) { return p.nombre; }).concat(pedido.otros);
     var total = totalConPrecio();
-    if (total) l.push('💰 Bolsones y ofertas: ' + precio(total) + ' · Envío gratis 🛵');
+    if (total) l.push('💰 Total estimado: ' + precio(total) + (faltan.length ? ' + lo que tiene precio a consultar' : '') + ' · Envío gratis 🛵');
+    if (faltan.length) l.push('💲 Precio a consultar: ' + faltan.join(', '));
     if (pedido.nota.trim()) l.push('📝 Aclaraciones: ' + pedido.nota.trim());
     if (pedido.nombre.trim()) l.push('🙋 A nombre de: ' + pedido.nombre.trim());
     if (pedido.direccion.trim()) l.push('📍 Entregar en: ' + pedido.direccion.trim());
@@ -392,7 +416,7 @@
   function prodDe(key) { return productos.filter(function (p) { return claveProd(p) === key; })[0] || {}; }
   function cantInicial(key) {
     var p = prodDe(key), us = unidadesDe(catDe(p.categoria));
-    var u = p.unidad && us.indexOf(p.unidad) >= 0 ? p.unidad : us[0];
+    var u = p.unidad && us.indexOf(p.unidad) >= 0 ? p.unidad : (p.por && us.indexOf(p.por) >= 0 ? p.por : us[0]);
     return { u: u, n: NUMS[0] };
   }
   var TXT_PRECIO = D.textoPrecio || 'Precio a consultar';
@@ -406,7 +430,7 @@
       var key = esc(claveProd(p));
       return '<li class="prod" data-key="' + key + '" data-busca="' + esc(norm(p.nombre + ' ' + c.nombre)) + '">' +
         '<button type="button" class="prod-btn" aria-pressed="false">' +
-          '<span class="prod-nom">' + esc(capital(p.nombre)) + '<small class="prod-precio">' + esc(TXT_PRECIO) + '</small></span>' +
+          '<span class="prod-nom">' + esc(capital(p.nombre)) + '<small class="prod-precio' + (p.precio ? ' con-precio' : '') + '">' + esc(etiquetaPrecio(p) || TXT_PRECIO) + '</small></span>' +
           '<span class="prod-cant-txt"></span>' +
           '<span class="chip-check">' + ico('plus') + '</span></button>' +
         '<div class="prod-cant" hidden>' +
@@ -618,10 +642,11 @@
       var u = UNIDADES[(c && c.u) || unidadesDe(catDe(fila.closest('.categoria').getAttribute('data-cat')))[0]] || {};
       $$('.cant', fila).forEach(function (b) {
         var v = b.getAttribute('data-n');
-        if (v !== 'otra') { var n = Number(v); b.textContent = u.formato ? u.formato.replace('{n}', n) : n + ' ' + (n === 1 ? u.uno : u.varios); }
+        if (v !== 'otra') { b.textContent = textoCant({ u: (c && c.u) || unidadesDe(catDe(fila.closest('.categoria').getAttribute('data-cat')))[0], n: Number(v) }); }
         b.setAttribute('aria-pressed', String(v === 'otra' ? otra : (!!c && !otra && Number(v) === c.n)));
       });
-      $('.prod-cant-txt', fila).textContent = c ? textoCant(c) : '';
+      var pr = c ? precioItem(prodDe(key)) : null;
+      $('.prod-cant-txt', fila).textContent = c ? textoCant(c) + (pr ? ' · ' + precio(pr) : '') : '';
     });
     $$('.categoria', contCats).forEach(function (sec) {
       var id = sec.getAttribute('data-cat');
@@ -675,10 +700,10 @@
       }).join('') + '</div></div>';
     }
     var total = totalConPrecio();
-    var hayProductos = pedido.productos.length + pedido.otros.length > 0;
+    var faltanN = sinPrecio();
     if (total) {
-      h += '<div class="p-total"><span>Bolsones y ofertas</span><span class="precio">' + precio(total) + '</span>' +
-        '<small>' + (hayProductos ? 'Los productos sueltos te los cotizamos con el precio del día. ' : '') + 'Envío gratis.</small></div>';
+      h += '<div class="p-total"><span>Total estimado</span><span class="precio">' + precio(total) + '</span>' +
+        '<small>' + (faltanN ? 'Más ' + plural(faltanN, 'producto', 'productos') + ' con precio a consultar: te pasamos el total final por WhatsApp. ' : '') + 'Envío gratis.</small></div>';
     } else {
       h += '<div class="p-total"><span>Envío gratis</span><small>Te respondemos con los precios del día y el total.</small></div>';
     }

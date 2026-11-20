@@ -832,3 +832,5 @@ body.has-order .barra-pedido { transform: none; pointer-events: auto; }
 @keyframes bajar { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(3px); } }
 .hero-ctas .btn-amarillo { flex: 1 1 100%; }
 @media (min-width: 900px) { .hero-ctas .btn-amarillo { flex: 0 0 auto; } }
+.prod-precio.con-precio { color: var(--rojo-osc); font-weight: 700; }
+.prod.is-on .prod-precio.con-precio { color: var(--rojo-osc); }
