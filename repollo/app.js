@@ -115,34 +115,34 @@
 
   $('#como-llegar').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(N.mapa || (N.direccion + ', ' + N.ciudad));
 
-  // Logo
-  $$('[data-logo]').forEach(function (el) {
-    var srcs = fuentes((D.imagenes || {}).logo).concat(((D.imagenes || {}).logo) ? [D.imagenes.logo + '.svg'] : []);
+  // Logo (si no carga, queda un 🥬)
+  var logoSrc = (D.imagenes || {}).logo;
+  $$('[data-logo], [data-logo-grande]').forEach(function (el) {
     el.innerHTML = '<span aria-hidden="true">🥬</span>';
-    if (!srcs.length) return;
+    if (!logoSrc) return;
     var img = new Image();
-    var i = 0;
-    img.alt = 'Logo de Repollo';
+    img.alt = el.hasAttribute('data-logo-grande') ? '' : 'Logo de Repollo';
     img.decoding = 'async';
     img.onload = function () { el.innerHTML = ''; el.appendChild(img); el.classList.add('has-photo'); };
-    img.onerror = function () { i++; if (i < srcs.length) img.src = srcs[i]; };
-    img.src = srcs[0];
+    img.src = logoSrc;
   });
 
   // Fotos generales (local, equipo)
   var emojisFoto = {
     local: ['🏪', '🥬', '🍅', '🥕', '🍗', '🍌', '🥚', '🍎', '🧅'],
-    equipo: ['👩‍🌾', '🧑‍🌾', '🥬', '🍅', '❤️', '🍌']
+    equipo: ['👋', '🥬', '🍅', '❤️', '🍌', '🍗'],
+    local2: ['🏪', '🥬', '🍅', '🥚']
   };
   var altFoto = {
     local: 'Frente del local de Repollo en La Calera',
-    equipo: 'El equipo de Repollo'
+    equipo: 'El equipo de Repollo saludando detrás del mostrador',
+    local2: 'Vecinos comprando en el puesto de Repollo'
   };
   $$('[data-media]').forEach(function (el) {
     var k = el.getAttribute('data-media');
     el.innerHTML = mediaHTML({
       foto: (D.imagenes || {})[k], alt: altFoto[k], emojis: emojisFoto[k],
-      fondo: k === 'equipo' ? '#E3F1E0' : '#FFF3C4', eager: el.classList.contains('hero-media'),
+      fondo: k === 'equipo' ? '#E3F1E0' : '#FFF3C4', eager: el.classList.contains('hero-media'), max: k === 'local2' ? 4 : 9,
       sizes: '(min-width: 900px) 540px, 100vw'
     });
   });
@@ -288,6 +288,18 @@
       '<span class="vende-txt"><span>' + r.emojis[0] + ' ' + r.txt + '</span><span aria-hidden="true">→</span></span>' +
       '</a></li>';
   }).join('');
+
+  /* ---------- Galería ---------- */
+  var galeria = D.galeria || [];
+  if (galeria.length) {
+    $('#galeria').innerHTML = galeria.map(function (g) {
+      return '<li class="galeria-item">' +
+        mediaHTML({ foto: g.foto, alt: g.texto, emojis: ['📸'], fondo: '#FFF3C4', sizes: '(min-width: 900px) 280px, 70vw' }) +
+        '<p>' + esc(g.texto) + '</p></li>';
+    }).join('');
+  } else {
+    $('.galeria-wrap').hidden = true;
+  }
 
   /* ---------- Catálogo ---------- */
   var contCats = $('#categorias');

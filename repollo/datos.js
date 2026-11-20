@@ -43,14 +43,23 @@ window.REPOLLO = {
   },
 
   /* ---------- Imágenes generales ----------
-     Copiá la foto en la carpeta assets/ con ESTE nombre y aparece sola.
-     Si el archivo no está, se muestra una composición con emojis.
-     Sirven .jpg, .webp o .png (se prueban en ese orden).                */
+     Para cambiar una foto, reemplazá el archivo en assets/ con el mismo nombre.
+     Si un archivo no está, se muestra una composición con emojis.        */
   imagenes: {
-    logo: "assets/logo",      // assets/logo.png (ideal: fondo transparente)
-    local: "assets/local",    // foto del frente del local
-    equipo: "assets/equipo"   // foto del equipo
+    logo: "assets/logo.png",       // logo con fondo transparente
+    local: "assets/local.jpg",     // presentación (arriba de todo)
+    equipo: "assets/equipo.jpg",   // "Quiénes somos", foto grande
+    local2: "assets/local-2.jpg"   // "Quiénes somos", foto chica
   },
+
+  /* ---------- Galería "Fresquito del día" ----------
+     Fotos que se muestran en "Quiénes somos". Podés sumar o sacar.        */
+  galeria: [
+    { foto: "assets/galeria/atencion.jpg",   texto: "Te tomamos el pedido como a un vecino 📝" },
+    { foto: "assets/galeria/milanesas.jpg",  texto: "Milanesas y pollo fresquito 🍗" },
+    { foto: "assets/galeria/albondigas.jpg", texto: "Albóndigas caseras con verduras 🧆" },
+    { foto: "assets/galeria/medallones.jpg", texto: "Medallones listos para el horno 🔥" }
+  ],
 
   /* ---------- BOLSONES ----------
      Se muestran en este orden. El que tenga destacado: true es la

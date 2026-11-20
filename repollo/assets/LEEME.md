@@ -1,23 +1,27 @@
 # Fotos de Repollo
 
-Copiá cada foto en esta carpeta con **exactamente** este nombre y aparece sola en la página, sin tocar código.
-Sirven `.jpg`, `.webp` o `.png`. Mientras una foto no esté, se ve una composición con emojis.
+Para cambiar una foto, reemplazá el archivo por otro con **exactamente el mismo nombre**.
+Mientras una foto no esté, se ve una composición con emojis.
 
-| Archivo | Dónde aparece |
-| --- | --- |
-| `logo.png` | Barra superior y pie (ideal: fondo transparente, cuadrado) |
-| `local.jpg` | Presentación (arriba de todo) y "Quiénes somos" |
-| `equipo.jpg` | "Quiénes somos" |
-| `bolsones/completo.jpg` | Bolsón Completo |
-| `bolsones/express.jpg` | Bolsón Express |
-| `bolsones/verduras.jpg` | Bolsón de Verduras |
-| `bolsones/frutas.jpg` | Bolsón de Frutas |
-| `bolsones/completo-frutas.jpg` | Completo de Frutas |
-| `promos/pollo-al-disco.jpg` | Oferta Pollo al disco |
-| `productos/verduras-y-frutas.jpg`, `pollo.jpg`, `rebozados.jpg`, `pastas.jpg`, `huevos.jpg` | Resumen "Todo lo que vas a encontrar" |
-| `og.jpg` | Vista previa del link en WhatsApp (1200 × 630) |
+| Archivo | Dónde aparece | Estado |
+| --- | --- | --- |
+| `logo.png` | Barra superior, cierre y pie | ✅ cargado (recortado del flyer) |
+| `local.jpg` | Presentación (arriba de todo) | ✅ |
+| `equipo.jpg` | "Quiénes somos", foto grande | ✅ |
+| `local-2.jpg` | "Quiénes somos", foto chica | ✅ |
+| `galeria/*.jpg` | Galería "Fresquito del día" (lista en `datos.js` → `galeria`) | ✅ |
+| `productos/verduras-y-frutas.jpg`, `pollo.jpg`, `rebozados.jpg`, `huevos.jpg` | Resumen "Todo lo que vas a encontrar" | ✅ |
+| `productos/pastas.jpg` | Resumen, tarjeta Pastas | ⏳ falta |
+| `bolsones/completo.jpg` | Bolsón Completo | ⏳ falta |
+| `bolsones/express.jpg` | Bolsón Express | ⏳ falta |
+| `bolsones/verduras.jpg` | Bolsón de Verduras | ⏳ falta |
+| `bolsones/frutas.jpg` | Bolsón de Frutas | ⏳ falta |
+| `bolsones/completo-frutas.jpg` | Completo de Frutas | ⏳ falta |
+| `promos/pollo-al-disco.jpg` | Oferta Pollo al disco | ⏳ falta |
+| `og.jpg` | Vista previa del link en WhatsApp (1200 × 630) | ✅ |
 
+En bolsones, productos y promos también sirven `.webp` o `.png` con el mismo nombre.
 El nombre del archivo de cada bolsón u oferta es su `id` en `datos.js`.
 
 **Tamaños recomendados:** 1200 px de ancho como máximo y menos de 250 KB por foto
-(podés achicarlas gratis en https://squoosh.app). No uses los flyers con precios: los precios salen de `datos.js`.
+(podés achicarlas gratis en https://squoosh.app). No uses flyers con precios: los precios salen de `datos.js`.
