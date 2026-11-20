@@ -49,9 +49,15 @@ window.REPOLLO = {
     logo: "assets/logo.png",       // logo con fondo transparente
     atencion: "assets/atencion.jpg", // presentación (arriba de todo)
     local: "assets/local.jpg",     // galería
-    equipo: "assets/equipo.jpg",   // "Quiénes somos", foto grande
-    local2: "assets/local-2.jpg"   // "Quiénes somos", foto chica
+    equipo: "assets/equipo.jpg"    // cierre de la página (foto del equipo)
   },
+
+  /* ---------- Carrusel de "Quiénes somos" ----------
+     Se muestran en este orden y pasan solas. Sumá o sacá fotos acá.   */
+  nosotros: [
+    { foto: "assets/nosotros/bolsa.jpg", texto: "Tu pedido, listo para salir" },
+    { foto: "assets/local-2.jpg",        texto: "Atención de barrio, todos los días" }
+  ],
 
   /* ---------- Galería "Fresquito del día" ----------
      Fotos que se muestran en "Quiénes somos". Podés sumar o sacar.        */

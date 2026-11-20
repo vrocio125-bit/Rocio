@@ -748,3 +748,23 @@ body.has-order .barra-pedido { transform: none; pointer-events: auto; }
 }
 .cinta-tramo > span b { font-weight: 400; color: var(--amarillo); }
 @media (min-width: 900px) { .cinta-tramo > span { font-size: 2rem; } }
+
+/* ---------- Quiénes somos: carrusel ---------- */
+.nos-carrusel { position: relative; }
+.nos-slides { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: var(--r-card); box-shadow: var(--sombra); }
+.nos-slides::-webkit-scrollbar { display: none; }
+.nos-slide { position: relative; flex: 0 0 100%; scroll-snap-align: start; color: #fff; }
+.nos-slide .media { --ar: 4 / 5; border-radius: 0; }
+.nos-slide .media img { object-position: 50% 25%; }
+.nos-slide::after { content: ""; position: absolute; inset: 0; z-index: 3; background: linear-gradient(180deg, transparent 60%, rgba(14, 42, 23, .7)); pointer-events: none; }
+.nos-slide p { position: absolute; z-index: 4; left: 18px; right: 18px; bottom: 16px; margin: 0; font-weight: 700; font-size: 1.05rem; }
+.nos-dots { display: flex; justify-content: center; gap: 4px; margin-top: 10px; }
+.nos-dots button { width: 28px; height: 28px; border: 0; background: transparent; cursor: pointer; display: grid; place-items: center; padding: 0; }
+.nos-dots button::before { content: ""; width: 8px; height: 8px; border-radius: 999px; background: rgba(14, 42, 23, .2); transition: width .35s var(--ease), background-color .3s; }
+.nos-dots button.is-on::before { width: 24px; background: var(--verde); }
+@media (min-width: 860px) { .nos-slide .media { --ar: 1 / 1; } }
+
+/* ---------- Cierre: foto del equipo ---------- */
+.foto-cierre { width: min(100%, 520px); margin: 0 auto 18px; border-radius: var(--r-card); overflow: hidden; box-shadow: 0 0 0 5px #fff, 0 24px 40px -20px rgba(140, 90, 0, .55); transform: rotate(-1.5deg); }
+.foto-cierre .media { --ar: 8 / 7; }
+.cierre .deco { display: none; }

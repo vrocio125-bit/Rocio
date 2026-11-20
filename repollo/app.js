@@ -124,8 +124,7 @@
   var fotos = {
     atencion: { alt: 'Chico de Repollo tomando un pedido en el puesto', icono: 'heart' },
     local: { alt: 'Frente del puesto de Repollo en La Calera', icono: 'store' },
-    equipo: { alt: 'El equipo de Repollo saludando detrás del mostrador', icono: 'heart' },
-    local2: { alt: 'Vecinos comprando en Repollo', icono: 'store' }
+    equipo: { alt: 'El equipo de Repollo saludando detrás del mostrador', icono: 'heart' }
   };
   $$('[data-media]').forEach(function (el) {
     var k = el.getAttribute('data-media');
@@ -288,6 +287,39 @@
       '<span class="vende-txt"><span>' + r.txt + '</span><span class="vende-flecha">' + ico('arrow-right') + '</span></span>' +
       '</a></li>';
   }).join('');
+
+  /* ---------- Carrusel de Quiénes somos ---------- */
+  (function () {
+    var fotosNos = D.nosotros || [];
+    var ul = $('#nos-slides'), dots = $('#nos-dots');
+    if (!fotosNos.length) { $('.nos-carrusel').hidden = true; return; }
+    ul.innerHTML = fotosNos.map(function (f, i) {
+      return '<li class="nos-slide" aria-label="Foto ' + (i + 1) + ' de ' + fotosNos.length + '">' +
+        mediaHTML({ foto: f.foto, alt: f.texto || 'Repollo', icono: 'camera', sizes: '(min-width: 900px) 540px, 100vw' }) +
+        (f.texto ? '<p>' + esc(f.texto) + '</p>' : '') + '</li>';
+    }).join('');
+    dots.innerHTML = fotosNos.length > 1 ? fotosNos.map(function (_, i) {
+      return '<button type="button" aria-label="Ver foto ' + (i + 1) + '" data-i="' + i + '"></button>';
+    }).join('') : '';
+    var slides = $$('.nos-slide', ul), botones = $$('button', dots), actual = 0, timer;
+    function marcar(i) { actual = i; botones.forEach(function (b, j) { b.classList.toggle('is-on', i === j); }); }
+    function ir(i) { ul.scrollTo({ left: slides[i].offsetLeft - ul.offsetLeft, behavior: reduceMotion ? 'auto' : 'smooth' }); marcar(i); }
+    marcar(0);
+    dots.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) { ir(+b.getAttribute('data-i')); reiniciar(); } });
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (ents) {
+        ents.forEach(function (en) { if (en.isIntersecting) marcar(slides.indexOf(en.target)); });
+      }, { root: ul, threshold: 0.6 });
+      slides.forEach(function (sl) { io.observe(sl); });
+    }
+    function reiniciar() {
+      clearInterval(timer);
+      if (reduceMotion || slides.length < 2) return;
+      timer = setInterval(function () { ir((actual + 1) % slides.length); }, 4500);
+    }
+    ul.addEventListener('touchstart', reiniciar, { passive: true });
+    reiniciar();
+  })();
 
   /* ---------- Galería ---------- */
   var galeria = D.galeria || [];
