@@ -1,7 +1,7 @@
 # Fotos de Repollo
 
 Para cambiar una foto, reemplazá el archivo por otro con **exactamente el mismo nombre**.
-Mientras una foto no esté, se ve una composición con emojis.
+Mientras una foto no esté, se ve una ilustración con íconos de frutas y verduras.
 
 | Archivo | Dónde aparece | Estado |
 | --- | --- | --- |
