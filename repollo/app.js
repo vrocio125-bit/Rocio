@@ -653,7 +653,14 @@
       actualizar(false); enfocarDespues(null);
       return;
     }
-    if (e.target.closest('#p-vaciar') && window.confirm('¿Vaciamos el pedido?')) {
+    var vaciar = e.target.closest('#p-vaciar');
+    if (vaciar && !vaciar.classList.contains('confirmar')) {
+      vaciar.classList.add('confirmar');
+      vaciar.textContent = 'Tocá de nuevo para vaciar el pedido';
+      setTimeout(function () { if (vaciar.isConnected) { vaciar.classList.remove('confirmar'); vaciar.textContent = 'Vaciar pedido'; } }, 3500);
+      return;
+    }
+    if (vaciar) {
       pedido.bolsones = {}; pedido.ofertas = {}; pedido.productos = []; pedido.cant = {}; pedido.otros = []; pedido.nota = '';
       actualizar(false);
       toast('Pedido vacío. ¡Arrancamos de nuevo!');
