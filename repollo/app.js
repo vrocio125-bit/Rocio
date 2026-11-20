@@ -160,10 +160,30 @@
     var claves = productos.map(claveProd);
     pedido.productos = pedido.productos.filter(function (c) { return claves.indexOf(c) >= 0; });
     if (!pedido.cant || typeof pedido.cant !== 'object') pedido.cant = {};
+    Object.keys(pedido.cant).forEach(function (k) {
+      var c = pedido.cant[k];
+      if (typeof c === 'string') pedido.cant[k] = c.trim() ? { otra: c } : null;
+      if (!pedido.cant[k]) delete pedido.cant[k];
+    });
   })();
+
+  /* ---------- Cantidades y unidades ---------- */
+  var UNIDADES = D.unidades || {
+    kg: { boton: 'Kilos', uno: 'kg', varios: 'kg' },
+    unidad: { boton: 'Unidades', uno: 'unidad', varios: 'unidades' }
+  };
+  var NUMS = D.cantidades && typeof D.cantidades[0] === 'number' ? D.cantidades : [1, 2, 3];
+  function unidadesDe(cat) { return (cat && cat.unidades) || ['kg', 'unidad']; }
+  function textoCant(c) {
+    if (!c) return '';
+    if (c.otra !== undefined) return String(c.otra).trim();
+    var u = UNIDADES[c.u] || {};
+    if (u.formato) return u.formato.replace('{n}', c.n);
+    return c.n + ' ' + (c.n === 1 ? u.uno : u.varios);
+  }
   function conCant(p) {
-    var c = (pedido.cant[claveProd(p)] || '').trim();
-    return p.nombre + (c ? ' (' + c + ')' : '');
+    var t = textoCant(pedido.cant[claveProd(p)]);
+    return p.nombre + (t ? ' (' + t + ')' : '');
   }
 
   function guardar() { try { localStorage.setItem(KEY, JSON.stringify(pedido)); } catch (e) { /* nada */ } }
@@ -190,6 +210,7 @@
       if (el.length) l.push(c.emoji + ' ' + c.nombre + ': ' + el.join(', '));
     });
     if (pedido.otros.length) l.push('🛍️ Otros: ' + pedido.otros.join(', '));
+    if (pedido.productos.length || pedido.otros.length) l.push('💲 Productos sueltos: ¿me pasás el precio del día?');
     var total = totalConPrecio();
     if (total) l.push('💰 Bolsones y ofertas: ' + precio(total) + ' · Envío gratis 🛵');
     if (pedido.nota.trim()) l.push('📝 Aclaraciones: ' + pedido.nota.trim());
@@ -367,29 +388,35 @@
     verduras: 'assets/productos/verduras-y-frutas', frutas: 'assets/productos/frutas', pollo: 'assets/productos/pollo',
     rebozados: 'assets/productos/rebozados', pastas: 'assets/productos/pastas', huevos: 'assets/productos/huevos'
   };
-  function catDeFila(fila) {
-    var id = fila.closest('.categoria').getAttribute('data-cat');
-    return categorias.filter(function (c) { return c.id === id; })[0] || {};
+  function catDe(id) { return categorias.filter(function (c) { return c.id === id; })[0] || {}; }
+  function prodDe(key) { return productos.filter(function (p) { return claveProd(p) === key; })[0] || {}; }
+  function cantInicial(key) {
+    var p = prodDe(key), us = unidadesDe(catDe(p.categoria));
+    var u = p.unidad && us.indexOf(p.unidad) >= 0 ? p.unidad : us[0];
+    return { u: u, n: NUMS[0] };
   }
-  function cantidadesDe(c) { return c.cantidades || D.cantidades || ['1 kg', '2 kg', '3 kg']; }
+  var TXT_PRECIO = D.textoPrecio || 'Precio a consultar';
 
   var contCats = $('#categorias');
   contCats.innerHTML = categorias.map(function (c) {
     var prods = productos.filter(function (p) { return p.categoria === c.id; });
     if (!prods.length) return '';
+    var us = unidadesDe(c);
     var fila = function (p) {
       var key = esc(claveProd(p));
       return '<li class="prod" data-key="' + key + '" data-busca="' + esc(norm(p.nombre + ' ' + c.nombre)) + '">' +
         '<button type="button" class="prod-btn" aria-pressed="false">' +
-          '<span class="prod-nom">' + esc(capital(p.nombre)) + '</span>' +
+          '<span class="prod-nom">' + esc(capital(p.nombre)) + '<small class="prod-precio">' + esc(TXT_PRECIO) + '</small></span>' +
           '<span class="prod-cant-txt"></span>' +
           '<span class="chip-check">' + ico('plus') + '</span></button>' +
         '<div class="prod-cant" hidden>' +
-          '<span class="prod-cant-lbl">¿Cuánto?</span>' +
-          '<div class="cant-opts">' + cantidadesDe(c).map(function (q) {
-            return '<button type="button" class="cant" data-cant="' + esc(q) + '" aria-pressed="false">' + esc(q) + '</button>';
-          }).join('') + '<button type="button" class="cant" data-cant="__otra" aria-pressed="false">Otra</button></div>' +
-          '<input class="cant-input" type="text" placeholder="Escribí la cantidad: 500 g, 4 unidades…" aria-label="Cantidad de ' + esc(p.nombre) + '" hidden>' +
+          (us.length > 1 ? '<div class="unid" role="group" aria-label="Unidad">' + us.map(function (u) {
+            return '<button type="button" class="unid-btn" data-u="' + u + '" aria-pressed="false">' + esc((UNIDADES[u] || {}).boton || u) + '</button>';
+          }).join('') + '</div>' : '') +
+          '<div class="cant-opts" role="group" aria-label="Cantidad">' + NUMS.map(function (n) {
+            return '<button type="button" class="cant" data-n="' + n + '" aria-pressed="false"></button>';
+          }).join('') + '<button type="button" class="cant" data-n="otra" aria-pressed="false">Otra</button></div>' +
+          '<input class="cant-input" type="text" placeholder="Escribí la cantidad: 500 g, 1 atado, 6 unidades…" aria-label="Cantidad de ' + esc(p.nombre) + '" hidden>' +
         '</div></li>';
     };
     return '<section class="categoria" id="cat-' + c.id + '" data-cat="' + c.id + '">' +
@@ -434,29 +461,36 @@
     var fila = e.target.closest('.prod');
     if (!fila) return;
     var key = fila.getAttribute('data-key');
+    var c = pedido.cant[key] || cantInicial(key);
+    var ub = e.target.closest('.unid-btn');
+    if (ub) {
+      c.u = ub.getAttribute('data-u');
+      if (c.otra !== undefined) { delete c.otra; c.n = NUMS[0]; }
+      pedido.cant[key] = c;
+      actualizar(false);
+      return;
+    }
     var cb = e.target.closest('.cant');
     if (cb) {
-      var v = cb.getAttribute('data-cant');
-      var inp = $('.cant-input', fila);
-      if (v === '__otra') {
-        fila.classList.add('is-otra');
-        inp.hidden = false; inp.focus();
-        pedido.cant[key] = inp.value.trim();
+      var v = cb.getAttribute('data-n');
+      if (v === 'otra') {
+        c.otra = c.otra || '';
+        pedido.cant[key] = c;
+        actualizar(false);
+        $('.cant-input', fila).focus();
       } else {
-        fila.classList.remove('is-otra');
-        inp.hidden = true;
-        pedido.cant[key] = v;
+        delete c.otra; c.n = Number(v);
+        pedido.cant[key] = c;
+        actualizar(false);
       }
-      actualizar(false);
       return;
     }
     if (e.target.closest('.prod-btn')) {
       var idx = pedido.productos.indexOf(key);
-      if (idx >= 0) { pedido.productos.splice(idx, 1); delete pedido.cant[key]; fila.classList.remove('is-otra'); }
+      if (idx >= 0) { pedido.productos.splice(idx, 1); delete pedido.cant[key]; }
       else {
         pedido.productos.push(key);
-        var cat = catDeFila(fila);
-        if (!pedido.cant[key]) pedido.cant[key] = cantidadesDe(cat)[0];
+        if (!pedido.cant[key]) pedido.cant[key] = cantInicial(key);
         fila.classList.remove('pop'); void fila.offsetWidth; fila.classList.add('pop');
       }
       actualizar(idx < 0);
@@ -464,10 +498,12 @@
   });
   contCats.addEventListener('input', function (e) {
     if (!e.target.classList.contains('cant-input')) return;
-    var fila = e.target.closest('.prod');
-    pedido.cant[fila.getAttribute('data-key')] = e.target.value;
+    var fila = e.target.closest('.prod'), key = fila.getAttribute('data-key');
+    var c = pedido.cant[key] || cantInicial(key);
+    c.otra = e.target.value;
+    pedido.cant[key] = c;
     guardar(); refrescarLinks();
-    $('.prod-cant-txt', fila).textContent = e.target.value.trim();
+    $('.prod-cant-txt', fila).textContent = textoCant(c);
   });
 
   /* ---------- Buscador ---------- */
@@ -572,17 +608,20 @@
       }
       fila.classList.toggle('is-on', on);
       $('.prod-cant', fila).hidden = !on;
-      var c = on ? (pedido.cant[key] || '') : '';
-      var otra = on && (fila.classList.contains('is-otra') || (c && !$('.cant[data-cant="' + c.replace(/"/g, '') + '"]', fila)));
-      fila.classList.toggle('is-otra', !!otra);
+      var c = on ? (pedido.cant[key] || cantInicial(key)) : null;
+      var otra = !!(c && c.otra !== undefined);
+      fila.classList.toggle('is-otra', otra);
       var inp = $('.cant-input', fila);
       inp.hidden = !otra;
-      if (otra && document.activeElement !== inp) inp.value = c;
+      if (otra && document.activeElement !== inp) inp.value = c.otra;
+      $$('.unid-btn', fila).forEach(function (b) { b.setAttribute('aria-pressed', String(!!c && b.getAttribute('data-u') === c.u)); });
+      var u = UNIDADES[(c && c.u) || unidadesDe(catDe(fila.closest('.categoria').getAttribute('data-cat')))[0]] || {};
       $$('.cant', fila).forEach(function (b) {
-        var v = b.getAttribute('data-cant');
-        b.setAttribute('aria-pressed', String(v === '__otra' ? !!otra : (!otra && v === c)));
+        var v = b.getAttribute('data-n');
+        if (v !== 'otra') { var n = Number(v); b.textContent = u.formato ? u.formato.replace('{n}', n) : n + ' ' + (n === 1 ? u.uno : u.varios); }
+        b.setAttribute('aria-pressed', String(v === 'otra' ? otra : (!!c && !otra && Number(v) === c.n)));
       });
-      $('.prod-cant-txt', fila).textContent = c.trim();
+      $('.prod-cant-txt', fila).textContent = c ? textoCant(c) : '';
     });
     $$('.categoria', contCats).forEach(function (sec) {
       var id = sec.getAttribute('data-cat');

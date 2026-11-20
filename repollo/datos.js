@@ -208,17 +208,27 @@ window.REPOLLO = {
      emoji: se usa en el mensaje de WhatsApp. icono: el dibujo de la página.
      foto: se busca assets/productos/<id>.jpg para el resumen de arriba.  */
   categorias: [
-    { id: "verduras",  nombre: "Verduras",  emoji: "🥬", icono: "leafy-green" },
-    { id: "frutas",    nombre: "Frutas",    emoji: "🍎", icono: "apple" },
-    { id: "pollo",     nombre: "Pollo",     emoji: "🍗", icono: "drumstick" },
-    { id: "rebozados", nombre: "Rebozados", emoji: "🍤", icono: "chef-hat" },
-    { id: "pastas",    nombre: "Pastas",    emoji: "🍝", icono: "wheat" },
-    { id: "huevos",    nombre: "Huevos",    emoji: "🥚", icono: "egg", cantidades: ["x1", "x2", "x3"] }
+    { id: "verduras",  nombre: "Verduras",  emoji: "🥬", icono: "leafy-green", unidades: ["kg", "unidad"] },
+    { id: "frutas",    nombre: "Frutas",    emoji: "🍎", icono: "apple",       unidades: ["kg", "unidad"] },
+    { id: "pollo",     nombre: "Pollo",     emoji: "🍗", icono: "drumstick",   unidades: ["kg", "unidad"] },
+    { id: "rebozados", nombre: "Rebozados", emoji: "🍤", icono: "chef-hat",    unidades: ["kg", "unidad"] },
+    { id: "pastas",    nombre: "Pastas",    emoji: "🍝", icono: "wheat",       unidades: ["unidad", "kg"] },
+    { id: "huevos",    nombre: "Huevos",    emoji: "🥚", icono: "egg",         unidades: ["x"] }
   ],
 
-  // Cantidades que se ofrecen al elegir un producto (además de "Otra").
-  // Una categoría puede tener las suyas con  cantidades: [...]
-  cantidades: ["1 kg", "2 kg", "3 kg"],
+  // ---------- Cantidades ----------
+  // Al elegir un producto el cliente marca la unidad (kilos o unidades),
+  // la cantidad (1, 2, 3) o escribe otra ("Otra": 500 g, 1 atado…).
+  // Cada categoría dice qué unidades ofrece (la primera es la que viene marcada).
+  // Un producto puede arrancar en otra unidad con  unidad: "unidad".
+  cantidades: [1, 2, 3],
+  unidades: {
+    kg:     { boton: "Kilos",    uno: "kg",     varios: "kg" },
+    unidad: { boton: "Unidades", uno: "unidad", varios: "unidades" },
+    x:      { boton: "Cantidad", formato: "x{n}" }
+  },
+  // Texto que se muestra en los productos sueltos (no tienen precio fijo)
+  textoPrecio: "Precio a consultar",
 
   productos: [
     // 🥬 Verduras
@@ -226,22 +236,22 @@ window.REPOLLO = {
     { nombre: "batata",               emoji: "🍠", categoria: "verduras" },
     { nombre: "zanahoria",            emoji: "🥕", categoria: "verduras" },
     { nombre: "cebolla",              emoji: "🧅", categoria: "verduras" },
-    { nombre: "lechuga",              emoji: "🥬", categoria: "verduras" },
-    { nombre: "acelga",               emoji: "🥬", categoria: "verduras" },
-    { nombre: "espinaca",             emoji: "🍃", categoria: "verduras" },
-    { nombre: "repollo",              emoji: "🥬", categoria: "verduras" },
+    { nombre: "lechuga",              emoji: "🥬", categoria: "verduras", unidad: "unidad" },
+    { nombre: "acelga",               emoji: "🥬", categoria: "verduras", unidad: "unidad" },
+    { nombre: "espinaca",             emoji: "🍃", categoria: "verduras", unidad: "unidad" },
+    { nombre: "repollo",              emoji: "🥬", categoria: "verduras", unidad: "unidad" },
     { nombre: "tomate",               emoji: "🍅", categoria: "verduras" },
-    { nombre: "morrón (pimiento)",    emoji: "🫑", categoria: "verduras" },
+    { nombre: "morrón (pimiento)",    emoji: "🫑", categoria: "verduras", unidad: "unidad" },
     { nombre: "zapallito",            emoji: "🥒", categoria: "verduras" },
-    { nombre: "zapallo",              emoji: "🎃", categoria: "verduras" },
-    { nombre: "choclo",               emoji: "🌽", categoria: "verduras" },
-    { nombre: "brócoli",              emoji: "🥦", categoria: "verduras" },
-    { nombre: "pepino",               emoji: "🥒", categoria: "verduras" },
+    { nombre: "zapallo",              emoji: "🎃", categoria: "verduras", unidad: "unidad" },
+    { nombre: "choclo",               emoji: "🌽", categoria: "verduras", unidad: "unidad" },
+    { nombre: "brócoli",              emoji: "🥦", categoria: "verduras", unidad: "unidad" },
+    { nombre: "pepino",               emoji: "🥒", categoria: "verduras", unidad: "unidad" },
     { nombre: "remolacha",            emoji: "🟣", categoria: "verduras" },
-    { nombre: "ajo",                  emoji: "🧄", categoria: "verduras" },
-    { nombre: "berenjena",            emoji: "🍆", categoria: "verduras" },
-    { nombre: "perejil y aromáticas", emoji: "🌿", categoria: "verduras" },
-    { nombre: "coliflor",             emoji: "🥦", categoria: "verduras" },
+    { nombre: "ajo",                  emoji: "🧄", categoria: "verduras", unidad: "unidad" },
+    { nombre: "berenjena",            emoji: "🍆", categoria: "verduras", unidad: "unidad" },
+    { nombre: "perejil y aromáticas", emoji: "🌿", categoria: "verduras", unidad: "unidad" },
+    { nombre: "coliflor",             emoji: "🥦", categoria: "verduras", unidad: "unidad" },
 
     // 🍎 Frutas
     { nombre: "banana",    emoji: "🍌", categoria: "frutas" },
@@ -252,14 +262,14 @@ window.REPOLLO = {
     { nombre: "frutilla",  emoji: "🍓", categoria: "frutas" },
     { nombre: "mandarina", emoji: "🍊", categoria: "frutas" },
     { nombre: "uva",       emoji: "🍇", categoria: "frutas" },
-    { nombre: "ananá",     emoji: "🍍", categoria: "frutas" },
+    { nombre: "ananá",     emoji: "🍍", categoria: "frutas", unidad: "unidad" },
     { nombre: "kiwi",      emoji: "🥝", categoria: "frutas" },
-    { nombre: "mango",     emoji: "🥭", categoria: "frutas" },
-    { nombre: "palta",     emoji: "🥑", categoria: "frutas" },
-    { nombre: "arándanos", emoji: "🫐", categoria: "frutas" },
+    { nombre: "mango",     emoji: "🥭", categoria: "frutas", unidad: "unidad" },
+    { nombre: "palta",     emoji: "🥑", categoria: "frutas", unidad: "unidad" },
+    { nombre: "arándanos", emoji: "🫐", categoria: "frutas", unidad: "unidad" },
 
     // 🍗 Pollo
-    { nombre: "pollo entero",         emoji: "🐔", categoria: "pollo" },
+    { nombre: "pollo entero",         emoji: "🐔", categoria: "pollo", unidad: "unidad" },
     { nombre: "pechuga",              emoji: "🍗", categoria: "pollo" },
     { nombre: "pechuga deshuesada",   emoji: "🥩", categoria: "pollo" },
     { nombre: "patamuslo",            emoji: "🍗", categoria: "pollo" },
@@ -269,14 +279,14 @@ window.REPOLLO = {
     { nombre: "trozado",              emoji: "🔪", categoria: "pollo" },
     { nombre: "bife de pollo",        emoji: "🥩", categoria: "pollo" },
     { nombre: "menudo",               emoji: "🍲", categoria: "pollo" },
-    { nombre: "carcasa",              emoji: "🦴", categoria: "pollo" },
+    { nombre: "carcasa",              emoji: "🦴", categoria: "pollo", unidad: "unidad" },
     { nombre: "albóndigas",           emoji: "🧆", categoria: "pollo" },
-    { nombre: "hamburguesas caseras", emoji: "🍔", categoria: "pollo" },
+    { nombre: "hamburguesas caseras", emoji: "🍔", categoria: "pollo", unidad: "unidad" },
 
     // 🍤 Rebozados
-    { nombre: "medallón de pollo",                emoji: "🐔", categoria: "rebozados" },
-    { nombre: "medallón de pollo jamón y queso",  emoji: "🧀", categoria: "rebozados" },
-    { nombre: "medallones de merluza",            emoji: "🐟", categoria: "rebozados" },
+    { nombre: "medallón de pollo",                emoji: "🐔", categoria: "rebozados", unidad: "unidad" },
+    { nombre: "medallón de pollo jamón y queso",  emoji: "🧀", categoria: "rebozados", unidad: "unidad" },
+    { nombre: "medallones de merluza",            emoji: "🐟", categoria: "rebozados", unidad: "unidad" },
     { nombre: "patitas de pollo",                 emoji: "🍗", categoria: "rebozados" },
     { nombre: "patitas de jamón y queso",         emoji: "🧀", categoria: "rebozados" },
     { nombre: "filet de merluza rebozada",        emoji: "🐠", categoria: "rebozados" },
@@ -293,6 +303,6 @@ window.REPOLLO = {
     // 🥚 Huevos
     { nombre: "media docena", emoji: "🥚", categoria: "huevos" },
     { nombre: "docena",       emoji: "🥚", categoria: "huevos" },
-    { nombre: "maple (30)",   emoji: "🥚", categoria: "huevos" }
+    { nombre: "maple de 30",  emoji: "🥚", categoria: "huevos" }
   ]
 };
