@@ -122,7 +122,7 @@
 
   // Fotos generales
   var fotos = {
-    atencion: { alt: 'Chico de Repollo tomando un pedido en el puesto', icono: 'heart' },
+    portada: { alt: 'Chico de Repollo sonriendo con un pedido listo en la mano', icono: 'heart' },
     local: { alt: 'Frente del puesto de Repollo en La Calera', icono: 'store' },
     equipo: { alt: 'El equipo de Repollo saludando detrás del mostrador', icono: 'heart' }
   };
@@ -130,7 +130,7 @@
     var k = el.getAttribute('data-media');
     el.innerHTML = mediaHTML({
       foto: (D.imagenes || {})[k], alt: fotos[k].alt, icono: fotos[k].icono,
-      eager: k === 'atencion', sizes: k === 'atencion' ? '(min-width: 900px) 520px, 100vw' : '(min-width: 900px) 560px, 100vw'
+      eager: k === 'portada', sizes: k === 'portada' ? '(min-width: 900px) 520px, 100vw' : '(min-width: 900px) 560px, 100vw'
     });
   });
 
@@ -275,7 +275,7 @@
 
   /* ---------- Lo que vendemos ---------- */
   var resumen = [
-    { id: 'verduras', txt: 'Verduras y frutas', icono: 'leafy-green', foto: 'assets/productos/verduras-y-frutas' },
+    { id: 'verduras', txt: 'Verduras y frutas', icono: 'leafy-green', foto: 'assets/bolsones/verduras' },
     { id: 'pollo', txt: 'Pollo', icono: 'drumstick', foto: 'assets/productos/pollo' },
     { id: 'rebozados', txt: 'Rebozados', icono: 'chef-hat', foto: 'assets/productos/rebozados' },
     { id: 'pastas', txt: 'Pastas', icono: 'wheat', foto: 'assets/productos/pastas' },
@@ -321,17 +321,46 @@
     reiniciar();
   })();
 
-  /* ---------- Galería ---------- */
-  var galeria = D.galeria || [];
-  if (galeria.length) {
-    $('#galeria').innerHTML = galeria.map(function (g) {
-      return '<li class="galeria-item">' +
-        mediaHTML({ foto: g.foto, alt: g.texto, icono: 'camera', sizes: '(min-width: 900px) 280px, 66vw' }) +
-        '<p>' + esc(g.texto) + '</p></li>';
-    }).join('');
-  } else {
-    $('.galeria-wrap').hidden = true;
-  }
+  /* ---------- Video ---------- */
+  (function () {
+    var v = D.video, marco = $('#video-marco');
+    if (!v || !v.archivo) { $('#video-wrap').hidden = true; return; }
+    function placeholder() {
+      marco.classList.add('sin-video');
+      marco.innerHTML = '<div class="video-ph"><span class="video-play">' + ico('send') + '</span>' +
+        '<b>' + esc(v.titulo || 'Video') + '</b><small>Muy pronto</small></div>';
+    }
+    var vid = document.createElement('video');
+    vid.muted = true; vid.loop = true; vid.playsInline = true; vid.preload = 'none';
+    vid.setAttribute('muted', ''); vid.setAttribute('playsinline', '');
+    if (v.poster) vid.poster = v.poster;
+    vid.setAttribute('aria-label', v.titulo || 'Video de Repollo');
+    var sonido = document.createElement('button');
+    sonido.type = 'button'; sonido.className = 'video-sonido'; sonido.textContent = 'Activar sonido';
+    sonido.addEventListener('click', function () {
+      vid.muted = !vid.muted; sonido.textContent = vid.muted ? 'Activar sonido' : 'Silenciar';
+      if (vid.paused) vid.play().catch(function () {});
+    });
+    vid.addEventListener('error', placeholder, true);
+    var src = document.createElement('source');
+    src.src = v.archivo; src.type = 'video/mp4';
+    src.addEventListener('error', placeholder);
+    vid.appendChild(src);
+    marco.appendChild(vid);
+    marco.appendChild(sonido);
+    if (v.titulo) { var t = document.createElement('p'); t.className = 'video-tit'; t.textContent = v.titulo; marco.appendChild(t); }
+    // Carga y reproduce solo cuando se ve en pantalla
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (ents) {
+        ents.forEach(function (en) {
+          if (en.isIntersecting) {
+            if (vid.preload !== 'auto') { vid.preload = 'auto'; vid.load(); }
+            if (!reduceMotion) vid.play().catch(function () {});
+          } else if (!vid.paused) vid.pause();
+        });
+      }, { threshold: 0.35 }).observe(marco);
+    } else { vid.preload = 'auto'; vid.controls = true; }
+  })();
 
   /* ---------- Catálogo (categorías plegables + cantidad) ---------- */
   var FOTO_CAT = {

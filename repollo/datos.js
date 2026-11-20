@@ -46,16 +46,15 @@ window.REPOLLO = {
      Para cambiar una foto, reemplazá el archivo en assets/ con el mismo nombre.
      Si un archivo no está, se muestra una composición con emojis.        */
   imagenes: {
-    logo: "assets/logo.png",       // logo con fondo transparente
-    atencion: "assets/atencion.jpg", // presentación (arriba de todo)
-    local: "assets/local.jpg",     // galería
-    equipo: "assets/equipo.jpg"    // cierre de la página (foto del equipo)
+    logo: "assets/logo.png",             // logo con fondo transparente
+    portada: "assets/nosotros/bolsa.jpg", // foto principal (arriba de todo)
+    local: "assets/local.jpg"
   },
 
   /* ---------- Carrusel de "¿Por qué nos eligen?" ----------
      Se muestran en este orden y pasan solas. Sumá o sacá fotos acá.   */
   nosotros: [
-    { foto: "assets/nosotros/bolsa.jpg",      texto: "Tu pedido, listo para salir" },
+    { foto: "assets/atencion.jpg",            texto: "Te acompañamos a hacer tu pedido" },
     { foto: "assets/nosotros/1-pregunta.jpg", alt: "¿Por qué cada vez más vecinos eligen comprar en Repollo?" },
     { foto: "assets/nosotros/2-fresca.jpg",   alt: "Porque siempre encuentran mercadería fresca." },
     { foto: "assets/nosotros/3-vecino.jpg",   alt: "Porque acá te atendemos como un vecino." },
@@ -63,14 +62,14 @@ window.REPOLLO = {
     { foto: "assets/nosotros/5-gracias.jpg",  alt: "Gracias por elegir a Repollo." }
   ],
 
-  /* ---------- Galería "Fresquito del día" ----------
-     Fotos que se muestran en "Quiénes somos". Podés sumar o sacar.        */
-  galeria: [
-    { foto: "assets/local.jpg",              texto: "Nuestro puesto en La Calera" },
-    { foto: "assets/galeria/milanesas.jpg",  texto: "Milanesas y pollo fresquito" },
-    { foto: "assets/galeria/albondigas.jpg", texto: "Albóndigas caseras con verduras" },
-    { foto: "assets/galeria/medallones.jpg", texto: "Medallones listos para el horno" }
-  ],
+  /* ---------- Video ----------
+     Copiá el video en assets/video/ con este nombre (.mp4).
+     poster: imagen que se ve mientras carga (opcional).            */
+  video: {
+    archivo: "assets/video/repollo.mp4",
+    poster: "",
+    titulo: "Así trabajamos en Repollo"
+  },
 
   /* ---------- BOLSONES ----------
      Se muestran en este orden. El que tenga destacado: true es la
