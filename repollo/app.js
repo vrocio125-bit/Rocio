@@ -1022,6 +1022,19 @@
     }, { rootMargin: '-80px 0px 0px 0px' }).observe(centinela);
   })();
 
+  /* ---------- Jesús (botón flotante de WhatsApp) ---------- */
+  (function () {
+    var j = $('#jesus'), cerrar = $('#jesus-cerrar');
+    if (!j) return;
+    var cerrado = false;
+    try { cerrado = sessionStorage.getItem('repollo-jesus') === '1'; } catch (e) {}
+    if (!cerrado) setTimeout(function () { j.classList.add('con-globo'); }, 1200);
+    cerrar.addEventListener('click', function () {
+      j.classList.remove('con-globo');
+      try { sessionStorage.setItem('repollo-jesus', '1'); } catch (e) {}
+    });
+  })();
+
   /* ---------- Barra superior: transparente sobre la portada ---------- */
   var topbar = $('#topbar');
   function revisarTopbar() { topbar.classList.toggle('is-scrolled', window.scrollY > 40); }

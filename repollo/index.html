@@ -59,10 +59,6 @@
       <div class="wrap hero-grid">
         <div class="hero-txt">
           <h1>¿Qué pedimos <em>hoy?</em></h1>
-          <div class="avatar-fila" aria-hidden="true">
-            <img class="avatar-cara" src="assets/avatar-cara.webp" alt="" width="64" height="64">
-            <span class="globo globo-hola">¡Hola, soy Jesús! 👋<small>Elegí y yo te lo llevo</small></span>
-          </div>
           <nav class="accesos" aria-label="Ir directo a">
             <div class="accesos-lista" id="accesos"></div>
           </nav>
@@ -74,7 +70,6 @@
 
         <div class="hero-avatar" aria-hidden="true">
           <img src="assets/avatar.webp" alt="" width="640" height="746" fetchpriority="high">
-          <span class="globo globo-grande globo-hola">¡Hola, soy Jesús! 👋<small>Elegí y yo te lo llevo</small></span>
         </div>
       </div>
     </section>
@@ -258,9 +253,17 @@
   </footer>
 
   <!-- 10. Botón flotante de WhatsApp -->
-  <a class="wa-flotante" id="wa-flotante" data-wa="hola" href="#" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
-    <svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg>
-  </a>
+  <div class="jesus" id="jesus">
+    <div class="jesus-globo" id="jesus-globo" role="status">
+      <button type="button" class="jesus-cerrar" id="jesus-cerrar" aria-label="Cerrar mensaje"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button>
+      <b>¡Hola, soy Jesús! 👋</b>
+      <span>Elegí y yo te lo llevo</span>
+    </div>
+    <a class="wa-flotante" id="wa-flotante" data-wa="hola" href="#" target="_blank" rel="noopener" aria-label="Escribile a Jesús por WhatsApp">
+      <img src="assets/avatar-cara.webp" alt="" width="64" height="64">
+      <span class="wa-badge"><svg class="ico ico-fill" aria-hidden="true"><use href="#i-wa"/></svg></span>
+    </a>
+  </div>
 
   <!-- Barra de pedido -->
   <div class="barra-pedido" id="barra-pedido" aria-hidden="true">
