@@ -145,7 +145,7 @@
 
   /* ---------- Estado del pedido ---------- */
   var KEY = 'repollo-pedido-v1';
-  var pedido = { bolsones: {}, ofertas: {}, productos: [], cant: {}, otros: [], nota: '', nombre: '', direccion: '' };
+  var pedido = { bolsones: {}, ofertas: {}, productos: [], cant: {}, otros: [], nota: '', nombre: '', direccion: '', pago: '', abono: '', pagoJusto: false };
   try {
     var guardado = JSON.parse(localStorage.getItem(KEY) || 'null');
     if (guardado) for (var k in pedido) if (guardado[k] !== undefined) pedido[k] = guardado[k];
@@ -235,15 +235,39 @@
     return '• ' + capital(p.nombre) + (t ? ' · ' + t : '') +
       (pr ? ' — ' + precio(pr) : (todoAConsultar ? '' : ' — a consultar'));
   }
+  var PAGOS = D.pagos || {};
+  var RECARGO_CRED = PAGOS.recargoCredito || 0;
+  var PAGO_TXT = { efectivo: 'Efectivo', transferencia: 'Transferencia', debito: 'Débito', credito: 'Tarjeta de crédito' };
+  function conRecargo(t) { return Math.round(t * (1 + RECARGO_CRED / 100)); }
+  function soloNumero(v) { return String(v || '').replace(/[^0-9]/g, ''); }
+  function lineaPago() {
+    if (!pedido.pago) return null;
+    var t = '• ' + PAGO_TXT[pedido.pago];
+    if (pedido.pago === 'efectivo') {
+      var m = soloNumero(pedido.abono);
+      if (pedido.pagoJusto) t += ' — pago justo';
+      else if (m) t += ' — abono con ' + precio(Number(m));
+    }
+    if (pedido.pago === 'transferencia') t += ' — pasame el alias, por favor';
+    if (pedido.pago === 'credito' && RECARGO_CRED) t += ' (+' + RECARGO_CRED + '% de recargo)';
+    return t;
+  }
   function cierreMensaje(l, total, faltan, final) {
     l.push('', SEP);
-    if (total) {
-      l.push('💰 *Total estimado: ' + precio(total) + '*');
-      if (faltan) l.push('➕ Falta sumar lo que tiene precio a consultar');
+    var cred = pedido.pago === 'credito' && RECARGO_CRED;
+    var etq = faltan ? 'Total estimado' : 'Total';
+    if (total && cred) {
+      l.push('💰 *' + etq + ' con crédito: ' + precio(conRecargo(total)) + '*');
+      l.push('(' + precio(total) + ' + ' + RECARGO_CRED + '% de recargo)');
+    } else if (total) {
+      l.push('💰 *' + etq + ': ' + precio(total) + '*');
     } else {
       l.push('💲 Precios a consultar');
     }
+    if (total && faltan) l.push('➕ Falta sumar lo que tiene precio a consultar');
     l.push('🛵 Envío gratis');
+    var lp = lineaPago();
+    if (lp) l.push('', '💳 *PAGO*', lp);
     var extra = [];
     if (pedido.direccion.trim()) extra.push('📍 Dirección: ' + pedido.direccion.trim());
     if (pedido.nombre.trim()) extra.push('🙋 Nombre: ' + pedido.nombre.trim());
@@ -271,10 +295,8 @@
     return cierreMensaje(l, totalConPrecio(), sinPrecio() > 0, '¿Me confirmás el total y el horario de entrega? ¡Gracias! 😊');
   }
   function mensajeUno(item) {
-    var l = ['🛒 *NUEVO PEDIDO · REPOLLO*', '', '🧺 *BOLSONES Y OFERTAS*', lineaPack(item, 1), '', SEP,
-      '💰 *Total: ' + precio(item.precio) + '*', '🛵 Envío gratis', '',
-      '¿Me confirmás el horario de entrega? ¡Gracias! 😊'];
-    return l.join('\n');
+    var l = ['🛒 *NUEVO PEDIDO · REPOLLO*', '', '🧺 *BOLSONES Y OFERTAS*', lineaPack(item, 1)];
+    return cierreMensaje(l, item.precio, false, '¿Me confirmás el horario de entrega? ¡Gracias! 😊');
   }
 
   /* ---------- Tarjetas de bolsones y ofertas ---------- */
@@ -326,7 +348,7 @@
           '<span class="tag-envio">' + ico('truck') + 'Envío gratis</span>' +
         '</div>' +
         '<div class="acciones">' +
-          '<a class="btn btn-rojo btn-lg" href="' + waLink(mensajeUno(item)) + '" target="_blank" rel="noopener">' +
+          '<a class="btn btn-rojo btn-lg pedir-uno" data-tipo="' + tipo + '" data-id="' + esc(item.id) + '" href="' + waLink(mensajeUno(item)) + '" target="_blank" rel="noopener">' +
             'Pedir ahora<span class="btn-ico">' + ico('arrow-right') + '</span></a>' +
           '<button type="button" class="btn btn-claro btn-lg" data-sumar="' + tipo + '" data-id="' + esc(item.id) + '">' +
             ico('plus') + (esBolson ? 'Sumarle productos' : 'Sumar al pedido') + '</button>' +
@@ -606,7 +628,23 @@
       setTimeout(function () { $('#pedido').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' }); }, 350);
       return;
     }
-    if (e.target.closest('[data-abrir-pedido]')) { abrirPanel(); return; }
+    var uno = e.target.closest('.pedir-uno');
+    if (uno) {
+      e.preventDefault();
+      var lista = uno.getAttribute('data-tipo') === 'bolson' ? bolsones : ofertas;
+      modoUno = lista.filter(function (x) { return x.id === uno.getAttribute('data-id'); })[0] || null;
+      abrirPanel();
+      return;
+    }
+    var env = e.target.closest('#barra-enviar, #panel-enviar');
+    if (env && !datosOk()) {
+      e.preventDefault();
+      if (!panel.open) { modoUno = null; abrirPanel(); }
+      validar();
+      return;
+    }
+    if (env) setTimeout(cerrarPanel, 400);
+    if (e.target.closest('[data-abrir-pedido]')) { modoUno = null; abrirPanel(); return; }
     if (e.target.closest('[data-cerrar-panel]')) cerrarPanel();
   });
 
@@ -632,11 +670,32 @@
     return partes.join(' · ');
   }
 
+  var modoUno = null;   // bolsón u oferta pedido con "Pedir ahora"
+  function datosOk() { return !!(pedido.nombre.trim() && pedido.direccion.trim()); }
+  function validar() {
+    var faltan = [];
+    [['p-nombre', pedido.nombre, 'Escribí tu nombre'], ['p-dir', pedido.direccion, 'Escribí la dirección de entrega']].forEach(function (f) {
+      var inp = document.getElementById(f[0]);
+      if (!inp) return;
+      var err = document.getElementById(f[0] + '-err');
+      var mal = !String(f[1]).trim();
+      inp.classList.toggle('con-error', mal);
+      inp.setAttribute('aria-invalid', mal ? 'true' : 'false');
+      if (err) err.textContent = mal ? f[2] : '';
+      if (mal) faltan.push(inp);
+    });
+    if (faltan.length) {
+      faltan[0].scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
+      faltan[0].focus({ preventScroll: true });
+      toast('Completá tu nombre y dirección para enviar el pedido');
+    }
+    return !faltan.length;
+  }
   function refrescarLinks() {
-    var url = waLink(mensajePedido());
-    $('#barra-enviar').href = url;
-    $('#panel-enviar').href = url;
-    var pre = $('#p-pre'); if (pre) pre.textContent = mensajePedido();
+    var msg = modoUno ? mensajeUno(modoUno) : mensajePedido();
+    $('#barra-enviar').href = waLink(mensajePedido());
+    $('#panel-enviar').href = waLink(msg);
+    var pre = $('#p-pre'); if (pre) pre.textContent = msg;
   }
 
   function actualizar(animar) {
@@ -695,8 +754,49 @@
     if (panel.open) pintarPanel();
   }
 
+  function camposHTML(total) {
+    var h = '<div class="p-seccion"><h3>' + ico('map-pin') + 'Tus datos</h3><div class="p-campos">' +
+      '<div><label for="p-nombre">Nombre <small>(obligatorio)</small></label>' +
+      '<input id="p-nombre" autocomplete="name" required aria-required="true" aria-describedby="p-nombre-err" value="' + esc(pedido.nombre) + '">' +
+      '<span class="p-err" id="p-nombre-err" aria-live="polite"></span></div>' +
+      '<div><label for="p-dir">Dirección de entrega <small>(obligatorio)</small></label>' +
+      '<input id="p-dir" autocomplete="street-address" required aria-required="true" aria-describedby="p-dir-err" placeholder="Calle, número y barrio" value="' + esc(pedido.direccion) + '">' +
+      '<span class="p-err" id="p-dir-err" aria-live="polite"></span></div>' +
+      '</div></div>';
+    h += '<div class="p-seccion"><h3>' + ico('receipt') + '¿Cómo pagás?</h3><div class="pago-opts" role="group" aria-label="Forma de pago">' +
+      ['efectivo', 'transferencia', 'debito', 'credito'].map(function (k) {
+        return '<button type="button" class="pago-btn" data-pago="' + k + '" aria-pressed="' + (pedido.pago === k) + '">' +
+          (k === 'credito' ? 'Crédito' : PAGO_TXT[k]) + '</button>';
+      }).join('') + '</div>';
+    if (pedido.pago === 'efectivo') {
+      h += '<div class="pago-efectivo"><label for="p-abono">¿Con cuánto abonás?</label><div class="pago-fila">' +
+        '<input id="p-abono" inputmode="numeric" placeholder="Ej: 20000" value="' + esc(pedido.abono) + '"' + (pedido.pagoJusto ? ' disabled' : '') + '>' +
+        '<button type="button" class="pago-btn pago-justo" aria-pressed="' + !!pedido.pagoJusto + '">Pago justo</button></div></div>';
+    }
+    if (pedido.pago === 'credito' && RECARGO_CRED) {
+      h += '<p class="pago-nota">Con crédito hay un ' + RECARGO_CRED + '% de recargo' + (total ? ': el total queda en <b>' + precio(conRecargo(total)) + '</b>.' : '.') + '</p>';
+    }
+    if (pedido.pago === 'debito') h += '<p class="pago-nota">Débito sin recargo. Pagás con posnet al recibir.</p>';
+    if (pedido.pago === 'transferencia') h += '<p class="pago-nota">' + esc(PAGOS.textoTransferencia || 'Te pasamos el alias por WhatsApp.') + '</p>';
+    h += '</div>';
+    h += '<div class="p-campos"><div><label for="p-nota">¿Alguna aclaración? <small>(opcional)</small></label>' +
+      '<textarea id="p-nota" placeholder="Ej: tocar timbre, bananas no tan maduras…">' + esc(pedido.nota) + '</textarea></div></div>';
+    return h;
+  }
+
   function pintarPanel() {
     var n = cantidadTotal();
+    $('#t-panel').innerHTML = modoUno ? 'Pedir <em>ahora</em>' : 'Tu <em>pedido</em>';
+    if (modoUno) {
+      $('#panel-foot').hidden = false;
+      panelBody.innerHTML = '<div class="p-grupo"><h3>' + ico('shopping-basket') + 'Vas a pedir</h3>' +
+        '<div class="p-item"><span class="p-item-txt"><b>' + esc(modoUno.nombre) + '</b><small>Envío gratis</small></span>' +
+        '<span class="precio p-uno-precio">' + precio(modoUno.precio) + '</span></div></div>' +
+        camposHTML(modoUno.precio) +
+        '<details class="p-preview"><summary>Ver cómo le llega el mensaje a Repollo</summary><pre id="p-pre"></pre></details>';
+      $('#p-pre').textContent = mensajeUno(modoUno);
+      return;
+    }
     $('#panel-foot').hidden = !n;
     if (!n) {
       panelBody.innerHTML = '<div class="p-vacio"><span class="ph-ico">' + ico('shopping-basket') + '</span>' +
@@ -734,19 +834,13 @@
     var total = totalConPrecio();
     var faltanN = sinPrecio();
     if (total) {
-      h += '<div class="p-total"><span>Total estimado</span><span class="precio">' + precio(total) + '</span>' +
+      var cred = pedido.pago === 'credito' && RECARGO_CRED;
+      h += '<div class="p-total"><span>' + (faltanN ? 'Total estimado' : 'Total') + (cred ? ' con crédito' : '') + '</span><span class="precio">' + precio(cred ? conRecargo(total) : total) + '</span>' +
         '<small>' + (faltanN ? 'Más ' + plural(faltanN, 'producto', 'productos') + ' con precio a consultar: te pasamos el total final por WhatsApp. ' : '') + 'Envío gratis.</small></div>';
     } else {
       h += '<div class="p-total"><span>Envío gratis</span><small>Te respondemos con los precios del día y el total.</small></div>';
     }
-    h += '<div class="p-campos">' +
-      '<div><label for="p-nota">¿Alguna aclaración? <small>(opcional)</small></label>' +
-      '<textarea id="p-nota" placeholder="Ej: 2 kg de papa, bananas no tan maduras…">' + esc(pedido.nota) + '</textarea></div>' +
-      '<div><label for="p-nombre">Tu nombre <small>(opcional)</small></label>' +
-      '<input id="p-nombre" autocomplete="name" value="' + esc(pedido.nombre) + '"></div>' +
-      '<div><label for="p-dir">Dirección de entrega <small>(opcional)</small></label>' +
-      '<input id="p-dir" autocomplete="street-address" value="' + esc(pedido.direccion) + '"></div>' +
-      '</div>' +
+    h += camposHTML(total) +
       '<details class="p-preview"><summary>Ver cómo le llega el mensaje a Repollo</summary><pre id="p-pre"></pre></details>' +
       '<button type="button" class="p-vaciar" id="p-vaciar">Vaciar pedido</button>';
     panelBody.innerHTML = h;
@@ -754,6 +848,21 @@
   }
 
   panelBody.addEventListener('click', function (e) {
+    var pb = e.target.closest('[data-pago]');
+    if (pb) {
+      var k = pb.getAttribute('data-pago');
+      pedido.pago = pedido.pago === k ? '' : k;
+      guardar(); pintarPanel(); refrescarLinks();
+      var nuevo = $('[data-pago="' + k + '"]', panelBody); if (nuevo) nuevo.focus();
+      if (pedido.pago === 'efectivo' && !pedido.pagoJusto) { var ab = $('#p-abono'); if (ab) ab.focus(); }
+      return;
+    }
+    if (e.target.closest('.pago-justo')) {
+      pedido.pagoJusto = !pedido.pagoJusto;
+      guardar(); pintarPanel(); refrescarLinks();
+      var pj = $('.pago-justo', panelBody); if (pj) pj.focus();
+      return;
+    }
     var paso = e.target.closest('[data-paso]');
     if (paso) {
       var g = paso.getAttribute('data-t') === 'bolson' ? pedido.bolsones : pedido.ofertas;
@@ -806,13 +915,19 @@
     if (id === 'p-nota') pedido.nota = e.target.value;
     else if (id === 'p-nombre') pedido.nombre = e.target.value;
     else if (id === 'p-dir') pedido.direccion = e.target.value;
+    else if (id === 'p-abono') pedido.abono = e.target.value;
     else return;
+    if ((id === 'p-nombre' || id === 'p-dir') && e.target.value.trim()) {
+      e.target.classList.remove('con-error'); e.target.setAttribute('aria-invalid', 'false');
+      var er = document.getElementById(id + '-err'); if (er) er.textContent = '';
+    }
     guardar();
     refrescarLinks();
   });
 
   function abrirPanel() {
     pintarPanel();
+    refrescarLinks();
     if (typeof panel.showModal === 'function') panel.showModal();
     else panel.setAttribute('open', '');
     document.documentElement.style.overflow = 'hidden';
@@ -820,7 +935,7 @@
   function cerrarPanel() {
     if (panel.open) { if (typeof panel.close === 'function') panel.close(); else panel.removeAttribute('open'); }
   }
-  panel.addEventListener('close', function () { document.documentElement.style.overflow = ''; });
+  panel.addEventListener('close', function () { document.documentElement.style.overflow = ''; modoUno = null; refrescarLinks(); });
   panel.addEventListener('click', function (e) { if (e.target === panel) cerrarPanel(); });
 
   /* ---------- Carrusel ---------- */

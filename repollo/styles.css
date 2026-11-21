@@ -852,3 +852,30 @@ body.has-order .barra-pedido { transform: none; pointer-events: auto; }
 .cinta-amarillo { background: var(--amarillo); color: var(--verde-osc); }
 .bolson-card.is-star .cinta-bolson { font-size: 1rem; width: 230px; right: -56px; top: 30px; }
 .cinta-bolson { width: 230px; right: -60px; top: 30px; font-size: .85rem; } .cant-opts .cant { min-width: 56px; padding: 0 12px; }
+
+/* ---------- Panel: datos y forma de pago ---------- */
+.p-seccion { margin-bottom: 16px; padding: 16px; border-radius: var(--r-md); background: var(--crema); }
+.p-seccion h3 { display: flex; align-items: center; gap: 8px; font-size: .76rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 12px; color: var(--texto-suave); }
+.p-seccion h3 .ico { width: 16px; height: 16px; color: var(--verde); }
+.p-seccion .p-campos { margin-bottom: 0; }
+.p-seccion .p-campos input { background: #fff; }
+.p-campos input.con-error { box-shadow: 0 0 0 2px var(--rojo); background: #FFF6F4; }
+.p-err { display: block; min-height: 0; margin-top: 4px; color: var(--rojo-osc); font-size: .82rem; font-weight: 600; }
+.p-err:empty { display: none; }
+.pago-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.pago-btn {
+  min-height: 48px; padding: 0 12px; border: 0; border-radius: 999px; cursor: pointer;
+  background: #fff; color: var(--verde-osc); font-weight: 600; font-size: .95rem;
+  box-shadow: 0 0 0 1px rgba(14, 42, 23, .15); transition: background-color .2s, color .2s, box-shadow .2s;
+}
+.pago-btn[aria-pressed="true"] { background: var(--verde); color: #fff; box-shadow: 0 0 0 1px var(--verde), 0 0 16px -4px rgba(47, 200, 100, .6); }
+.pago-efectivo { margin-top: 12px; }
+.pago-efectivo label { display: block; font-weight: 700; font-size: .9rem; margin-bottom: 6px; }
+.pago-fila { display: flex; gap: 8px; }
+.pago-fila input { flex: 1; min-width: 0; min-height: 48px; padding: 10px 14px; font: inherit; border: 0; border-radius: var(--r-sm); background: #fff; box-shadow: inset 0 0 0 1px var(--linea); }
+.pago-fila input:focus { outline: none; box-shadow: 0 0 0 2px var(--verde); }
+.pago-fila input:disabled { opacity: .5; }
+.pago-fila .pago-btn { flex: none; }
+.pago-nota { margin: 10px 0 0; font-size: .86rem; color: var(--texto-suave); }
+.pago-nota b { color: var(--rojo-osc); }
+.p-uno-precio { font-size: 1.5rem; }

@@ -32,6 +32,13 @@ window.REPOLLO = {
     mapa: "Saúl Moyano y General Cabrera, La Calera, Córdoba, Argentina"
   },
 
+  /* ---------- Formas de pago ---------- */
+  pagos: {
+    recargoCredito: 10,   // % de recargo con tarjeta de crédito (débito sin recargo)
+    // Se muestra cuando el cliente elige transferencia
+    textoTransferencia: "Te pasamos el alias por WhatsApp cuando confirmemos el total."
+  },
+
   /* ---------- Envío ---------- */
   envio: {
     gratis: true,
