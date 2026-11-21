@@ -122,7 +122,6 @@
 
   // Fotos generales
   var fotos = {
-    portada: { alt: 'Chico de Repollo sonriendo con un pedido listo en la mano', icono: 'heart' },
     local: { alt: 'Frente del puesto de Repollo en La Calera', icono: 'store' },
     equipo: { alt: 'El equipo de Repollo saludando detrás del mostrador', icono: 'heart' }
   };
@@ -130,7 +129,7 @@
     var k = el.getAttribute('data-media');
     el.innerHTML = mediaHTML({
       foto: (D.imagenes || {})[k], alt: fotos[k].alt, icono: fotos[k].icono,
-      eager: k === 'portada', sizes: k === 'portada' ? '(min-width: 900px) 520px, 100vw' : '(min-width: 900px) 560px, 100vw'
+      eager: false, sizes: false ? '(min-width: 900px) 520px, 100vw' : '(min-width: 900px) 560px, 100vw'
     });
   });
 

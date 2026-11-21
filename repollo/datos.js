@@ -54,7 +54,6 @@ window.REPOLLO = {
      Si un archivo no está, se muestra una composición con emojis.        */
   imagenes: {
     logo: "assets/logo.png",             // logo con fondo transparente
-    portada: "assets/nosotros/bolsa.jpg", // foto principal (arriba de todo)
     local: "assets/local.jpg"
   },
 
@@ -62,6 +61,7 @@ window.REPOLLO = {
      Se muestran en este orden y pasan solas. Sumá o sacá fotos acá.   */
   nosotros: [
     { foto: "assets/atencion.jpg",            texto: "Te acompañamos a hacer tu pedido" },
+    { foto: "assets/nosotros/bolsa.jpg",      texto: "Tu pedido, listo para salir" },
     { foto: "assets/nosotros/1-pregunta.jpg", alt: "¿Por qué cada vez más vecinos eligen comprar en Repollo?" },
     { foto: "assets/nosotros/2-fresca.jpg",   alt: "Porque siempre encuentran mercadería fresca." },
     { foto: "assets/nosotros/3-vecino.jpg",   alt: "Porque acá te atendemos como un vecino." },
