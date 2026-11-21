@@ -540,8 +540,27 @@
     var a = e.target.closest('[data-nav]');
     if (a) abrirCat(document.getElementById('cat-' + a.getAttribute('data-nav')), true);
   });
+  // Bolsones chicos en la portada
+  $('#mini-bolsones').innerHTML = bolsones.map(function (b) {
+    return '<a class="mini" href="#bolson-' + esc(b.id) + '" data-mini="' + esc(b.id) + '">' +
+      mediaHTML({ foto: b.foto || ('assets/bolsones/' + b.id), alt: b.nombre, icono: 'shopping-basket', eager: true, sizes: '150px' }) +
+      (b.descuento ? '<span class="mini-desc">-' + b.descuento + '%</span>' : '') +
+      '<span class="mini-txt"><b>' + esc(b.nombre.replace(/^Bolsón (de )?/, '')) + '</b><span>' + precio(b.precio) + '</span></span></a>';
+  }).join('');
+  $('#mini-bolsones').addEventListener('click', function (e) {
+    var a = e.target.closest('[data-mini]');
+    if (!a) return;
+    var card = document.getElementById('bolson-' + a.getAttribute('data-mini'));
+    if (card && card.parentNode.id === 'carrusel') {
+      e.preventDefault();
+      var car = card.parentNode;
+      car.scrollTo({ left: card.offsetLeft - car.offsetLeft - 20, behavior: 'auto' });
+      car.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+    }
+  });
+
   // Accesos rápidos de la portada
-  $('#accesos').innerHTML = '<a class="acceso acceso-bolsones" href="#bolsones">' + ico('shopping-basket') + 'Bolsones</a>' +
+  $('#accesos').innerHTML =
     categorias.filter(function (c) { return productos.some(function (p) { return p.categoria === c.id; }); }).map(function (c) {
       return '<a class="acceso" href="#cat-' + c.id + '" data-acceso="' + c.id + '">' + ico(c.icono || 'leaf') + esc(c.nombre) + '</a>';
     }).join('') +

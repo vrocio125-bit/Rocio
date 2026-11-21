@@ -972,3 +972,41 @@ body.has-order .barra-pedido { transform: none; pointer-events: auto; }
   .hero-avatar::before { content: ""; position: absolute; z-index: -1; inset: 18% 6% 0; border-radius: 50%; background: radial-gradient(circle, rgba(255, 201, 40, .55), rgba(255, 201, 40, 0) 70%); }
   .globo-grande { position: absolute; top: 14%; left: -12%; font-size: 1.15rem; padding: 12px 18px; }
 }
+
+/* ---------- Portada compacta con bolsones a la vista ---------- */
+.hero { padding-top: calc(var(--topbar-h) + 18px); padding-bottom: 14px; }
+.hero h1 { margin-bottom: 0; font-size: clamp(2rem, 8.6vw, 4.2rem); max-width: none; }
+.avatar-fila { margin-top: 12px; }
+.avatar-cara { width: 54px; height: 54px; }
+.globo { font-size: .95rem; padding: 9px 14px; }
+.accesos { margin: 16px -20px 0; }
+.accesos-lista { flex-wrap: nowrap; overflow-x: auto; padding: 4px 20px 6px; scrollbar-width: none; scroll-snap-type: x proximity; }
+.accesos-lista::-webkit-scrollbar { display: none; }
+.acceso { flex: none; min-height: 44px; scroll-snap-align: start; }
+.mini-bolsones { margin: 14px -20px 0; }
+.mini-tit { display: flex; align-items: center; gap: 8px; margin: 0 20px 8px; font-weight: 800; font-size: 1.05rem; }
+.mini-tit .ico { width: 20px; height: 20px; color: var(--verde); }
+.mini-tit a { margin-left: auto; font-size: .85rem; font-weight: 700; color: var(--verde); text-decoration: underline; text-underline-offset: 3px; padding: 8px 0; }
+.mini-lista { display: flex; gap: 10px; overflow-x: auto; padding: 4px 20px 10px; scrollbar-width: none; scroll-snap-type: x mandatory; }
+.mini-lista::-webkit-scrollbar { display: none; }
+.mini {
+  position: relative; flex: 0 0 38%; max-width: 170px; scroll-snap-align: start;
+  border-radius: 18px; overflow: hidden; background: #fff; text-decoration: none; color: var(--texto);
+  box-shadow: 0 0 0 1px var(--linea), var(--sombra-sm); transition: transform .2s var(--rebote);
+}
+.mini:active { transform: scale(.96); }
+.mini:first-child { box-shadow: 0 0 0 2.5px var(--amarillo), var(--sombra-sm); }
+.mini .media { --ar: 1 / 1; border-radius: 0; }
+.mini-desc { position: absolute; z-index: 3; top: 8px; left: 8px; padding: 3px 8px; border-radius: 999px; background: var(--verde); color: #fff; font-size: .72rem; font-weight: 800; box-shadow: 0 0 10px -3px rgba(47, 200, 100, .8); }
+.mini-txt { display: block; padding: 8px 10px 10px; line-height: 1.2; }
+.mini-txt b { display: block; font-size: .88rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mini-txt span { display: block; margin-top: 2px; font-size: 1.02rem; font-weight: 800; color: var(--rojo); }
+@media (min-width: 900px) {
+  .accesos, .mini-bolsones { margin-left: 0; margin-right: 0; }
+  .accesos-lista { flex-wrap: wrap; padding: 4px 0 6px; }
+  .mini-lista { padding: 4px 0 10px; }
+  .mini-tit { margin-left: 0; margin-right: 0; }
+  .mini { flex-basis: 150px; }
+}
+.hero-grid > * { min-width: 0; }
+@media (min-width: 900px) { .globo-grande { top: 46%; left: -18%; } }
