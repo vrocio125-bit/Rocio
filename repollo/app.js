@@ -184,20 +184,40 @@
     if (u.formato) return u.formato.replace('{n}', c.n);
     return c.n + ' ' + (c.n === 1 ? u.uno : u.varios);
   }
+  // Unidades que ofrece cada producto
+  function unidadesProd(p) {
+    if (p.precio) {
+      if (p.por === 'kg') return p.pesoUnidad ? ['kg', 'unidad'] : ['kg'];
+      return [p.por];
+    }
+    return unidadesDe(catDe(p.categoria));
+  }
+  // Precio de una unidad en productos por kilo: kilo × peso promedio, redondeado hacia arriba a $100
+  function precioUnidad(p) { return Math.ceil(p.precio * p.pesoUnidad / 1000 / 100) * 100; }
+  // Aplica las promos (2x, 3x…) y cobra el resto a precio normal
+  function conPromos(n, base, promos) {
+    if (!promos) return n * base;
+    var t = 0, r = n;
+    Object.keys(promos).map(Number).sort(function (a, b) { return b - a; }).forEach(function (k) {
+      if (r >= k) { var q = Math.floor(r / k); t += q * promos[k]; r -= q * k; }
+    });
+    return t + r * base;
+  }
   function precioItem(p) {
     var c = pedido.cant[claveProd(p)];
-    if (!p.precio || !c || c.otra !== undefined || c.u !== p.por) return null;
-    if (c.n === 0.5) return Math.round(p.precio / 2) + RECARGO;
-    return (p.promos && p.promos[c.n]) || c.n * p.precio;
+    if (!p.precio || !c || c.otra !== undefined) return null;
+    if (c.u === p.por) {
+      if (c.n === 0.5) return Math.round(p.precio / 2) + RECARGO;
+      return conPromos(c.n, p.precio, p.promos);
+    }
+    if (c.u === 'unidad' && p.por === 'kg' && p.pesoUnidad) return c.n * precioUnidad(p);
+    return null;
   }
-  var POR_TXT = { kg: 'el kg', unidad: 'c/u', paquete: 'el paquete', bolsa: 'la bolsa', g100: 'cada 100 g', x: 'c/u' };
-  function etiquetaPrecio(p) {
-    if (!p.precio) return null;
-    var t = precio(p.precio) + ' ' + (POR_TXT[p.por] || '');
-    if (p.promos) Object.keys(p.promos).forEach(function (n) {
-      t += ' · ' + textoCant({ u: p.por, n: Number(n) }) + ' ' + precio(p.promos[n]);
-    });
-    return t;
+  var POR_CORTO = { kg: '/kg', unidad: 'c/u', paquete: 'c/u', bolsa: 'c/u', g100: '/100 g', x: 'c/u' };
+  function promoTxt(p) {
+    return Object.keys(p.promos || {}).map(function (n) {
+      return (p.por === 'kg' ? n + ' kg ' : n + ' x ') + precio(p.promos[n]);
+    }).join(' · ');
   }
   function conCant(p) {
     var t = textoCant(pedido.cant[claveProd(p)]);
@@ -467,7 +487,7 @@
   function catDe(id) { return categorias.filter(function (c) { return c.id === id; })[0] || {}; }
   function prodDe(key) { return productos.filter(function (p) { return claveProd(p) === key; })[0] || {}; }
   function cantInicial(key) {
-    var p = prodDe(key), us = unidadesDe(catDe(p.categoria));
+    var p = prodDe(key), us = unidadesProd(p);
     var u = p.unidad && us.indexOf(p.unidad) >= 0 ? p.unidad : (p.por && us.indexOf(p.por) >= 0 ? p.por : us[0]);
     return { u: u, n: NUMS[0] };
   }
@@ -477,13 +497,18 @@
   contCats.innerHTML = categorias.map(function (c) {
     var prods = productos.filter(function (p) { return p.categoria === c.id; });
     if (!prods.length) return '';
-    var us = unidadesDe(c);
     var fila = function (p) {
       var key = esc(claveProd(p));
+      var us = unidadesProd(p);
+      var der = p.precio
+        ? '<b>' + precio(p.precio) + ' <span>' + (POR_CORTO[p.por] || '') + '</span></b>' +
+          (p.oferta && p.promos ? '<small class="prod-of">' + esc(promoTxt(p)) + '</small>' : '')
+        : '<small class="prod-cons">' + esc(TXT_PRECIO) + '</small>';
       return '<li class="prod" data-key="' + key + '" data-busca="' + esc(norm(p.nombre + ' ' + c.nombre)) + '">' +
         '<button type="button" class="prod-btn" aria-pressed="false">' +
-          '<span class="prod-nom">' + esc(capital(p.nombre)) + '<small class="prod-precio' + (p.precio ? ' con-precio' : '') + '">' + esc(etiquetaPrecio(p) || TXT_PRECIO) + '</small></span>' +
-          '<span class="prod-cant-txt"></span>' +
+          '<span class="prod-nom"><span class="prod-n">' + esc(capital(p.nombre)) + '</span>' +
+            (p.oferta ? '<span class="tag-oferta">Oferta</span>' : '') + '</span>' +
+          '<span class="prod-der">' + der + '</span>' +
           '<span class="chip-check">' + ico('plus') + '</span></button>' +
         '<div class="prod-cant" hidden>' +
           (us.length > 1 ? '<div class="unid" role="group" aria-label="Unidad">' + us.map(function (u) {
@@ -493,6 +518,8 @@
             return '<button type="button" class="cant" data-n="' + n + '" aria-pressed="false"></button>';
           }).join('') + '<button type="button" class="cant" data-n="otra" aria-pressed="false">Otra</button></div>' +
           '<input class="cant-input" type="text" placeholder="Escribí la cantidad: 500 g, 1 atado, 6 unidades…" aria-label="Cantidad de ' + esc(p.nombre) + '" hidden>' +
+          (p.promos && !p.oferta ? '<p class="prod-promo">Promo: ' + esc(promoTxt(p)) + '</p>' : '') +
+          '<p class="prod-sub" aria-live="polite"></p>' +
         '</div></li>';
     };
     return '<section class="categoria" id="cat-' + c.id + '" data-cat="' + c.id + '">' +
@@ -580,7 +607,7 @@
     c.otra = e.target.value;
     pedido.cant[key] = c;
     guardar(); refrescarLinks();
-    $('.prod-cant-txt', fila).textContent = textoCant(c);
+    $('.prod-sub', fila).textContent = textoCant(c);
   });
 
   /* ---------- Buscador ---------- */
@@ -729,15 +756,15 @@
       inp.hidden = !otra;
       if (otra && document.activeElement !== inp) inp.value = c.otra;
       $$('.unid-btn', fila).forEach(function (b) { b.setAttribute('aria-pressed', String(!!c && b.getAttribute('data-u') === c.u)); });
-      var u = UNIDADES[(c && c.u) || unidadesDe(catDe(fila.closest('.categoria').getAttribute('data-cat')))[0]] || {};
+      var usP = unidadesProd(prodDe(key));
       $$('.cant', fila).forEach(function (b) {
         var v = b.getAttribute('data-n');
-        var uAct = (c && c.u) || unidadesDe(catDe(fila.closest('.categoria').getAttribute('data-cat')))[0];
+        var uAct = (c && c.u) || usP[0];
         if (v !== 'otra') { b.textContent = textoCant({ u: uAct, n: Number(v) }); b.hidden = Number(v) === 0.5 && uAct !== 'kg'; }
         b.setAttribute('aria-pressed', String(v === 'otra' ? otra : (!!c && !otra && Number(v) === c.n)));
       });
       var pr = c ? precioItem(prodDe(key)) : null;
-      $('.prod-cant-txt', fila).textContent = c ? textoCant(c) + (pr ? ' · ' + precio(pr) : '') : '';
+      $('.prod-sub', fila).textContent = c ? textoCant(c) + (pr ? ' · ' + precio(pr) : '') : '';
     });
     $$('.categoria', contCats).forEach(function (sec) {
       var id = sec.getAttribute('data-cat');

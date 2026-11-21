@@ -220,7 +220,8 @@ window.REPOLLO = {
      emoji: se usa en el mensaje de WhatsApp. icono: el dibujo de la página.
      foto: se busca assets/productos/<id>.jpg para el resumen de arriba.  */
   categorias: [
-    { id: "verduras",  nombre: "Verduras",  emoji: "🥬", icono: "leafy-green", unidades: ["kg", "unidad"] },
+    { id: "verduras",  nombre: "Verduras",  emoji: "🥕", icono: "carrot",      unidades: ["kg", "unidad"] },
+    { id: "hojas",     nombre: "Hojas y aromáticas", emoji: "🥬", icono: "leafy-green", unidades: ["kg", "unidad"] },
     { id: "frutas",    nombre: "Frutas",    emoji: "🍎", icono: "apple",       unidades: ["kg", "unidad"] },
     { id: "pollo",     nombre: "Pollo",     emoji: "🍗", icono: "drumstick",   unidades: ["kg", "unidad"] },
     { id: "rebozados", nombre: "Rebozados", emoji: "🍤", icono: "chef-hat",    unidades: ["kg", "unidad"] },
@@ -255,30 +256,63 @@ window.REPOLLO = {
        precio: 5500        → precio por la unidad de "por"
        por: "kg"           → "kg", "unidad", "paquete", "bolsa", "g100" (cada 100 g) o "x" (maple)
        promos: { 2: 10000, 3: 14000 }  → precio especial por 2 o 3 de esa unidad
+       oferta: true        → muestra la etiqueta verde OFERTA con la promo en la lista
+       pesoUnidad: 150     → (solo en productos por kg) gramos promedio de una unidad.
+                             Permite pedir por unidad: precio del kilo × peso,
+                             redondeado hacia arriba a los $100.
      Si un producto no tiene precio, se muestra "Precio a consultar".   */
 
   productos: [
-    // 🥬 Verduras
-    { nombre: "papa",                 emoji: "🥔", categoria: "verduras" },
-    { nombre: "batata",               emoji: "🍠", categoria: "verduras" },
-    { nombre: "zanahoria",            emoji: "🥕", categoria: "verduras" },
-    { nombre: "cebolla",              emoji: "🧅", categoria: "verduras" },
-    { nombre: "lechuga",              emoji: "🥬", categoria: "verduras", unidad: "unidad" },
-    { nombre: "acelga",               emoji: "🥬", categoria: "verduras", unidad: "unidad" },
-    { nombre: "espinaca",             emoji: "🍃", categoria: "verduras", unidad: "unidad" },
-    { nombre: "repollo",              emoji: "🥬", categoria: "verduras", unidad: "unidad" },
-    { nombre: "tomate",               emoji: "🍅", categoria: "verduras" },
-    { nombre: "morrón (pimiento)",    emoji: "🫑", categoria: "verduras", unidad: "unidad" },
-    { nombre: "zapallito",            emoji: "🥒", categoria: "verduras" },
-    { nombre: "zapallo",              emoji: "🎃", categoria: "verduras", unidad: "unidad" },
-    { nombre: "choclo",               emoji: "🌽", categoria: "verduras", unidad: "unidad" },
-    { nombre: "brócoli",              emoji: "🥦", categoria: "verduras", unidad: "unidad" },
-    { nombre: "pepino",               emoji: "🥒", categoria: "verduras", unidad: "unidad" },
-    { nombre: "remolacha",            emoji: "🟣", categoria: "verduras" },
-    { nombre: "ajo",                  emoji: "🧄", categoria: "verduras", unidad: "unidad" },
-    { nombre: "berenjena",            emoji: "🍆", categoria: "verduras", unidad: "unidad" },
-    { nombre: "perejil y aromáticas", emoji: "🌿", categoria: "verduras", unidad: "unidad" },
-    { nombre: "coliflor",             emoji: "🥦", categoria: "verduras", unidad: "unidad" },
+    // 🥕 Verduras
+    { nombre: "papa", emoji: "🥔", categoria: "verduras", precio: 2500, por: "kg", pesoUnidad: 200, promos: { 2: 3900 }, oferta: true },
+    { nombre: "cebolla", emoji: "🧅", categoria: "verduras", precio: 2500, por: "kg", pesoUnidad: 150, promos: { 2: 3900 }, oferta: true },
+    { nombre: "cebolla morada", emoji: "🧅", categoria: "verduras", precio: 4900, por: "kg", pesoUnidad: 150 },
+    { nombre: "zanahoria", emoji: "🥕", categoria: "verduras", precio: 2900, por: "kg", pesoUnidad: 100 },
+    { nombre: "tomate perita", emoji: "🍅", categoria: "verduras", precio: 4900, por: "kg", pesoUnidad: 100 },
+    { nombre: "tomate redondo", emoji: "🍅", categoria: "verduras", precio: 4900, por: "kg", pesoUnidad: 180 },
+    { nombre: "tomate cherry", emoji: "🍅", categoria: "verduras", precio: 12000, por: "kg" },
+    { nombre: "limón", emoji: "🍋", categoria: "verduras", precio: 2900, por: "kg", pesoUnidad: 120 },
+    { nombre: "batata", emoji: "🍠", categoria: "verduras", precio: 3900, por: "kg", pesoUnidad: 300 },
+    { nombre: "boñato", emoji: "🍠", categoria: "verduras", precio: 4900, por: "kg", pesoUnidad: 300 },
+    { nombre: "zapallo negro", emoji: "🎃", categoria: "verduras", precio: 4900, por: "kg", pesoUnidad: 1200 },
+    { nombre: "zapallo criollo", emoji: "🎃", categoria: "verduras", precio: 3900, por: "kg", pesoUnidad: 2000 },
+    { nombre: "calabacín", emoji: "🎃", categoria: "verduras", precio: 4900, por: "kg", pesoUnidad: 1000 },
+    { nombre: "calabaza", emoji: "🎃", categoria: "verduras" },
+    { nombre: "ajo", emoji: "🧄", categoria: "verduras", precio: 2000, por: "unidad" },
+    { nombre: "chaucha rolliza", emoji: "🫛", categoria: "verduras", precio: 10000, por: "kg" },
+    { nombre: "chaucha manteca", emoji: "🫛", categoria: "verduras", precio: 10000, por: "kg" },
+    { nombre: "choclo", emoji: "🌽", categoria: "verduras", precio: 1500, por: "unidad", promos: { 3: 2900 }, oferta: true },
+    { nombre: "zapallito verde", emoji: "🥒", categoria: "verduras", precio: 2000, por: "kg", pesoUnidad: 200, promos: { 2: 3500 }, oferta: true },
+    { nombre: "cuzza", emoji: "🥒", categoria: "verduras", precio: 2900, por: "kg", pesoUnidad: 300 },
+    { nombre: "berenjena", emoji: "🍆", categoria: "verduras", precio: 4900, por: "kg", pesoUnidad: 300 },
+    { nombre: "pimiento rojo", emoji: "🫑", categoria: "verduras", precio: 6900, por: "kg", pesoUnidad: 200 },
+    { nombre: "pimiento verde", emoji: "🫑", categoria: "verduras", precio: 6900, por: "kg", pesoUnidad: 200 },
+    { nombre: "pimiento amarillo", emoji: "🫑", categoria: "verduras", precio: 6900, por: "kg", pesoUnidad: 200 },
+    { nombre: "pepino", emoji: "🥒", categoria: "verduras" },
+
+    // 🥬 Hojas, aromáticas y otros
+    { nombre: "lechuga", emoji: "🥬", categoria: "hojas", precio: 4900, por: "kg", pesoUnidad: 350 },
+    { nombre: "lechuga manteca", emoji: "🥬", categoria: "hojas", precio: 4900, por: "kg", pesoUnidad: 250 },
+    { nombre: "lechuga arrepollada", emoji: "🥬", categoria: "hojas", precio: 4900, por: "kg", pesoUnidad: 400 },
+    { nombre: "lechuguín", emoji: "🥬", categoria: "hojas", precio: 1800, por: "unidad" },
+    { nombre: "lechuguín morado", emoji: "🥬", categoria: "hojas", precio: 2000, por: "unidad" },
+    { nombre: "acelga", emoji: "🥬", categoria: "hojas", precio: 1500, por: "unidad", promos: { 2: 1800 }, oferta: true },
+    { nombre: "espinaca", emoji: "🍃", categoria: "hojas", precio: 1800, por: "unidad", promos: { 2: 3000 }, oferta: true },
+    { nombre: "rúcula", emoji: "🌿", categoria: "hojas", precio: 1900, por: "unidad" },
+    { nombre: "achicoria", emoji: "🌿", categoria: "hojas", precio: 1900, por: "unidad" },
+    { nombre: "apio", emoji: "🌿", categoria: "hojas", precio: 9000, por: "kg", pesoUnidad: 500 },
+    { nombre: "verdeo", emoji: "🌿", categoria: "hojas", precio: 9000, por: "kg", pesoUnidad: 150 },
+    { nombre: "puerro", emoji: "🌿", categoria: "hojas", precio: 9000, por: "kg", pesoUnidad: 200 },
+    { nombre: "albahaca", emoji: "🌿", categoria: "hojas", precio: 3900, por: "unidad" },
+    { nombre: "menta", emoji: "🌿", categoria: "hojas", precio: 3900, por: "unidad" },
+    { nombre: "cilantro", emoji: "🌿", categoria: "hojas" },
+    { nombre: "ciboulette", emoji: "🌿", categoria: "hojas", precio: 2000, por: "unidad" },
+    { nombre: "brócoli", emoji: "🥦", categoria: "hojas", precio: 3500, por: "unidad", promos: { 2: 5500 }, oferta: true },
+    { nombre: "coliflor", emoji: "🥦", categoria: "hojas", precio: 3900, por: "unidad" },
+    { nombre: "remolacha", emoji: "🟣", categoria: "hojas", precio: 2900, por: "kg", pesoUnidad: 200 },
+    { nombre: "repollo blanco", emoji: "🥬", categoria: "hojas", precio: 3500, por: "kg", pesoUnidad: 1200 },
+    { nombre: "repollo morado", emoji: "🥬", categoria: "hojas", precio: 3500, por: "kg", pesoUnidad: 1200 },
+    { nombre: "perejil", emoji: "🌿", categoria: "hojas", precio: 6000, por: "kg", pesoUnidad: 100 },
 
     // 🍎 Frutas
     { nombre: "banana",    emoji: "🍌", categoria: "frutas" },
@@ -296,7 +330,7 @@ window.REPOLLO = {
     { nombre: "arándanos", emoji: "🫐", categoria: "frutas", unidad: "unidad" },
 
     // 🍗 Pollo (precios por kg)
-    { nombre: "pollo entero",         emoji: "🐔", categoria: "pollo", precio: 6000, por: "kg" },
+    { nombre: "pollo entero",         emoji: "🐔", categoria: "pollo", precio: 6000, por: "kg", pesoUnidad: 2500 },
     { nombre: "pechuga",              emoji: "🍗", categoria: "pollo", precio: 12600, por: "kg" },
     { nombre: "pechuga deshuesada",   emoji: "🥩", categoria: "pollo" },
     { nombre: "patamuslo",            emoji: "🍗", categoria: "pollo", precio: 5500, por: "kg", promos: { 2: 10000, 3: 14000 } },
