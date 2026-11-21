@@ -313,8 +313,14 @@
     }
     return cierreMensaje(l, totalConPrecio(), sinPrecio() > 0, '¿Me confirmás el total y el horario de entrega? ¡Gracias! 😊');
   }
+  var opcionMenu = '';
   function mensajeUno(item) {
-    var l = ['🛒 *NUEVO PEDIDO · REPOLLO*', '', '🧺 *BOLSONES Y OFERTAS*', lineaPack(item, 1)];
+    var esMenu = (D.menuDelDia || []).indexOf(item) >= 0;
+    var l = ['🛒 *NUEVO PEDIDO · REPOLLO*', '', esMenu ? '🍽️ *MENÚ DEL DÍA*' : '🧺 *BOLSONES Y OFERTAS*', lineaPack(item, 1)];
+    if (esMenu) {
+      (item.contenido || []).forEach(function (c) { l.push('   ◦ ' + (typeof c === 'string' ? c : c.texto)); });
+      if (item.opciones) l.push('   ◦ ' + capital(item.opciones.titulo.replace(/^Eleg[ií] (la |el |los |las )?/i, '')) + ': ' + (opcionMenu || 'a elegir'));
+    }
     return cierreMensaje(l, item.precio, false, '¿Me confirmás el horario de entrega? ¡Gracias! 😊');
   }
 
@@ -545,7 +551,7 @@
   $('#mini-bolsones').innerHTML = menus.length ? menus.map(function (m) {
     return '<a class="mini" href="#" data-menu="' + esc(m.id) + '">' +
       mediaHTML({ foto: m.foto || ('assets/menus/' + m.id), alt: m.nombre, icono: 'chef-hat', eager: true, sizes: '150px' }) +
-      '<span class="mini-txt"><b>' + esc(m.nombre) + '</b><span>' + precio(m.precio) + '</span></span></a>';
+      '<span class="mini-txt"><b>' + esc(m.nombre) + '</b><small>' + esc((m.contenido || []).length ? (m.opciones ? '+ ' + m.opciones.items.join(', ').toLowerCase() : (typeof m.contenido[1] === 'string' ? '+ ' + m.contenido.slice(1).join(' + ') : '')) : '') + '</small><span>' + precio(m.precio) + '</span></span></a>';
   }).join('') : [1, 2, 3].map(function () {
     return '<div class="mini mini-vacio" aria-hidden="true"><div class="media"></div><span class="mini-txt"><b>&nbsp;</b><span>&nbsp;</span></span></div>';
   }).join('');
@@ -554,6 +560,7 @@
     if (!a) return;
     e.preventDefault();
     modoUno = menus.filter(function (m) { return m.id === a.getAttribute('data-menu'); })[0] || null;
+    opcionMenu = modoUno && modoUno.opciones ? modoUno.opciones.items[0] : '';
     if (modoUno) abrirPanel();
   });
 
@@ -835,8 +842,12 @@
     if (modoUno) {
       $('#panel-foot').hidden = false;
       panelBody.innerHTML = '<div class="p-grupo"><h3>' + ico('shopping-basket') + 'Vas a pedir</h3>' +
-        '<div class="p-item"><span class="p-item-txt"><b>' + esc(modoUno.nombre) + '</b><small>Envío gratis</small></span>' +
-        '<span class="precio p-uno-precio">' + precio(modoUno.precio) + '</span></div></div>' +
+        '<div class="p-item"><span class="p-item-txt"><b>' + esc(modoUno.nombre) + '</b><small>' +
+          esc((modoUno.contenido && typeof modoUno.contenido[0] === 'string') ? modoUno.contenido.join(' + ') : 'Envío gratis') + '</small></span>' +
+        '<span class="precio p-uno-precio">' + precio(modoUno.precio) + '</span></div>' +
+        (modoUno.opciones ? '<div class="p-seccion p-opcion"><h3>' + ico('chef-hat') + esc(modoUno.opciones.titulo) + '</h3><div class="pago-opts">' +
+          modoUno.opciones.items.map(function (o) { return '<button type="button" class="pago-btn" data-opcion="' + esc(o) + '" aria-pressed="' + (opcionMenu === o) + '">' + esc(o) + '</button>'; }).join('') +
+          '</div></div>' : '') + '</div>' +
         camposHTML(modoUno.precio) +
         '<details class="p-preview"><summary>Ver cómo le llega el mensaje a Repollo</summary><pre id="p-pre"></pre></details>';
       $('#p-pre').textContent = mensajeUno(modoUno);
@@ -893,6 +904,13 @@
   }
 
   panelBody.addEventListener('click', function (e) {
+    var op = e.target.closest('[data-opcion]');
+    if (op) {
+      opcionMenu = op.getAttribute('data-opcion');
+      pintarPanel(); refrescarLinks();
+      var nb = $('[data-opcion="' + opcionMenu + '"]', panelBody); if (nb) nb.focus();
+      return;
+    }
     var pb = e.target.closest('[data-pago]');
     if (pb) {
       var k = pb.getAttribute('data-pago');

@@ -1017,3 +1017,10 @@ body.has-order .barra-pedido { transform: none; pointer-events: auto; }
 .mini-vacio { box-shadow: none !important; background: transparent; border: 2px dashed rgba(14, 42, 23, .14); }
 .mini-vacio .media { background: rgba(255, 255, 255, .45); }
 .mini-lista, .accesos-lista { scroll-padding-inline: 20px; } @media (min-width: 900px) { .mini-lista, .accesos-lista { scroll-padding-inline: 0; } }
+
+/* Menú del día: tarjetas */
+.mini-txt b { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; min-height: 2.4em; }
+.mini-txt small { display: block; margin-top: 2px; font-size: .72rem; color: var(--texto-suave); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mini-txt small:empty { display: none; }
+.p-opcion { margin: 10px 0 0; }
+.p-opcion .pago-opts { grid-template-columns: repeat(3, 1fr); }

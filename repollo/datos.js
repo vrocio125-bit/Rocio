@@ -203,7 +203,23 @@ window.REPOLLO = {
      { id: "milanesas-pure", nombre: "Milanesas con puré", precio: 13400,
        foto: "assets/menus/milanesas-pure.jpg",
        contenido: [ { emoji: "🥩", texto: "Milanesas 1 kg" }, { emoji: "🥔", texto: "Papa 1 kg" } ] },  */
-  menuDelDia: [],
+  menuDelDia: [
+    { id: "pollo-pasta", nombre: "Pollo con pasta", precio: 8500,
+      contenido: ["1 kg de pollo trozado", "1 paquete de pasta"],
+      opciones: { titulo: "Elegí la pasta", items: ["Ñoquis", "Ravioles", "Fideos"] } },
+    { id: "albondigas-papas", nombre: "Albóndigas con papas", precio: 8500,
+      contenido: ["1 kg de albóndigas", "1 kg de papas"] },
+    { id: "milanesas-ensalada", nombre: "Milanesas con ensalada", precio: 13500,
+      contenido: ["1 kg de milanesas", "1 ensalada"] },
+    { id: "tortilla", nombre: "Tortilla de papas", precio: 5600,
+      contenido: ["6 huevos", "1 kg de papas", "½ cebolla"] },
+    { id: "medallones-espinaca", nombre: "Medallones de espinaca", precio: 8000,
+      contenido: ["½ kg de medallones de espinaca", "1 ensalada"] },
+    { id: "filet-merluza", nombre: "Filet de merluza", precio: 10500,
+      contenido: ["½ kg de filet de merluza", "1 ensalada"] },
+    { id: "patitas-pollo", nombre: "Patitas de pollo", precio: 7500,
+      contenido: ["½ kg de patitas de pollo", "1 ensalada"] }
+  ],
 
   /* ---------- OFERTAS ----------
      Si la lista queda vacía ( ofertas: [] ), la sección no se muestra.
