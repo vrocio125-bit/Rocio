@@ -616,6 +616,7 @@
         fila.classList.remove('pop'); void fila.offsetWidth; fila.classList.add('pop');
       }
       actualizar(idx < 0);
+      toast(idx < 0 ? '¡Producto agregado!' : 'Producto eliminado', idx < 0 ? 'agregado' : 'quitado');
     }
   });
   contCats.addEventListener('input', function (e) {
@@ -674,9 +675,11 @@
 
   /* ---------- Toast ---------- */
   var toastEl = $('#toast'), toastT;
-  function toast(msg) {
-    toastEl.innerHTML = '<span class="ok">' + ico('check') + '</span><span></span>';
+  function toast(msg, tipo) {
+    toastEl.className = 'toast' + (tipo ? ' toast-' + tipo : '');
+    toastEl.innerHTML = '<span class="ok">' + ico(tipo === 'quitado' ? 'x' : 'check') + '</span><span></span>';
     toastEl.lastChild.textContent = msg;
+    void toastEl.offsetWidth;
     toastEl.classList.add('is-on');
     clearTimeout(toastT);
     toastT = setTimeout(function () { toastEl.classList.remove('is-on'); }, 2600);
@@ -914,6 +917,7 @@
       if (i >= 0) pedido.productos.splice(i, 1);
       delete pedido.cant[q.getAttribute('data-quitar')];
       actualizar(false); enfocarDespues(null);
+      toast('Producto eliminado', 'quitado');
       return;
     }
     var qo = e.target.closest('[data-quitar-otro]');

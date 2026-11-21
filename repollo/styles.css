@@ -1121,3 +1121,14 @@ body.has-order .jesus .wa-flotante { transform: none; opacity: 1; }
 .nos-slide .media img { object-fit: cover; object-position: center; }
 @media (min-width: 860px) { .nos-slide .media { --ar: 900 / 1070; } }
 .ofertas .sec-head { margin-bottom: 12px; }
+
+/* Avisos de producto agregado / eliminado */
+.toast-agregado { background: var(--verde); color: #fff; box-shadow: 0 0 0 1px rgba(47, 163, 82, .4), 0 0 22px -6px rgba(47, 200, 100, .7), var(--sombra-lg); }
+.toast-agregado .ok { background: #fff; color: var(--verde); }
+.toast-quitado { background: var(--rojo); color: #fff; box-shadow: 0 0 0 1px rgba(229, 53, 42, .4), 0 0 22px -6px rgba(229, 53, 42, .7), var(--sombra-lg); }
+.toast-quitado .ok { background: #fff; color: var(--rojo); }
+.toast-agregado, .toast-quitado { font-weight: 700; }
+
+/* Bolsones del carrusel: todos terminan a la misma altura */
+.carrusel { align-items: stretch; }
+.carrusel .bolson-card .contenido { margin-bottom: 18px; }
