@@ -1115,3 +1115,9 @@ body.has-order .jesus .wa-flotante { transform: none; opacity: 1; }
 .jesus-cerrar .ico { width: 13px; height: 13px; }
 @media (min-width: 900px) { .hero-avatar .globo { display: none; } }
 .mini-tit small { font-size: .78rem; font-weight: 600; color: var(--texto-suave); }
+/* Carrusel de vecinos: todas las placas llenan el recuadro */
+.nos-slides { background: transparent; }
+.nos-slide .media, .nos-slide.con-texto .media { --ar: 900 / 1070; }
+.nos-slide .media img { object-fit: cover; object-position: center; }
+@media (min-width: 860px) { .nos-slide .media { --ar: 900 / 1070; } }
+.ofertas .sec-head { margin-bottom: 12px; }
