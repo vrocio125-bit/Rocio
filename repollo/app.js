@@ -629,36 +629,8 @@
   });
 
   /* ---------- Buscador ---------- */
-  var buscar = $('#buscar'), buscarX = $('#buscar-x');
-  function filtrar() {
-    var q = norm(buscar.value);
-    buscarX.hidden = !q;
-    var total = 0;
-    $$('.categoria', contCats).forEach(function (sec) {
-      var visibles = 0;
-      $$('.prod', sec).forEach(function (ch) {
-        var ok = !q || ch.getAttribute('data-busca').indexOf(q) >= 0;
-        ch.hidden = !ok;
-        if (ok) visibles++;
-      });
-      total += visibles;
-      sec.hidden = !!q && !visibles;
-      abrirCat(sec, !!q && visibles > 0);
-    });
-    $('#sin-resultados').hidden = !q || total > 0;
-    $('#sin-q').textContent = '“' + buscar.value.trim() + '”';
-    $('#buscar-estado').textContent = q ? (total ? plural(total, 'producto encontrado', 'productos encontrados') : 'Sin resultados') : '';
-  }
-  buscar.addEventListener('input', filtrar);
-  buscarX.addEventListener('click', function () { buscar.value = ''; filtrar(); buscar.focus(); });
-  $('#sumar-otro').addEventListener('click', function () {
-    var t = buscar.value.trim();
-    if (!t) return;
-    if (pedido.otros.indexOf(t) < 0) pedido.otros.push(t);
-    buscar.value = ''; filtrar();
-    actualizar(true);
-    toast('Sumamos “' + t + '” a tu pedido');
-  });
+  // (buscador quitado)
+
 
   /* ---------- Clicks generales ---------- */
   document.addEventListener('click', function (e) {
