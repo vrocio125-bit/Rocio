@@ -337,6 +337,8 @@
     return out.slice(0, 8);
   }
 
+  // Precio "anterior" para mostrar el descuento: precio / (1 - descuento), redondeado hacia arriba a $100
+  function precioAntes(item) { return Math.ceil(item.precio / (1 - item.descuento / 100) / 100) * 100; }
   function tarjetaHTML(item, tipo, i, estrella) {
     var esBolson = tipo === 'bolson';
     var carpeta = esBolson ? 'assets/bolsones/' : 'assets/promos/';
@@ -364,6 +366,7 @@
           item.contenido.map(function (c) { return '<li>' + ico('check') + '<span>' + esc(c.texto) + '</span></li>'; }).join('') +
         '</ul>' +
         '<div class="precio-row">' +
+          (item.descuento ? '<p class="precio-antes"><s>' + precio(precioAntes(item)) + '</s><span class="desc-badge">-' + item.descuento + '%</span></p>' : '') +
           '<p class="precio">' + precio(item.precio) + '<small>Precio final</small></p>' +
           '<span class="tag-envio">' + ico('truck') + 'Envío gratis</span>' +
         '</div>' +

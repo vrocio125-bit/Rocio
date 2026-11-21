@@ -86,6 +86,7 @@ window.REPOLLO = {
   bolsones: [
     {
       id: "completo",
+      descuento: 10,       // % de descuento que se muestra (precio anterior tachado)
       color: "negro",          // color de la cinta: negro, rojo, verde, naranja o amarillo
       nombre: "Bolsón Completo",
       precio: 34900,
@@ -112,6 +113,7 @@ window.REPOLLO = {
     },
     {
       id: "express",
+      descuento: 8,       // % de descuento que se muestra (precio anterior tachado)
       color: "rojo",          // color de la cinta: negro, rojo, verde, naranja o amarillo
       nombre: "Bolsón Express",
       precio: 19900,
@@ -130,6 +132,7 @@ window.REPOLLO = {
     },
     {
       id: "verduras",
+      descuento: 10,       // % de descuento que se muestra (precio anterior tachado)
       color: "verde",          // color de la cinta: negro, rojo, verde, naranja o amarillo
       nombre: "Bolsón de Verduras",
       precio: 24900,
@@ -152,6 +155,7 @@ window.REPOLLO = {
     },
     {
       id: "frutas",
+      descuento: 8,       // % de descuento que se muestra (precio anterior tachado)
       color: "naranja",          // color de la cinta: negro, rojo, verde, naranja o amarillo
       nombre: "Bolsón de Frutas",
       precio: 11900,
@@ -167,6 +171,7 @@ window.REPOLLO = {
     },
     {
       id: "completo-frutas",
+      descuento: 10,       // % de descuento que se muestra (precio anterior tachado)
       color: "amarillo",          // color de la cinta: negro, rojo, verde, naranja o amarillo
       nombre: "Completo de Frutas",
       precio: 38900,
