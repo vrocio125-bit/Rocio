@@ -481,7 +481,7 @@
 
   /* ---------- Catálogo (categorías plegables + cantidad) ---------- */
   var FOTO_CAT = {
-    verduras: 'assets/productos/verduras-y-frutas', frutas: 'assets/productos/frutas', pollo: 'assets/productos/pollo',
+    verduras: 'assets/productos/verduras', hojas: 'assets/productos/hojas', frutas: 'assets/productos/frutas', pollo: 'assets/productos/pollo',
     rebozados: 'assets/productos/rebozados', pastas: 'assets/productos/pastas', huevos: 'assets/productos/huevos'
   };
   function catDe(id) { return categorias.filter(function (c) { return c.id === id; })[0] || {}; }

@@ -221,7 +221,7 @@ window.REPOLLO = {
      foto: se busca assets/productos/<id>.jpg para el resumen de arriba.  */
   categorias: [
     { id: "verduras",  nombre: "Verduras",  emoji: "🥕", icono: "carrot",      unidades: ["kg", "unidad"] },
-    { id: "hojas",     nombre: "Hojas y aromáticas", emoji: "🥬", icono: "leafy-green", unidades: ["kg", "unidad"] },
+    { id: "hojas",     nombre: "Hojas y hortalizas", emoji: "🥬", icono: "leafy-green", unidades: ["kg", "unidad"] },
     { id: "frutas",    nombre: "Frutas",    emoji: "🍎", icono: "apple",       unidades: ["kg", "unidad"] },
     { id: "pollo",     nombre: "Pollo",     emoji: "🍗", icono: "drumstick",   unidades: ["kg", "unidad"] },
     { id: "rebozados", nombre: "Rebozados", emoji: "🍤", icono: "chef-hat",    unidades: ["kg", "unidad"] },
@@ -290,7 +290,7 @@ window.REPOLLO = {
     { nombre: "pimiento amarillo", emoji: "🫑", categoria: "verduras", precio: 6900, por: "kg", pesoUnidad: 200 },
     { nombre: "pepino", emoji: "🥒", categoria: "verduras" },
 
-    // 🥬 Hojas, aromáticas y otros
+    // 🥬 Hojas y hortalizas
     { nombre: "lechuga", emoji: "🥬", categoria: "hojas", precio: 4900, por: "kg", pesoUnidad: 350 },
     { nombre: "lechuga manteca", emoji: "🥬", categoria: "hojas", precio: 4900, por: "kg", pesoUnidad: 250 },
     { nombre: "lechuga arrepollada", emoji: "🥬", categoria: "hojas", precio: 4900, por: "kg", pesoUnidad: 400 },
@@ -330,7 +330,8 @@ window.REPOLLO = {
     { nombre: "arándanos", emoji: "🫐", categoria: "frutas", unidad: "unidad" },
 
     // 🍗 Pollo (precios por kg)
-    { nombre: "pollo entero",         emoji: "🐔", categoria: "pollo", precio: 6000, por: "kg", pesoUnidad: 2500 },
+    { nombre: "pollo entero",         emoji: "🐔", categoria: "pollo", precio: 6000, por: "kg", pesoUnidad: 3000 },
+    { nombre: "brochetas de pollo",   emoji: "🍢", categoria: "pollo", precio: 15000, por: "kg", pesoUnidad: 200 },
     { nombre: "pechuga",              emoji: "🍗", categoria: "pollo", precio: 12600, por: "kg" },
     { nombre: "pechuga deshuesada",   emoji: "🥩", categoria: "pollo" },
     { nombre: "patamuslo",            emoji: "🍗", categoria: "pollo", precio: 5500, por: "kg", promos: { 2: 10000, 3: 14000 } },
