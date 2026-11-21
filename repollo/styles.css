@@ -1132,3 +1132,10 @@ body.has-order .jesus .wa-flotante { transform: none; opacity: 1; }
 /* Bolsones del carrusel: todos terminan a la misma altura */
 .carrusel { align-items: stretch; }
 .carrusel .bolson-card .contenido { margin-bottom: 18px; }
+/* Insignia de verificado */
+.brand-txt strong { display: inline-flex; align-items: center; gap: 5px; }
+.verificado { width: 18px; height: 18px; flex: none; color: var(--verde-2); filter: drop-shadow(0 1px 2px rgba(14, 42, 23, .25)); }
+/* Lema centrado */
+.nosotros-txt .lema { text-align: center; }
+/* Placas del carrusel: nunca recortar el texto de arriba */
+.nos-slide .media img { object-position: 50% 0; }
