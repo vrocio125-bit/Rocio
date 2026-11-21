@@ -1114,3 +1114,4 @@ body.has-order .jesus .wa-flotante { transform: none; opacity: 1; }
 .jesus-cerrar::after { content: ""; position: absolute; inset: -10px; }
 .jesus-cerrar .ico { width: 13px; height: 13px; }
 @media (min-width: 900px) { .hero-avatar .globo { display: none; } }
+.mini-tit small { font-size: .78rem; font-weight: 600; color: var(--texto-suave); }

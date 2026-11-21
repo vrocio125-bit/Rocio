@@ -204,9 +204,8 @@ window.REPOLLO = {
        foto: "assets/menus/milanesas-pure.jpg",
        contenido: [ { emoji: "🥩", texto: "Milanesas 1 kg" }, { emoji: "🥔", texto: "Papa 1 kg" } ] },  */
   menuDelDia: [
-    { id: "pollo-pasta", foto: "assets/menus/pollo-pasta.jpg", nombre: "Pollo con pasta", precio: 8500,
-      contenido: ["1 kg de pollo trozado", "1 paquete de pasta"],
-      opciones: { titulo: "Elegí la pasta", items: ["Ñoquis", "Ravioles", "Fideos"] } },
+    { id: "pollo-pasta", foto: "assets/menus/pollo-pasta.jpg", nombre: "Pollo con ravioles", precio: 8500,
+      contenido: ["1 kg de pollo trozado", "1 paquete de ravioles"], resumen: "+ ravioles" },
     { id: "albondigas-papas", foto: "assets/menus/albondigas-papas.jpg", nombre: "Albóndigas con papas", precio: 8500,
       contenido: ["1 kg de albóndigas", "1 kg de papas"] },
     { id: "milanesas-ensalada", foto: "assets/menus/milanesas-ensalada.jpg", nombre: "Milanesas con ensalada", precio: 13500,
