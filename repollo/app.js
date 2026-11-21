@@ -339,6 +339,7 @@
 
   // Precio "anterior" para mostrar el descuento: precio / (1 - descuento), redondeado hacia arriba a $100
   function precioAntes(item) { return Math.ceil(item.precio / (1 - item.descuento / 100) / 100) * 100; }
+  var VISIBLES_BOLSON = 6;
   function tarjetaHTML(item, tipo, i, estrella) {
     var esBolson = tipo === 'bolson';
     var carpeta = esBolson ? 'assets/bolsones/' : 'assets/promos/';
@@ -363,8 +364,9 @@
         '<h3>' + esc(item.nombre) + '</h3>' +
         '<p class="' + (item.bajada ? 'bajada' : 'bolson-sub') + '">' + esc(item.bajada || 'Lo que trae') + '</p>' +
         '<ul class="contenido">' +
-          item.contenido.map(function (c) { return '<li>' + ico('check') + '<span>' + esc(c.texto) + '</span></li>'; }).join('') +
+          item.contenido.map(function (c, i) { return '<li' + (i >= VISIBLES_BOLSON ? ' class="extra"' : '') + '>' + ico('check') + '<span>' + esc(c.texto) + '</span></li>'; }).join('') +
         '</ul>' +
+        (n > VISIBLES_BOLSON ? '<button type="button" class="ver-todo" aria-expanded="false">Ver los ' + n + ' productos' + ico('chevron-down') + '</button>' : '') +
         '<div class="precio-row">' +
           (item.descuento ? '<p class="precio-antes"><s>' + precio(precioAntes(item)) + '</s><span class="desc-badge">-' + item.descuento + '%</span></p>' : '') +
           '<p class="precio">' + precio(item.precio) + '<small>Precio final</small></p>' +
@@ -392,21 +394,6 @@
     $('#ofertas').hidden = false;
     $('#ofertas-lista').innerHTML = ofertas.map(function (o, i) { return tarjetaHTML(o, 'oferta', i, false); }).join('');
   }
-
-  /* ---------- Lo que vendemos ---------- */
-  var resumen = [
-    { id: 'verduras', txt: 'Verduras y frutas', icono: 'leafy-green', foto: 'assets/bolsones/verduras' },
-    { id: 'pollo', txt: 'Pollo', icono: 'drumstick', foto: 'assets/productos/pollo' },
-    { id: 'rebozados', txt: 'Rebozados', icono: 'chef-hat', foto: 'assets/productos/rebozados' },
-    { id: 'pastas', txt: 'Pastas', icono: 'wheat', foto: 'assets/productos/pastas' },
-    { id: 'huevos', txt: 'Huevos', icono: 'egg', foto: 'assets/productos/huevos' }
-  ];
-  $('#vendemos').innerHTML = resumen.map(function (r, i) {
-    return '<li class="reveal" style="transition-delay:' + (i * 70) + 'ms"><a class="vende" href="#cat-' + r.id + '">' +
-      mediaHTML({ foto: r.foto, alt: r.txt, icono: r.icono, sizes: '(min-width: 900px) 220px, 50vw' }) +
-      '<span class="vende-txt"><span>' + r.txt + '</span><span class="vende-flecha">' + ico('arrow-right') + '</span></span>' +
-      '</a></li>';
-  }).join('');
 
   /* ---------- Carrusel de Quiénes somos ---------- */
   (function () {
@@ -554,11 +541,16 @@
     var a = e.target.closest('[data-nav]');
     if (a) abrirCat(document.getElementById('cat-' + a.getAttribute('data-nav')), true);
   });
-  $$('.vende').forEach(function (a) {
-    a.addEventListener('click', function () {
-      var sec = document.getElementById(a.getAttribute('href').slice(1));
-      if (sec) abrirCat(sec, true);
-    });
+  // Accesos rápidos de la portada
+  $('#accesos').innerHTML = '<a class="acceso acceso-bolsones" href="#bolsones">' + ico('shopping-basket') + 'Bolsones</a>' +
+    categorias.filter(function (c) { return productos.some(function (p) { return p.categoria === c.id; }); }).map(function (c) {
+      return '<a class="acceso" href="#cat-' + c.id + '" data-acceso="' + c.id + '">' + ico(c.icono || 'leaf') + esc(c.nombre) + '</a>';
+    }).join('') +
+    (ofertas.length ? '<a class="acceso acceso-ofertas" href="#ofertas">' + ico('flame') + 'Ofertas</a>' : '');
+  $('#accesos').addEventListener('click', function (e) {
+    var a = e.target.closest('[data-acceso]');
+    if (!a) return;
+    $$('.categoria', contCats).forEach(function (sec) { abrirCat(sec, sec.id === 'cat-' + a.getAttribute('data-acceso')); });
   });
 
   contCats.addEventListener('click', function (e) {
@@ -674,6 +666,13 @@
       return;
     }
     if (env) setTimeout(cerrarPanel, 400);
+    var vt = e.target.closest('.ver-todo');
+    if (vt) {
+      var card = vt.closest('article'), abierto = card.classList.toggle('ver-todo-on');
+      vt.setAttribute('aria-expanded', String(abierto));
+      vt.firstChild.textContent = abierto ? 'Ver menos' : 'Ver los ' + $$('.contenido li', card).length + ' productos';
+      return;
+    }
     if (e.target.closest('[data-abrir-pedido]')) { modoUno = null; abrirPanel(); return; }
     if (e.target.closest('[data-cerrar-panel]')) cerrarPanel();
   });

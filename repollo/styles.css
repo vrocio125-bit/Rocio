@@ -905,3 +905,43 @@ body.has-order .barra-pedido { transform: none; pointer-events: auto; }
 .precio-antes { flex-basis: 100%; margin: 0 0 -4px; display: flex; align-items: center; gap: 8px; }
 .precio-antes s { color: #7d8a81; font-size: 1.05rem; font-weight: 600; }
 .desc-badge { padding: 3px 9px; border-radius: 999px; background: var(--verde); color: #fff; font-size: .78rem; font-weight: 800; box-shadow: 0 0 12px -3px rgba(47, 200, 100, .7); }
+
+/* ---------- Portada compacta + accesos rápidos ---------- */
+.hero { padding-bottom: 24px; }
+.hero h1 { font-size: clamp(2.1rem, 9vw, 4.2rem); }
+.lead { margin-bottom: 0; }
+.accesos { margin-top: 20px; }
+.accesos-tit { margin: 0 0 10px; font-size: .74rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--texto-suave); }
+.accesos-lista { display: flex; flex-wrap: wrap; gap: 8px; }
+.acceso {
+  display: inline-flex; align-items: center; gap: 7px; min-height: 46px; padding: 0 16px; border-radius: 999px;
+  background: #fff; color: var(--verde-osc); text-decoration: none; font-weight: 600; font-size: .92rem;
+  box-shadow: 0 0 0 1px rgba(14, 42, 23, .12), 0 4px 10px -8px rgba(14, 42, 23, .4);
+  transition: transform .2s var(--rebote), box-shadow .2s;
+}
+.acceso .ico { width: 18px; height: 18px; color: var(--verde); }
+.acceso:active { transform: scale(.95); }
+.acceso:hover { box-shadow: 0 0 0 1.5px var(--verde), 0 0 16px -6px rgba(47, 200, 100, .6); }
+.acceso-bolsones {
+  background: linear-gradient(180deg, var(--amarillo-2), var(--amarillo) 50%, var(--amarillo-3));
+  box-shadow: 0 0 0 1px rgba(240, 180, 0, .45), 0 0 18px -4px rgba(255, 201, 40, .8);
+}
+.acceso-bolsones .ico { color: var(--verde-osc); }
+.acceso-ofertas { color: var(--rojo-osc); }
+.acceso-ofertas .ico { color: var(--rojo); }
+.hero-foto { margin-top: 0; }
+.hero-media .media { --ar: 16 / 10; }
+.hero-media .media img { object-position: 50% 30%; }
+.hero-media { transform: none; }
+@media (min-width: 900px) { .hero-media .media { --ar: 4 / 5; } }
+
+/* ---------- Bolsones: lista corta con "Ver todo" ---------- */
+.contenido li.extra { display: none; }
+.ver-todo-on .contenido li.extra { display: flex; }
+.ver-todo {
+  align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin: -8px 0 14px; padding: 0 14px;
+  border: 0; border-radius: 999px; background: var(--verde-suave); color: var(--verde); font-weight: 700; font-size: .88rem; cursor: pointer;
+}
+.ver-todo .ico { width: 16px; height: 16px; transition: transform .3s var(--ease); }
+.ver-todo[aria-expanded="true"] .ico { transform: rotate(180deg); }
+@media (max-width: 899px) { .hero-media .media { --ar: 16 / 9; } }
