@@ -540,23 +540,21 @@
     var a = e.target.closest('[data-nav]');
     if (a) abrirCat(document.getElementById('cat-' + a.getAttribute('data-nav')), true);
   });
-  // Bolsones chicos en la portada
-  $('#mini-bolsones').innerHTML = bolsones.map(function (b) {
-    return '<a class="mini" href="#bolson-' + esc(b.id) + '" data-mini="' + esc(b.id) + '">' +
-      mediaHTML({ foto: b.foto || ('assets/bolsones/' + b.id), alt: b.nombre, icono: 'shopping-basket', eager: true, sizes: '150px' }) +
-      (b.descuento ? '<span class="mini-desc">-' + b.descuento + '%</span>' : '') +
-      '<span class="mini-txt"><b>' + esc(b.nombre.replace(/^Bolsón (de )?/, '')) + '</b><span>' + precio(b.precio) + '</span></span></a>';
+  // Menú del día en la portada (espacios reservados si todavía no hay menús)
+  var menus = D.menuDelDia || [];
+  $('#mini-bolsones').innerHTML = menus.length ? menus.map(function (m) {
+    return '<a class="mini" href="#" data-menu="' + esc(m.id) + '">' +
+      mediaHTML({ foto: m.foto || ('assets/menus/' + m.id), alt: m.nombre, icono: 'chef-hat', eager: true, sizes: '150px' }) +
+      '<span class="mini-txt"><b>' + esc(m.nombre) + '</b><span>' + precio(m.precio) + '</span></span></a>';
+  }).join('') : [1, 2, 3].map(function () {
+    return '<div class="mini mini-vacio" aria-hidden="true"><div class="media"></div><span class="mini-txt"><b>&nbsp;</b><span>&nbsp;</span></span></div>';
   }).join('');
   $('#mini-bolsones').addEventListener('click', function (e) {
-    var a = e.target.closest('[data-mini]');
+    var a = e.target.closest('[data-menu]');
     if (!a) return;
-    var card = document.getElementById('bolson-' + a.getAttribute('data-mini'));
-    if (card && card.parentNode.id === 'carrusel') {
-      e.preventDefault();
-      var car = card.parentNode;
-      car.scrollTo({ left: card.offsetLeft - car.offsetLeft - 20, behavior: 'auto' });
-      car.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
-    }
+    e.preventDefault();
+    modoUno = menus.filter(function (m) { return m.id === a.getAttribute('data-menu'); })[0] || null;
+    if (modoUno) abrirPanel();
   });
 
   // Accesos rápidos de la portada

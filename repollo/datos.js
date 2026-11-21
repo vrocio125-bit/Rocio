@@ -196,6 +196,15 @@ window.REPOLLO = {
   // Palabra que el cliente puede mandar por WhatsApp para pedir bolsones
   palabraClaveBolson: "BOLSÓN",
 
+  /* ---------- MENÚ DEL DÍA ----------
+     Combos que se muestran arriba de todo, en la portada.
+     Mientras la lista esté vacía se ven espacios reservados.
+     Ejemplo:
+     { id: "milanesas-pure", nombre: "Milanesas con puré", precio: 13400,
+       foto: "assets/menus/milanesas-pure.jpg",
+       contenido: [ { emoji: "🥩", texto: "Milanesas 1 kg" }, { emoji: "🥔", texto: "Papa 1 kg" } ] },  */
+  menuDelDia: [],
+
   /* ---------- OFERTAS ----------
      Si la lista queda vacía ( ofertas: [] ), la sección no se muestra.
      foto: opcional. Si no se pone, se busca assets/promos/<id>.jpg      */

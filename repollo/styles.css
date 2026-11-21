@@ -1010,3 +1010,10 @@ body.has-order .barra-pedido { transform: none; pointer-events: auto; }
 }
 .hero-grid > * { min-width: 0; }
 @media (min-width: 900px) { .globo-grande { top: 46%; left: -18%; } }
+
+/* ---------- Globo de saludo y menú del día ---------- */
+.globo-hola { flex-direction: column; align-items: flex-start; gap: 1px; background: #fff; color: var(--verde-osc); box-shadow: 0 0 0 1.5px rgba(14, 42, 23, .1), 0 10px 22px -12px rgba(14, 42, 23, .4); }
+.globo-hola small { font-size: .82rem; font-weight: 600; color: var(--verde); }
+.mini-vacio { box-shadow: none !important; background: transparent; border: 2px dashed rgba(14, 42, 23, .14); }
+.mini-vacio .media { background: rgba(255, 255, 255, .45); }
+.mini-lista, .accesos-lista { scroll-padding-inline: 20px; } @media (min-width: 900px) { .mini-lista, .accesos-lista { scroll-padding-inline: 0; } }
