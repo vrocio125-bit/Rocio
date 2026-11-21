@@ -551,7 +551,7 @@
   $('#mini-bolsones').innerHTML = menus.length ? menus.map(function (m) {
     return '<a class="mini" href="#" data-menu="' + esc(m.id) + '">' +
       mediaHTML({ foto: m.foto || ('assets/menus/' + m.id), alt: m.nombre, icono: 'chef-hat', eager: true, sizes: '150px' }) +
-      '<span class="mini-txt"><b>' + esc(m.nombre) + '</b><small>' + esc((m.contenido || []).length ? (m.opciones ? '+ ' + m.opciones.items.join(', ').toLowerCase() : (typeof m.contenido[1] === 'string' ? '+ ' + m.contenido.slice(1).join(' + ') : '')) : '') + '</small><span>' + precio(m.precio) + '</span></span></a>';
+      '<span class="mini-txt"><b>' + esc(m.nombre) + '</b><small>' + esc(m.resumen ? m.resumen : (m.contenido || []).length ? (m.opciones ? '+ ' + m.opciones.items.join(', ').toLowerCase() : (typeof m.contenido[1] === 'string' ? '+ ' + m.contenido.slice(1).join(' + ') : '')) : '') + '</small><span>' + precio(m.precio) + '</span></span></a>';
   }).join('') : [1, 2, 3].map(function () {
     return '<div class="mini mini-vacio" aria-hidden="true"><div class="media"></div><span class="mini-txt"><b>&nbsp;</b><span>&nbsp;</span></span></div>';
   }).join('');
