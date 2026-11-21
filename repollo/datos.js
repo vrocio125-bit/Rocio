@@ -204,20 +204,20 @@ window.REPOLLO = {
        foto: "assets/menus/milanesas-pure.jpg",
        contenido: [ { emoji: "🥩", texto: "Milanesas 1 kg" }, { emoji: "🥔", texto: "Papa 1 kg" } ] },  */
   menuDelDia: [
-    { id: "pollo-pasta", nombre: "Pollo con pasta", precio: 8500,
+    { id: "pollo-pasta", foto: "assets/menus/pollo-pasta.jpg", nombre: "Pollo con pasta", precio: 8500,
       contenido: ["1 kg de pollo trozado", "1 paquete de pasta"],
       opciones: { titulo: "Elegí la pasta", items: ["Ñoquis", "Ravioles", "Fideos"] } },
-    { id: "albondigas-papas", nombre: "Albóndigas con papas", precio: 8500,
+    { id: "albondigas-papas", foto: "assets/menus/albondigas-papas.jpg", nombre: "Albóndigas con papas", precio: 8500,
       contenido: ["1 kg de albóndigas", "1 kg de papas"] },
-    { id: "milanesas-ensalada", nombre: "Milanesas con ensalada", precio: 13500,
+    { id: "milanesas-ensalada", foto: "assets/menus/milanesas-ensalada.jpg", nombre: "Milanesas con ensalada", precio: 13500,
       contenido: ["1 kg de milanesas", "1 ensalada"] },
-    { id: "tortilla", nombre: "Tortilla de papas", precio: 5600,
+    { id: "tortilla", foto: "assets/menus/tortilla.jpg", nombre: "Tortilla de papas", precio: 5600,
       contenido: ["6 huevos", "1 kg de papas", "½ cebolla"] },
-    { id: "medallones-espinaca", nombre: "Medallones de espinaca", precio: 8000,
+    { id: "medallones-espinaca", foto: "assets/menus/medallones-espinaca.jpg", nombre: "Medallones de espinaca", precio: 8000,
       contenido: ["½ kg de medallones de espinaca", "1 ensalada"] },
-    { id: "filet-merluza", nombre: "Filet de merluza", precio: 10500,
+    { id: "filet-merluza", foto: "assets/menus/filet-merluza.jpg", nombre: "Filet de merluza", precio: 10500,
       contenido: ["½ kg de filet de merluza", "1 ensalada"] },
-    { id: "patitas-pollo", nombre: "Patitas de pollo", precio: 7500,
+    { id: "patitas-pollo", foto: "assets/menus/patitas-pollo.jpg", nombre: "Patitas de pollo", precio: 7500,
       contenido: ["½ kg de patitas de pollo", "1 ensalada"] }
   ],
 
