@@ -1024,3 +1024,63 @@ body.has-order .barra-pedido { transform: none; pointer-events: auto; }
 .mini-txt small:empty { display: none; }
 .p-opcion { margin: 10px 0 0; }
 .p-opcion .pago-opts { grid-template-columns: repeat(3, 1fr); }
+
+/* ---------- Espacios más compactos entre secciones ---------- */
+.bolsones { padding-top: 28px; padding-bottom: 8px; }
+.bolsones .sec-head { margin-bottom: 18px; }
+.carrusel-dots { margin-bottom: 0; }
+.catalogo { padding-top: 32px; padding-bottom: 28px; }
+.catalogo-cierre { margin-top: 20px; }
+.ofertas { padding-top: 32px; padding-bottom: 8px; }
+.pasos { padding-top: 32px; padding-bottom: 16px; }
+.pasos-lista { margin-bottom: 18px; }
+.nosotros { padding-top: 24px; padding-bottom: 32px; }
+.nosotros-grid { gap: 20px; }
+.ubicacion { padding-top: 8px; padding-bottom: 32px; }
+.video-wrap { margin-top: 24px; }
+.cierre { padding-top: 36px; padding-bottom: 32px; }
+.cierre .tag-envio { margin-bottom: 14px; }
+.cierre-lema { margin-top: 14px; margin-bottom: 0; }
+.logo-cierre { margin-bottom: 6px; }
+.sec-head { margin-bottom: 20px; }
+@media (min-width: 900px) {
+  .bolsones { padding-top: 48px; } .catalogo, .ofertas, .pasos { padding-top: 48px; }
+  .sec-head { margin-bottom: 28px; }
+}
+
+/* ---------- Reseña ---------- */
+.resena { margin: 4px 0 16px; border-radius: 22px; overflow: hidden; box-shadow: 0 0 0 1px var(--linea), var(--sombra-sm); }
+.resena img { width: 100%; height: auto; display: block; }
+
+/* ---------- Bolsones más chicos (mismo contenido) ---------- */
+.bolson-media .media { --ar: 2 / 1; }
+.bolson-card.is-star .bolson-media .media { --ar: 2 / 1; }
+.bolson-body { padding: 14px 16px 16px; }
+.bolson-body h3 { font-size: 1.2rem; margin-bottom: 2px; }
+.bolson-card.is-star .bolson-body h3 { font-size: 1.45rem; }
+.bolson-sub { font-size: .72rem; margin-bottom: 8px; }
+.contenido { gap: 3px 12px; margin-bottom: 12px; }
+.contenido li { font-size: .8rem; }
+.contenido .ico { width: 14px; height: 14px; }
+.ver-todo { min-height: 38px; margin: -4px 0 10px; font-size: .8rem; }
+.precio-row { padding-top: 10px; margin-bottom: 10px; }
+.precio { font-size: 1.7rem; }
+.bolson-card.is-star .precio { font-size: 2.1rem; }
+.precio-antes s { font-size: .9rem; }
+.precio-row .tag-envio { padding: 5px 10px; font-size: .72rem; }
+.bolson-card .acciones { gap: 6px; }
+.bolson-card .acciones .btn { min-height: 48px; font-size: .95rem; }
+.bolson-card.is-star { margin-bottom: 20px; }
+.carrusel { padding-top: 8px; padding-bottom: 14px; }
+.carrusel .bolson-card { flex-basis: 76%; }
+.cinta-bolson { top: 22px; right: -62px; font-size: .74rem; padding: 5px 0; }
+@media (min-width: 900px) {
+  .bolson-card.is-star .bolson-media .media { --ar: auto; }
+  .bolson-card.is-star .bolson-body { padding: 26px 32px; }
+}
+.resena { padding: 18px 14px 20px; background: url("assets/resena.jpg") center / cover, #FBF7EA; }
+.resena-globo { position: relative; margin: 0; padding: 12px 14px 22px; background: #fff; border-radius: 4px 18px 18px 18px; box-shadow: 0 4px 14px -8px rgba(14, 42, 23, .35); }
+.resena-globo::before { content: ""; position: absolute; left: -8px; top: 0; border: 8px solid transparent; border-top-color: #fff; border-right-color: #fff; }
+.resena-globo cite { display: block; font-style: normal; font-size: .8rem; color: var(--texto-suave); margin-bottom: 4px; }
+.resena-globo p { margin: 0; font-size: .95rem; line-height: 1.45; color: #111; }
+.resena-hora { position: absolute; right: 12px; bottom: 6px; font-size: .7rem; color: #8a8a8a; }
