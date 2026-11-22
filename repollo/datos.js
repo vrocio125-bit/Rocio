@@ -321,7 +321,7 @@ window.REPOLLO = {
     { nombre: "pimiento rojo", emoji: "🫑", categoria: "verduras", precio: 6900, por: "kg", pesoUnidad: 200 },
     { nombre: "pimiento verde", emoji: "🫑", categoria: "verduras", precio: 6900, por: "kg", pesoUnidad: 200 },
     { nombre: "pimiento amarillo", emoji: "🫑", categoria: "verduras", precio: 6900, por: "kg", pesoUnidad: 200 },
-    { nombre: "pepino", emoji: "🥒", categoria: "verduras" },
+    { nombre: "pepino", emoji: "🥒", categoria: "verduras", precio: 3900, por: "kg", pesoUnidad: 250 },
 
     // 🥬 Hojas y hortalizas
     { nombre: "lechuga", emoji: "🥬", categoria: "hojas", precio: 4900, por: "kg", pesoUnidad: 350 },
@@ -338,7 +338,7 @@ window.REPOLLO = {
     { nombre: "puerro", emoji: "🌿", categoria: "hojas", precio: 9000, por: "kg", pesoUnidad: 200 },
     { nombre: "albahaca", emoji: "🌿", categoria: "hojas", precio: 3900, por: "unidad" },
     { nombre: "menta", emoji: "🌿", categoria: "hojas", precio: 3900, por: "unidad" },
-    { nombre: "cilantro", emoji: "🌿", categoria: "hojas" },
+    { nombre: "cilantro", emoji: "🌿", categoria: "hojas", precio: 6000, por: "kg", pesoUnidad: 100 },
     { nombre: "ciboulette", emoji: "🌿", categoria: "hojas", precio: 2000, por: "unidad" },
     { nombre: "brócoli", emoji: "🥦", categoria: "hojas", precio: 3500, por: "unidad", promos: { 2: 5500 }, oferta: true },
     { nombre: "coliflor", emoji: "🥦", categoria: "hojas", precio: 3900, por: "unidad" },
@@ -382,15 +382,12 @@ window.REPOLLO = {
     { nombre: "pollo entero",         emoji: "🐔", categoria: "pollo", precio: 6000, por: "kg", pesoUnidad: 3000 },
     { nombre: "brochetas de pollo",   emoji: "🍢", categoria: "pollo", precio: 15000, por: "kg", pesoUnidad: 200 },
     { nombre: "pechuga",              emoji: "🍗", categoria: "pollo", precio: 12600, por: "kg" },
-    { nombre: "pechuga deshuesada",   emoji: "🥩", categoria: "pollo" },
     { nombre: "patamuslo",            emoji: "🍗", categoria: "pollo", precio: 5500, por: "kg", promos: { 2: 10000, 3: 14000 }, oferta: true },
-    { nombre: "muslos",               emoji: "🍗", categoria: "pollo" },
     { nombre: "alitas sin rancho",    emoji: "🍗", categoria: "pollo", precio: 5000, por: "kg", promos: { 2: 8000 }, oferta: true },
     { nombre: "alitas con rancho",    emoji: "🍗", categoria: "pollo", precio: 3900, por: "kg", promos: { 2: 7000 }, oferta: true },
     { nombre: "alitas rebozadas",     emoji: "🍗", categoria: "pollo", precio: 8000, por: "kg", promos: { 2: 15000 }, oferta: true },
     { nombre: "milanesas",            emoji: "🥩", categoria: "pollo", precio: 11500, por: "kg", promos: { 2: 19900 }, oferta: true },
     { nombre: "milanesas rellenas",   emoji: "🧀", categoria: "pollo", precio: 13000, por: "kg" },
-    { nombre: "suprema",              emoji: "🥩", categoria: "pollo" },
     { nombre: "trozado",              emoji: "🔪", categoria: "pollo", precio: 5500, por: "kg", promos: { 2: 10000 }, oferta: true },
     { nombre: "bife de pollo",        emoji: "🥩", categoria: "pollo", precio: 13000, por: "kg" },
     { nombre: "menudos",              emoji: "🍲", categoria: "pollo", precio: 1000, por: "kg" },
@@ -407,7 +404,7 @@ window.REPOLLO = {
     { nombre: "patitas de jamón y queso",          emoji: "🧀", categoria: "rebozados", precio: 11200, por: "kg" },
     { nombre: "filet de merluza rebozada",         emoji: "🐠", categoria: "rebozados", precio: 12800, por: "kg" },
     { nombre: "barritas de muzza",                 emoji: "🧀", categoria: "rebozados", precio: 18900, por: "kg" },
-    { nombre: "nuggets",                           emoji: "🍤", categoria: "rebozados" },
+    { nombre: "nuggets",                           emoji: "🍤", categoria: "rebozados", precio: 12600, por: "kg" },
     { nombre: "papas bastón",                      emoji: "🍟", categoria: "rebozados" },
 
     // 🍝 Pastas (precio por paquete)
@@ -419,9 +416,10 @@ window.REPOLLO = {
     { nombre: "sorrentinos",        emoji: "🥟", categoria: "pastas" },
 
     // 🥚 Huevos
-    { nombre: "maple de 30",  emoji: "🥚", categoria: "huevos", precio: 5000, por: "x", promos: { 2: 9000 }, oferta: true },
-    { nombre: "docena",       emoji: "🥚", categoria: "huevos" },
-    { nombre: "media docena", emoji: "🥚", categoria: "huevos" },
+    { nombre: "maple de 30",  emoji: "🥚", categoria: "huevos", precio: 5500, por: "x", promos: { 2: 9000 }, oferta: true },
+    { nombre: "docena",       emoji: "🥚", categoria: "huevos", precio: 3500, por: "x" },
+    { nombre: "media docena", emoji: "🥚", categoria: "huevos", precio: 1800, por: "x" },
+    { nombre: "huevo suelto", emoji: "🥚", categoria: "huevos", precio: 300, por: "unidad" },
 
     // 🧂 Condimentos (precio cada 100 g)
     { nombre: "chimichurri",            emoji: "🌿", categoria: "condimentos", precio: 1700, por: "g100" },
