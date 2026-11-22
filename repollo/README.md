@@ -38,3 +38,13 @@ cd repollo
 python3 -m http.server 8000
 # abrir http://localhost:8000
 ```
+
+## Precios desde Google Sheets (para el dueño)
+
+1. Subí `planilla/Repollo-precios.xlsx` a Google Drive y abrilo con Google Sheets.
+2. En Sheets: **Archivo → Compartir → Publicar en la web** → elegí la pestaña **Precios** y el formato **Valores separados por comas (.csv)** → **Publicar**. Copiá el link.
+3. Pegá ese link en `datos.js`, en `planillaPrecios: "..."`, y volvé a subir la carpeta (una sola vez).
+
+Desde ahí, el dueño cambia precios, ofertas o disponibilidad en la planilla (también desde el celular) y la página los toma sola en unos minutos.
+Solo se publica la pestaña "Precios". La pestaña "Interno" (costos, proveedores) no se publica.
+Si la planilla no responde, la página usa los precios de `datos.js`.

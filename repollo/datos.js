@@ -32,6 +32,11 @@ window.REPOLLO = {
     mapa: "Saúl Moyano y General Cabrera, La Calera, Córdoba, Argentina"
   },
 
+  /* ---------- Planilla de precios (Google Sheets) ----------
+     Pegá acá el link CSV de la pestaña "web" publicada.
+     Vacío = se usan los precios de este archivo.                      */
+  planillaPrecios: "",
+
   /* ---------- Formas de pago ---------- */
   pagos: {
     recargoCredito: 10,   // % de recargo con tarjeta de crédito (débito sin recargo)

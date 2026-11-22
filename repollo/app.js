@@ -3,7 +3,7 @@
    No hace falta tocar este archivo para cambiar precios,
    productos u horarios: todo eso está en datos.js.
    ============================================================ */
-(function () {
+function iniciarRepollo() {
   'use strict';
 
   var D = window.REPOLLO;
@@ -1059,4 +1059,11 @@
   }
 
   actualizar(false);
+}
+
+// Primero toma los precios de la planilla (si está configurada) y después arma la página.
+(function () {
+  var arrancar = function () { iniciarRepollo(); };
+  if (window.cargarPreciosRepollo) window.cargarPreciosRepollo(arrancar);
+  else arrancar();
 })();
