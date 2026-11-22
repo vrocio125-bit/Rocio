@@ -491,6 +491,8 @@ function iniciarRepollo() {
   var contCats = $('#categorias');
   contCats.innerHTML = categorias.map(function (c) {
     var prods = productos.filter(function (p) { return p.categoria === c.id; });
+    // Las ofertas van primero en cada categoría (el resto mantiene su orden)
+    prods = prods.filter(function (p) { return p.oferta; }).concat(prods.filter(function (p) { return !p.oferta; }));
     if (!prods.length) return '';
     var fila = function (p) {
       var key = esc(claveProd(p));
