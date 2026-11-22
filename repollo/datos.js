@@ -273,7 +273,8 @@ window.REPOLLO = {
     x:      { boton: "Cantidad", formato: "x{n}" },
     g100:   { boton: "Gramos",   factor: 100, sufijo: " g" },
     paquete:{ boton: "Paquetes", uno: "paquete", varios: "paquetes" },
-    bolsa:  { boton: "Bolsas",   uno: "bolsa",   varios: "bolsas" }
+    bolsa:  { boton: "Bolsas",   uno: "bolsa",   varios: "bolsas" },
+    bandeja:{ boton: "Bandejas", uno: "bandeja", varios: "bandejas" }
   },
   // Texto para los productos que no tienen precio cargado
   textoPrecio: "Precio a consultar",
@@ -367,7 +368,7 @@ window.REPOLLO = {
     { nombre: "quinotos", emoji: "🍊", categoria: "frutas", precio: 6000, por: "kg" },
     { nombre: "sandía", emoji: "🍉", categoria: "frutas", precio: 1500, por: "kg" },
     { nombre: "melón", emoji: "🍈", categoria: "frutas", precio: 4900, por: "unidad" },
-    { nombre: "arándanos", emoji: "🫐", categoria: "frutas", precio: 3500, por: "unidad" },
+    { nombre: "arándanos", emoji: "🫐", categoria: "frutas", precio: 3500, por: "bandeja" },
     { nombre: "cereza", emoji: "🍒", categoria: "frutas" },
     { nombre: "kaki", emoji: "🟠", categoria: "frutas" },
     { nombre: "ananá", emoji: "🍍", categoria: "frutas" },

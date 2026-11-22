@@ -212,7 +212,7 @@
     if (c.u === 'unidad' && p.por === 'kg' && p.pesoUnidad) return c.n * precioUnidad(p);
     return null;
   }
-  var POR_CORTO = { kg: '/kg', unidad: 'c/u', paquete: 'c/u', bolsa: 'c/u', g100: '/100 g', x: 'c/u' };
+  var POR_CORTO = { kg: '/kg', unidad: 'c/u', paquete: 'c/u', bolsa: 'c/u', bandeja: 'la bandeja', g100: '/100 g', x: 'c/u' };
   function promoTxt(p) {
     return Object.keys(p.promos || {}).map(function (n) {
       return (p.por === 'kg' ? n + ' kg ' : n + ' x ') + precio(p.promos[n]);
