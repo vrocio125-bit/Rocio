@@ -1139,3 +1139,6 @@ body.has-order .jesus .wa-flotante { transform: none; opacity: 1; }
 .nosotros-txt .lema { text-align: center; }
 /* Placas del carrusel: nunca recortar el texto de arriba */
 .nos-slide .media img { object-position: 50% 0; }
+
+/* Jesús más arriba para no quedar debajo del distintivo "Powered by Netlify" */
+.jesus { bottom: calc(78px + env(safe-area-inset-bottom)); }
