@@ -1139,3 +1139,15 @@ body.has-order .jesus .wa-flotante { transform: none; opacity: 1; }
 .nosotros-txt .lema { text-align: center; }
 /* Placas del carrusel: nunca recortar el texto de arriba */
 .nos-slide .media img { object-position: 50% 0; }
+
+/* "Ver los N productos": animación sutil para que se note */
+.ver-todo { position: relative; overflow: visible; box-shadow: 0 0 0 1.5px rgba(30, 123, 58, .35); }
+.ver-todo[aria-expanded="false"] { animation: verTodoLatido 2.4s ease-in-out infinite; }
+.ver-todo[aria-expanded="false"] .ico { animation: verTodoFlecha 1.2s ease-in-out infinite; }
+.ver-todo[aria-expanded="false"]::after {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
+  box-shadow: 0 0 0 0 rgba(47, 163, 82, .55); animation: verTodoOnda 2.4s ease-out infinite;
+}
+@keyframes verTodoLatido { 0%, 70%, 100% { transform: scale(1); } 80% { transform: scale(1.04); } 90% { transform: scale(.99); } }
+@keyframes verTodoFlecha { 0%, 100% { transform: translateY(-1px); } 50% { transform: translateY(3px); } }
+@keyframes verTodoOnda { 0%, 60% { box-shadow: 0 0 0 0 rgba(47, 163, 82, .55); } 100% { box-shadow: 0 0 0 10px rgba(47, 163, 82, 0); } }
