@@ -383,20 +383,20 @@ window.REPOLLO = {
     { nombre: "brochetas de pollo",   emoji: "🍢", categoria: "pollo", precio: 15000, por: "kg", pesoUnidad: 200 },
     { nombre: "pechuga",              emoji: "🍗", categoria: "pollo", precio: 12600, por: "kg" },
     { nombre: "pechuga deshuesada",   emoji: "🥩", categoria: "pollo" },
-    { nombre: "patamuslo",            emoji: "🍗", categoria: "pollo", precio: 5500, por: "kg", promos: { 2: 10000, 3: 14000 } },
+    { nombre: "patamuslo",            emoji: "🍗", categoria: "pollo", precio: 5500, por: "kg", promos: { 2: 10000, 3: 14000 }, oferta: true },
     { nombre: "muslos",               emoji: "🍗", categoria: "pollo" },
-    { nombre: "alitas sin rancho",    emoji: "🍗", categoria: "pollo", precio: 5000, por: "kg", promos: { 2: 8000 } },
-    { nombre: "alitas con rancho",    emoji: "🍗", categoria: "pollo", precio: 3900, por: "kg", promos: { 2: 7000 } },
-    { nombre: "alitas rebozadas",     emoji: "🍗", categoria: "pollo", precio: 8000, por: "kg", promos: { 2: 15000 } },
-    { nombre: "milanesas",            emoji: "🥩", categoria: "pollo", precio: 11500, por: "kg", promos: { 2: 19900 } },
+    { nombre: "alitas sin rancho",    emoji: "🍗", categoria: "pollo", precio: 5000, por: "kg", promos: { 2: 8000 }, oferta: true },
+    { nombre: "alitas con rancho",    emoji: "🍗", categoria: "pollo", precio: 3900, por: "kg", promos: { 2: 7000 }, oferta: true },
+    { nombre: "alitas rebozadas",     emoji: "🍗", categoria: "pollo", precio: 8000, por: "kg", promos: { 2: 15000 }, oferta: true },
+    { nombre: "milanesas",            emoji: "🥩", categoria: "pollo", precio: 11500, por: "kg", promos: { 2: 19900 }, oferta: true },
     { nombre: "milanesas rellenas",   emoji: "🧀", categoria: "pollo", precio: 13000, por: "kg" },
     { nombre: "suprema",              emoji: "🥩", categoria: "pollo" },
-    { nombre: "trozado",              emoji: "🔪", categoria: "pollo", precio: 5500, por: "kg", promos: { 2: 10000 } },
+    { nombre: "trozado",              emoji: "🔪", categoria: "pollo", precio: 5500, por: "kg", promos: { 2: 10000 }, oferta: true },
     { nombre: "bife de pollo",        emoji: "🥩", categoria: "pollo", precio: 13000, por: "kg" },
     { nombre: "menudos",              emoji: "🍲", categoria: "pollo", precio: 1000, por: "kg" },
     { nombre: "canino (huesos y carcasa)", emoji: "🦴", categoria: "pollo", precio: 500, por: "kg" },
-    { nombre: "albóndigas",           emoji: "🧆", categoria: "pollo", precio: 5000, por: "kg", promos: { 2: 9000 } },
-    { nombre: "hamburguesas caseras", emoji: "🍔", categoria: "pollo", precio: 5000, por: "kg", promos: { 2: 9000 } },
+    { nombre: "albóndigas",           emoji: "🧆", categoria: "pollo", precio: 5000, por: "kg", promos: { 2: 9000 }, oferta: true },
+    { nombre: "hamburguesas caseras", emoji: "🍔", categoria: "pollo", precio: 5000, por: "kg", promos: { 2: 9000 }, oferta: true },
 
     // 🍤 Rebozados (precios por kg)
     { nombre: "medallón de pollo",                 emoji: "🐔", categoria: "rebozados", precio: 9600, por: "kg" },
@@ -419,7 +419,7 @@ window.REPOLLO = {
     { nombre: "sorrentinos",        emoji: "🥟", categoria: "pastas" },
 
     // 🥚 Huevos
-    { nombre: "maple de 30",  emoji: "🥚", categoria: "huevos", precio: 5000, por: "x", promos: { 2: 9000 } },
+    { nombre: "maple de 30",  emoji: "🥚", categoria: "huevos", precio: 5000, por: "x", promos: { 2: 9000 }, oferta: true },
     { nombre: "docena",       emoji: "🥚", categoria: "huevos" },
     { nombre: "media docena", emoji: "🥚", categoria: "huevos" },
 
