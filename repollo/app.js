@@ -481,6 +481,7 @@ function iniciarRepollo() {
   };
   function catDe(id) { return categorias.filter(function (c) { return c.id === id; })[0] || {}; }
   function prodDe(key) { return productos.filter(function (p) { return claveProd(p) === key; })[0] || {}; }
+  var abiertos = {};   // productos elegidos con las opciones desplegadas
   function cantInicial(key) {
     var p = prodDe(key), us = unidadesProd(p);
     var u = p.unidad && us.indexOf(p.unidad) >= 0 ? p.unidad : (p.por && us.indexOf(p.por) >= 0 ? p.por : us[0]);
@@ -505,7 +506,7 @@ function iniciarRepollo() {
         '<button type="button" class="prod-btn" aria-pressed="false">' +
           '<span class="prod-nom"><span class="prod-n">' + esc(capital(p.nombre)) + '</span>' +
             (p.oferta ? '<span class="tag-oferta">Oferta</span>' : '') + '</span>' +
-          '<span class="prod-der">' + der + '</span>' +
+          '<span class="prod-der">' + der + '<small class="prod-resumen"></small></span>' +
           '<span class="chip-check">' + ico('plus') + '</span></button>' +
         '<div class="prod-cant" hidden>' +
           (us.length > 1 ? '<div class="unid" role="group" aria-label="Unidad">' + us.map(function (u) {
@@ -516,7 +517,8 @@ function iniciarRepollo() {
           }).join('') + '<button type="button" class="cant" data-n="otra" aria-pressed="false">Otra</button></div>' +
           '<input class="cant-input" type="text" placeholder="Escribí la cantidad: 500 g, 1 atado, 6 unidades…" aria-label="Cantidad de ' + esc(p.nombre) + '" hidden>' +
           (p.promos && !p.oferta ? '<p class="prod-promo">Promo: ' + esc(promoTxt(p)) + '</p>' : '') +
-          '<p class="prod-sub" aria-live="polite"></p>' +
+          '<div class="prod-pie"><p class="prod-sub" aria-live="polite"></p>' +
+            '<button type="button" class="prod-quitar">' + ico('trash-2') + 'Quitar</button></div>' +
         '</div></li>';
     };
     return '<section class="categoria" id="cat-' + c.id + '" data-cat="' + c.id + '">' +
@@ -609,16 +611,29 @@ function iniciarRepollo() {
       }
       return;
     }
+    if (e.target.closest('.prod-quitar')) {
+      var iq = pedido.productos.indexOf(key);
+      if (iq >= 0) pedido.productos.splice(iq, 1);
+      delete pedido.cant[key];
+      abiertos[key] = false;
+      actualizar(false);
+      toast('Producto eliminado', 'quitado');
+      return;
+    }
     if (e.target.closest('.prod-btn')) {
       var idx = pedido.productos.indexOf(key);
-      if (idx >= 0) { pedido.productos.splice(idx, 1); delete pedido.cant[key]; }
-      else {
-        pedido.productos.push(key);
-        if (!pedido.cant[key]) pedido.cant[key] = cantInicial(key);
-        fila.classList.remove('pop'); void fila.offsetWidth; fila.classList.add('pop');
+      if (idx >= 0) {
+        // Ya está en el pedido: tocar solo pliega o despliega las opciones
+        abiertos[key] = !abiertos[key];
+        actualizar(false);
+        return;
       }
-      actualizar(idx < 0);
-      toast(idx < 0 ? '¡Producto agregado!' : 'Producto eliminado', idx < 0 ? 'agregado' : 'quitado');
+      pedido.productos.push(key);
+      if (!pedido.cant[key]) pedido.cant[key] = cantInicial(key);
+      abiertos[key] = true;
+      fila.classList.remove('pop'); void fila.offsetWidth; fila.classList.add('pop');
+      actualizar(true);
+      toast('¡Producto agregado!', 'agregado');
     }
   });
   contCats.addEventListener('input', function (e) {
@@ -750,7 +765,10 @@ function iniciarRepollo() {
         $('.chip-check', btn).innerHTML = ico(on ? 'check' : 'plus');
       }
       fila.classList.toggle('is-on', on);
-      $('.prod-cant', fila).hidden = !on;
+      var abierto = on && abiertos[key] !== false;
+      $('.prod-cant', fila).hidden = !abierto;
+      fila.classList.toggle('is-plegado', on && !abierto);
+      btn.setAttribute('aria-expanded', on ? String(abierto) : 'false');
       var c = on ? (pedido.cant[key] || cantInicial(key)) : null;
       var otra = !!(c && c.otra !== undefined);
       fila.classList.toggle('is-otra', otra);
@@ -766,7 +784,9 @@ function iniciarRepollo() {
         b.setAttribute('aria-pressed', String(v === 'otra' ? otra : (!!c && !otra && Number(v) === c.n)));
       });
       var pr = c ? precioItem(prodDe(key)) : null;
-      $('.prod-sub', fila).textContent = c ? textoCant(c) + (pr ? ' · ' + precio(pr) : '') : '';
+      var resumen = c ? textoCant(c) + (pr ? ' · ' + precio(pr) : '') : '';
+      $('.prod-sub', fila).textContent = resumen;
+      $('.prod-resumen', fila).textContent = on && !abierto ? '✓ ' + resumen : '';
     });
     $$('.categoria', contCats).forEach(function (sec) {
       var id = sec.getAttribute('data-cat');

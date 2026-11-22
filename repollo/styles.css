@@ -1151,3 +1151,18 @@ body.has-order .jesus .wa-flotante { transform: none; opacity: 1; }
 @keyframes verTodoLatido { 0%, 70%, 100% { transform: scale(1); } 80% { transform: scale(1.04); } 90% { transform: scale(.99); } }
 @keyframes verTodoFlecha { 0%, 100% { transform: translateY(-1px); } 50% { transform: translateY(3px); } }
 @keyframes verTodoOnda { 0%, 60% { box-shadow: 0 0 0 0 rgba(47, 163, 82, .55); } 100% { box-shadow: 0 0 0 10px rgba(47, 163, 82, 0); } }
+
+/* Producto elegido: se pliega sin quitarse; se quita con "Quitar" */
+.prod-pie { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; }
+.prod-pie .prod-sub { margin: 0; }
+.prod-quitar {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; flex: none;
+  border: 0; border-radius: 999px; background: #fff; color: var(--rojo-osc); font-weight: 700; font-size: .85rem; cursor: pointer;
+  box-shadow: 0 0 0 1.5px rgba(229, 53, 42, .35); transition: background-color .2s, transform .2s var(--rebote);
+}
+.prod-quitar .ico { width: 16px; height: 16px; }
+.prod-quitar:hover { background: var(--rojo-suave); }
+.prod-quitar:active { transform: scale(.95); }
+.prod-resumen { display: block; margin-top: 3px; font-size: .78rem; font-weight: 800; color: var(--verde); white-space: nowrap; }
+.prod-resumen:empty { display: none; }
+.prod.is-plegado .prod-of { display: none; }

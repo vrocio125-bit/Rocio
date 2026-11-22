@@ -399,13 +399,11 @@ window.REPOLLO = {
     { nombre: "medallón de pollo",                 emoji: "🐔", categoria: "rebozados", precio: 9600, por: "kg" },
     { nombre: "medallón de pollo jamón y queso",   emoji: "🧀", categoria: "rebozados", precio: 11200, por: "kg" },
     { nombre: "medallón de espinaca y queso",      emoji: "🥬", categoria: "rebozados", precio: 8300, por: "kg" },
-    { nombre: "medallones de merluza",             emoji: "🐟", categoria: "rebozados" },
     { nombre: "patitas de pollo",                  emoji: "🍗", categoria: "rebozados", precio: 9600, por: "kg" },
     { nombre: "patitas de jamón y queso",          emoji: "🧀", categoria: "rebozados", precio: 11200, por: "kg" },
     { nombre: "filet de merluza rebozada",         emoji: "🐠", categoria: "rebozados", precio: 12800, por: "kg" },
     { nombre: "barritas de muzza",                 emoji: "🧀", categoria: "rebozados", precio: 18900, por: "kg" },
     { nombre: "nuggets",                           emoji: "🍤", categoria: "rebozados", precio: 12600, por: "kg" },
-    { nombre: "papas bastón",                      emoji: "🍟", categoria: "rebozados" },
 
     // 🍝 Pastas (precio por paquete)
     { nombre: "ravioles 1 kg",      emoji: "🥟", categoria: "pastas", precio: 4700, por: "paquete" },
