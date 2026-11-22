@@ -348,8 +348,8 @@ window.REPOLLO = {
     { nombre: "perejil", emoji: "🌿", categoria: "hojas", precio: 6000, por: "kg", pesoUnidad: 100 },
 
     // 🍎 Frutas
-    { nombre: "naranja de jugo", emoji: "🍊", categoria: "frutas", precio: 1900, por: "kg", pesoUnidad: 200 },
-    { nombre: "naranja de ombligo", emoji: "🍊", categoria: "frutas", precio: 2900, por: "kg", pesoUnidad: 220, promos: { 3: 8000 }, oferta: true },
+    { nombre: "naranja de jugo", emoji: "🍊", categoria: "frutas", precio: 1900, por: "kg", pesoUnidad: 200, promos: { 3: 3000 }, oferta: true },
+    { nombre: "naranja de ombligo", emoji: "🍊", categoria: "frutas", precio: 2900, por: "kg", pesoUnidad: 220 },
     { nombre: "pomelo", emoji: "🍊", categoria: "frutas", precio: 3900, por: "kg", pesoUnidad: 350 },
     { nombre: "pera", emoji: "🍐", categoria: "frutas", precio: 3500, por: "kg", pesoUnidad: 180 },
     { nombre: "banana ecuador", emoji: "🍌", categoria: "frutas", precio: 4500, por: "kg", pesoUnidad: 160 },
